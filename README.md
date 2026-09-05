@@ -1,6 +1,6 @@
 # FanBench Data Archive / 风向标测试数据汇总
 
-A bilingual, unofficial archive of test data published by **风向标 FanBench**, with PC fan airflow comparisons at the same noise level. The collection and site are unofficial; all measurements come from FanBench’s published tests. This project is not affiliated with FanBench.
+An unofficial archive of test data published by **风向标 FanBench**, with PC fan airflow comparisons at the same noise level. The collection and site are unofficial; all measurements come from FanBench’s published tests. This project is not affiliated with FanBench.
 
 非官方数据汇总站，数据来自风向标公开测试，与风向标无隶属关系。
 
@@ -9,7 +9,7 @@ A bilingual, unofficial archive of test data published by **风向标 FanBench**
 - Case, **Heatsink**, and Radiator results displayed together, sorted by the column headings on desktop. Mobile retains the sort and view controls.
 - Airflow (CFM), RPM, form factor, and known dedicated review links. Source metadata is retained in the dataset.
 - Solid green bars with RPM inside and CFM at the end; compact rows and sticky desktop axes. The shared scale covers the entire catalog and stays fixed while filtering or sorting.
-- Multiple size, thickness, and brand filters; bilingual search and shareable shortlists.
+- Multiple size, thickness, and brand filters; search and shareable shortlists.
 - English and Simplified Chinese, with localized brand and product names (English fallback) in the UI and CSV export; desktop columns, mobile cards, and an accessible data table.
 - No backend, runtime CDN, external fonts, analytics, embedded videos, or paid service.
 
