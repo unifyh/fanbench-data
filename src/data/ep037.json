@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "episode": 37,
+    "url": "https://www.bilibili.com/video/BV1NQti6HErx/",
+    "reviewer": "风向标 FanBench",
+    "profileUrl": "https://space.bilibili.com/3546883662284811/upload/video",
+    "screenshot": "Snipaste_2026-09-05_15-46-00.png",
+    "videoTimestampSeconds": null
+  },
+  "methodology": {
+    "id": "ep037-36dba-intake-30cm",
+    "noiseDba": 36,
+    "distanceCm": 30,
+    "measurementPosition": { "en": "30 cm from the fan intake", "zh-Hans": "距风扇进风面 30 cm" },
+    "fixtures": {
+      "case": { "en": "Lian Li L207 mesh front panel, placed 10 mm in front of the fan intake to simulate case resistance.", "zh-Hans": "联力 L207 机箱网孔前面板，置于风扇进风面前方，间距 10 mm，模拟机箱安装阻抗。" },
+      "heatsink": { "en": "One Noctua NH-D15 heatsink tower, placed behind the fan exhaust to simulate an air-cooling heatsink.", "zh-Hans": "猫头鹰 NH-D15 单侧塔体，置于风扇出风面后方，模拟风冷散热器阻抗。" },
+      "radiator": { "en": "A standard 120/140 radiator, 27 mm thick, placed behind the fan exhaust to simulate a liquid-cooling radiator.", "zh-Hans": "27 mm 厚的标准 120/140 冷排，置于风扇出风面后方，模拟水冷散热器阻抗。" }
+    }
+  },
+  "fans": [
+    {
+      "id": "sanyo-denki-9ra1412p1g001", "brand": "sanyo-denki",
+      "brandLabel": { "en": "Sanyo Denki", "zh-Hans": "山洋电气" },
+      "model": "9RA1412P1G001", "sourceLabel": "山洋电气 9RA1412P1G001",
+      "sizeMm": 140, "thicknessMm": 38,
+      "dimensionsSource": "https://products.sanyodenki.com/en/sanace/dc/dc-fan/9RA1412P1G001/",
+      "dimensionsNote": null, "dedicatedReviewUrl": null,
+      "measurements": { "case": { "airflowCfm": 68.50, "rpm": 1562 }, "heatsink": { "airflowCfm": 59.30, "rpm": 1686 }, "radiator": { "airflowCfm": 47.50, "rpm": 1624 } }
+    },
+    {
+      "id": "cooler-master-masterfan-a140", "brand": "cooler-master",
+      "brandLabel": { "en": "Cooler Master", "zh-Hans": "酷冷至尊" },
+      "model": "MasterFan A140", "sourceLabel": "酷冷至尊 MasterFan A140",
+      "sizeMm": 140, "thicknessMm": 30,
+      "dimensionsSource": "https://www.bilibili.com/video/BV1NQti6HErx/",
+      "dimensionsNote": { "en": "The episode reviews the A140 FC. The comparison slide abbreviates its name to MasterFan A140. Dimensions come from the episode specifications slide.", "zh-Hans": "本期评测型号为 A140 FC，对比图中简称 MasterFan A140。尺寸来自本期参数规格页。" },
+      "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1NQti6HErx/",
+      "measurements": { "case": { "airflowCfm": 66.96, "rpm": 1463 }, "heatsink": { "airflowCfm": 50.78, "rpm": 1417 }, "radiator": { "airflowCfm": 41.95, "rpm": 1490 } }
+    },
+    {
+      "id": "sudkoo-mach140", "brand": "sudkoo",
+      "brandLabel": { "en": "Sudkoo", "zh-Hans": "Sudkoo" },
+      "model": "MACH140", "sourceLabel": "Sudkoo MACH140",
+      "sizeMm": 140, "thicknessMm": null, "dimensionsSource": null,
+      "dimensionsNote": { "en": "140 mm size is inferred from the model name. Thickness has not yet been verified. The brand spelling follows the comparison slide.", "zh-Hans": "140 mm 规格由型号名称推断，厚度尚待核实。品牌拼写沿用原对比图。" },
+      "dedicatedReviewUrl": null,
+      "measurements": { "case": { "airflowCfm": 64.23, "rpm": 1386 }, "heatsink": { "airflowCfm": 54.40, "rpm": 1490 }, "radiator": { "airflowCfm": 37.72, "rpm": 1448 } }
+    },
+    {
+      "id": "arctic-p14-pro-pst", "brand": "arctic",
+      "brandLabel": { "en": "ARCTIC", "zh-Hans": "安特高能" },
+      "model": "P14 Pro PST", "sourceLabel": "安特高能 P14 Pro PST",
+      "sizeMm": 140, "thicknessMm": 27,
+      "dimensionsSource": "https://www.arctic.de/en/P14-Pro-PST/",
+      "dimensionsNote": null, "dedicatedReviewUrl": null,
+      "measurements": { "case": { "airflowCfm": 61.20, "rpm": 1577 }, "heatsink": { "airflowCfm": 50.62, "rpm": 1577 }, "radiator": { "airflowCfm": 40.77, "rpm": 1531 } }
+    },
+    {
+      "id": "phanteks-t30-140", "brand": "phanteks",
+      "brandLabel": { "en": "Phanteks", "zh-Hans": "追风者" },
+      "model": "T30 140", "sourceLabel": "追风者 T30 140",
+      "sizeMm": 140, "thicknessMm": 30,
+      "dimensionsSource": "https://phanteks.com/product/t30-140/",
+      "dimensionsNote": null, "dedicatedReviewUrl": null,
+      "measurements": { "case": { "airflowCfm": 59.56, "rpm": 1293 }, "heatsink": { "airflowCfm": 53.77, "rpm": 1432 }, "radiator": { "airflowCfm": 42.01, "rpm": 1460 } }
+    },
+    {
+      "id": "cooler-master-masterfan-a120", "brand": "cooler-master",
+      "brandLabel": { "en": "Cooler Master", "zh-Hans": "酷冷至尊" },
+      "model": "MasterFan A120", "sourceLabel": "酷冷至尊 MasterFan A120",
+      "sizeMm": 120, "thicknessMm": null, "dimensionsSource": null,
+      "dimensionsNote": { "en": "120 mm size is inferred from the model name. Thickness and the exact product variant have not yet been verified.", "zh-Hans": "120 mm 规格由型号名称推断，厚度及具体产品版本尚待核实。" },
+      "dedicatedReviewUrl": null,
+      "measurements": { "case": { "airflowCfm": 56.68, "rpm": 1986 }, "heatsink": { "airflowCfm": 47.80, "rpm": 1908 }, "radiator": { "airflowCfm": 38.22, "rpm": 1986 } }
+    }
+  ]
+}
