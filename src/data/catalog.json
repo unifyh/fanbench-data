@@ -82,6 +82,14 @@
     }
   },
   "episodes": {
+    "ep001": {
+      "number": 1,
+      "url": "https://www.bilibili.com/video/BV1kLs7zYEGR/"
+    },
+    "ep002": {
+      "number": 2,
+      "url": "https://www.bilibili.com/video/BV1m21KB5Eru/"
+    },
     "ep035": {
       "number": 35,
       "url": "https://www.bilibili.com/video/BV1PJ8E6MEb4/"

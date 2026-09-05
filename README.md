@@ -18,6 +18,8 @@ An unofficial archive of test data published by **风向标 FanBench**, with PC 
 - [FanBench - 037 | 酷冷至尊 MASTERFAN A140 FC 性能测试报告](https://www.bilibili.com/video/BV1NQti6HErx/)
 - [FanBench - 036 | 睿温 R25 LCP PRO 性能测试报告](https://www.bilibili.com/video/BV15gtc6YEuu/)
 - [FanBench - 035 | 攀威 LF12 2200 性能测试报告](https://www.bilibili.com/video/BV1PJ8E6MEb4/)
+- [FanBench - 002 | Sudkoo MACH120 性能测试报告](https://www.bilibili.com/video/BV1m21KB5Eru/)
+- [FanBench - 001 | 山洋电气 9WPA1212P4J001 性能测试报告](https://www.bilibili.com/video/BV1kLs7zYEGR/)
 
 ## Development
 

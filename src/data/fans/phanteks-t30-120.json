@@ -1,0 +1,38 @@
+{
+  "id": "phanteks-t30-120",
+  "brand": "phanteks",
+  "model": {
+    "en": "T30 120"
+  },
+  "sizeMm": 120,
+  "thicknessMm": 30,
+  "dedicatedReviewUrl": null,
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep001"
+        },
+        {
+          "episodeId": "ep002"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 54.2,
+          "rpm": 1800
+        },
+        "heatsink": {
+          "airflowCfm": 47.66,
+          "rpm": 1820
+        },
+        "radiator": {
+          "airflowCfm": 35.55,
+          "rpm": 1820
+        }
+      }
+    }
+  ]
+}

@@ -5,7 +5,7 @@ test('all three results, sorting, filters, language and attribution work', async
   page.on('pageerror', error => errors.push(error.message));
   await page.goto('?lang=en');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('FanBench Data Archive');
-  await expect(page.locator('.fan-row')).toHaveCount(15);
+  await expect(page.locator('.fan-row')).toHaveCount(19);
   await expect(page.locator('.fan-row').first().locator('.measurement-cell')).toHaveCount(3);
   if (isMobile) {
     await page.getByRole('combobox', { name: 'Sort by', exact: true }).selectOption('radiator');
@@ -18,7 +18,7 @@ test('all three results, sorting, filters, language and attribution work', async
   if (isMobile) await page.getByRole('button', { name: /^Filters/ }).click();
   else await page.getByRole('button', { name: 'Thickness All', exact: true }).click();
   await page.getByRole('group', { name: 'Thickness', exact: true }).getByRole('button', { name: '30 mm', exact: true }).click();
-  await expect(page.locator('.fan-row')).toHaveCount(4);
+  await expect(page.locator('.fan-row')).toHaveCount(6);
   await expect(page.locator('[data-fan-id="sudkoo-mach140"] .form-factor')).toHaveText('140 × 30 mm');
   await expect(page.locator('[data-fan-id="cooler-master-masterfan-a120"] .form-factor')).toHaveText('120 × 30 mm');
   if (!isMobile) await page.getByRole('button', { name: 'Brand All', exact: true }).click();
@@ -122,7 +122,7 @@ test('shortlist, details, CSV, empty filters and table retain measurements', asy
   }
   await expect(page.getByRole('heading', { name: 'No fans match these filters' })).toBeVisible();
   await page.locator('.empty-state').getByRole('button', { name: 'Reset filters', exact: true }).click();
-  await expect(page.locator('.fan-row')).toHaveCount(15);
+  await expect(page.locator('.fan-row')).toHaveCount(19);
 });
 
 test('layout fits both languages and all chart values are visible without hovering', async ({ page }) => {
@@ -137,7 +137,7 @@ test('layout fits both languages and all chart values are visible without hoveri
       }),
     }));
     expect(layout.page).toBeLessThanOrEqual(layout.viewport);
-    expect(layout.values).toHaveLength(90);
+    expect(layout.values).toHaveLength(114);
     expect(layout.values.every(Boolean)).toBe(true);
   }
 });
