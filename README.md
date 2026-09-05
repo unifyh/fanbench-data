@@ -15,8 +15,9 @@ A bilingual, unofficial archive of test data published by **风向标 FanBench**
 
 ## Episode coverage
 
-- [EP037](https://www.bilibili.com/video/BV1NQti6HErx/)
-- [EP036](https://www.bilibili.com/video/BV15gtc6YEuu/)
+- [FanBench - 037 | 酷冷至尊 MASTERFAN A140 FC 性能测试报告](https://www.bilibili.com/video/BV1NQti6HErx/)
+- [FanBench - 036 | 睿温 R25 LCP PRO 性能测试报告](https://www.bilibili.com/video/BV15gtc6YEuu/)
+- [FanBench - 035 | 攀威 LF12 2200 性能测试报告](https://www.bilibili.com/video/BV1PJ8E6MEb4/)
 
 ## Development
 
@@ -39,9 +40,9 @@ Browser tests use locally installed Microsoft Edge (desktop and mobile emulation
 
 ## Hosting
 
-Publishing requires an explicit user request. Keep representation changes local: do not push, deploy, enable Pages, or change repository visibility without that request. The repository is private and Pages and its deployment workflow are disabled.
+The site is hosted on [GitHub Pages](https://unifyh.github.io/fanbench-data/) from this public repository, using the free default GitHub Pages domain.
 
-GitHub Pages can host this static build for free from a public repository. The included workflow runs only when manually dispatched; pushes do not deploy. If publication is explicitly requested, configure **Settings → Pages → Source** to **GitHub Actions**, enable the workflow, and dispatch it.
+Deployments are manual: in **Actions → Deploy to GitHub Pages → Run workflow**, select `main`. GitHub Pages uses **GitHub Actions** as its source. Pushes and pull request merges do not deploy automatically.
 
 Default base path: `/fanbench-data/`. Override `BASE_PATH=/` when building for a root/custom-domain deployment. All runtime assets are served from the same host; the same `dist` build can be served by any static host using the matching base path. Mainland China availability is best effort and has not been independently verified.
 

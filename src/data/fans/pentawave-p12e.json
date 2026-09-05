@@ -1,15 +1,12 @@
 {
-  "id": "noctua-nf-a12x25-g2-pwm",
-  "brand": "noctua",
+  "id": "pentawave-p12e",
+  "brand": "pentawave",
   "model": {
-    "en": "NF-A12x25 G2 PWM"
+    "en": "P12E"
   },
   "sizeMm": 120,
   "thicknessMm": 25,
   "dedicatedReviewUrl": null,
-  "aliases": [
-    "NF-A12×25 G2 PWM"
-  ],
   "comparisonResultId": "baseline",
   "results": [
     {
@@ -17,23 +14,20 @@
       "sources": [
         {
           "episodeId": "ep035"
-        },
-        {
-          "episodeId": "ep036"
         }
       ],
       "measurements": {
         "case": {
-          "airflowCfm": 52.43,
-          "rpm": 1779
+          "airflowCfm": 47.66,
+          "rpm": 1655
         },
         "heatsink": {
-          "airflowCfm": 45.93,
-          "rpm": 1748
+          "airflowCfm": 43.15,
+          "rpm": 1763
         },
         "radiator": {
-          "airflowCfm": 36.01,
-          "rpm": 1851
+          "airflowCfm": 32.03,
+          "rpm": 1800
         }
       }
     }

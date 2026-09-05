@@ -1,14 +1,14 @@
 {
-  "id": "noctua-nf-a12x25-g2-pwm",
-  "brand": "noctua",
+  "id": "lian-li-p28",
+  "brand": "lian-li",
   "model": {
-    "en": "NF-A12x25 G2 PWM"
+    "en": "P28"
   },
   "sizeMm": 120,
-  "thicknessMm": 25,
+  "thicknessMm": 28,
   "dedicatedReviewUrl": null,
   "aliases": [
-    "NF-A12×25 G2 PWM"
+    "UNI FAN P28"
   ],
   "comparisonResultId": "baseline",
   "results": [
@@ -17,23 +17,20 @@
       "sources": [
         {
           "episodeId": "ep035"
-        },
-        {
-          "episodeId": "ep036"
         }
       ],
       "measurements": {
         "case": {
-          "airflowCfm": 52.43,
-          "rpm": 1779
+          "airflowCfm": 55.6,
+          "rpm": 1893
         },
         "heatsink": {
-          "airflowCfm": 45.93,
-          "rpm": 1748
+          "airflowCfm": 49.8,
+          "rpm": 1924
         },
         "radiator": {
-          "airflowCfm": 36.01,
-          "rpm": 1851
+          "airflowCfm": 36.05,
+          "rpm": 1924
         }
       }
     }

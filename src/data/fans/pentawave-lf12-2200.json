@@ -1,0 +1,35 @@
+{
+  "id": "pentawave-lf12-2200",
+  "brand": "pentawave",
+  "model": {
+    "en": "LF12 2200"
+  },
+  "sizeMm": 120,
+  "thicknessMm": 25,
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1PJ8E6MEb4/",
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep035"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 52.15,
+          "rpm": 1970
+        },
+        "heatsink": {
+          "airflowCfm": 46.38,
+          "rpm": 1986
+        },
+        "radiator": {
+          "airflowCfm": 34.85,
+          "rpm": 2032
+        }
+      }
+    }
+  ]
+}
