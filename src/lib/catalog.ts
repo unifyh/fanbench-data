@@ -1,4 +1,5 @@
 import type { Catalog, Fan, FanRecord } from '../types.ts';
+import { applications } from './comparison.ts';
 
 export function buildComparison(records: FanRecord[], catalog: Catalog): Fan[] {
   const fanIds = new Set<string>();
@@ -18,6 +19,14 @@ export function buildComparison(records: FanRecord[], catalog: Catalog): Fan[] {
     for (const result of record.results) {
       if (resultIds.has(result.id)) throw new Error(`Duplicate result ID: ${record.id}/${result.id}`);
       resultIds.add(result.id);
+      const entries = Object.entries(result.measurements);
+      if (!entries.length) throw new Error(`Result has no measurements: ${record.id}/${result.id}`);
+      for (const [application, value] of entries) {
+        if (!applications.some(key => key === application)) throw new Error(`Unknown application: ${application}`);
+        if (!value || !Number.isFinite(value.airflowCfm) || value.airflowCfm <= 0 || !Number.isInteger(value.rpm) || value.rpm <= 0) {
+          throw new Error(`Invalid measurement: ${record.id}/${result.id}/${application}`);
+        }
+      }
       if (!result.sources.length) throw new Error(`Result has no source: ${record.id}/${result.id}`);
       for (const source of result.sources) {
         if (!catalog.episodes[source.episodeId]) throw new Error(`Unknown episode: ${source.episodeId}`);

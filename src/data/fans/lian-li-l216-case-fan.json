@@ -1,0 +1,28 @@
+{
+  "id": "lian-li-l216-case-fan",
+  "brand": "lian-li",
+  "model": {
+    "en": "L216 case fan",
+    "zh-Hans": "L216 机箱风扇"
+  },
+  "sizeMm": 160,
+  "thicknessMm": 30,
+  "dedicatedReviewUrl": null,
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep005"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 62,
+          "rpm": 1179
+        }
+      }
+    }
+  ]
+}

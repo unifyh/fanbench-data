@@ -1,0 +1,28 @@
+{
+  "id": "asus-pa401-case-fan",
+  "brand": "asus",
+  "model": {
+    "en": "PA401 case fan",
+    "zh-Hans": "PA401 机箱风扇"
+  },
+  "sizeMm": 160,
+  "thicknessMm": 32,
+  "dedicatedReviewUrl": null,
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep005"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 86.26,
+          "rpm": 1231
+        }
+      }
+    }
+  ]
+}

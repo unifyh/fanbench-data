@@ -6,10 +6,10 @@ An unofficial archive of test data published by **风向标 FanBench**, with PC 
 
 ## Features
 
-- Case, **Heatsink**, and Radiator results displayed together, sorted by the column headings on desktop. Mobile retains the sort and view controls.
+- Case, **Heatsink**, and Radiator results displayed together, sorted by the column headings on desktop. Missing results show a dash and sort last; CSV cells stay empty. Mobile retains the sort and view controls.
 - Airflow (CFM), RPM, form factor, and known dedicated review links. Source metadata is retained in the dataset.
-- Solid green bars with RPM inside and CFM at the end; compact rows and sticky desktop axes. The shared scale covers the entire catalog and stays fixed while filtering or sorting.
-- Multiple size, thickness, and brand filters; search and shareable shortlists.
+- Solid green bars with RPM inside and CFM at the end; compact rows and sticky desktop axes. All three columns share a scale that adjusts to the filtered fans.
+- Multiple size, thickness, and brand filters; search and shareable shortlists. Size defaults to 120 and 140 mm; choose All to include larger fans. Reset filters restores these defaults.
 - English and Simplified Chinese, with localized brand and product names (English fallback) in the UI and CSV export; desktop columns, mobile cards, and an accessible data table.
 - No backend, runtime CDN, external fonts, analytics, embedded videos, or paid service.
 
@@ -18,6 +18,10 @@ An unofficial archive of test data published by **风向标 FanBench**, with PC 
 - [FanBench - 037 | 酷冷至尊 MASTERFAN A140 FC 性能测试报告](https://www.bilibili.com/video/BV1NQti6HErx/)
 - [FanBench - 036 | 睿温 R25 LCP PRO 性能测试报告](https://www.bilibili.com/video/BV15gtc6YEuu/)
 - [FanBench - 035 | 攀威 LF12 2200 性能测试报告](https://www.bilibili.com/video/BV1PJ8E6MEb4/)
+- [FanBench - 006 | 山洋电气 9RA1212P1K001 性能测试报告](https://www.bilibili.com/video/BV1GQmLBSEP7/)
+- [FanBench - 005 | HAVN H18 Performance 性能测试报告](https://www.bilibili.com/video/BV1Cv2VBfE6p/)
+- [FanBench - 004 | 山洋电气 9RA1412P1G001 性能测试报告](https://www.bilibili.com/video/BV1AqCKBeEWU/)
+- [FanBench - 003 | Sudkoo MACH140 性能测试报告](https://www.bilibili.com/video/BV1692MB3EVj/)
 - [FanBench - 002 | Sudkoo MACH120 性能测试报告](https://www.bilibili.com/video/BV1m21KB5Eru/)
 - [FanBench - 001 | 山洋电气 9WPA1212P4J001 性能测试报告](https://www.bilibili.com/video/BV1kLs7zYEGR/)
 

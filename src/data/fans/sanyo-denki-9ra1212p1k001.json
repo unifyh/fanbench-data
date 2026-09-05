@@ -1,0 +1,35 @@
+{
+  "id": "sanyo-denki-9ra1212p1k001",
+  "brand": "sanyo-denki",
+  "model": {
+    "en": "9RA1212P1K001"
+  },
+  "sizeMm": 120,
+  "thicknessMm": 38,
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1GQmLBSEP7/",
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep006"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 59.6,
+          "rpm": 1862
+        },
+        "heatsink": {
+          "airflowCfm": 52,
+          "rpm": 1862
+        },
+        "radiator": {
+          "airflowCfm": 36.5,
+          "rpm": 1850
+        }
+      }
+    }
+  ]
+}

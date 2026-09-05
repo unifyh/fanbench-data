@@ -1,0 +1,28 @@
+{
+  "id": "asus-pa602-case-fan",
+  "brand": "asus",
+  "model": {
+    "en": "PA602 case fan",
+    "zh-Hans": "PA602 机箱风扇"
+  },
+  "sizeMm": 200,
+  "thicknessMm": 38,
+  "dedicatedReviewUrl": null,
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep005"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 100.2,
+          "rpm": 800
+        }
+      }
+    }
+  ]
+}

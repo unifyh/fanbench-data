@@ -1,0 +1,30 @@
+{
+  "id": "noctua-nf-a14x25-g2-pwm",
+  "brand": "noctua",
+  "model": {
+    "en": "NF-A14x25 G2 PWM"
+  },
+  "aliases": [
+    "NF-A14×25 G2 PWM"
+  ],
+  "sizeMm": 140,
+  "thicknessMm": 25,
+  "dedicatedReviewUrl": null,
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep005"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 66.18,
+          "rpm": 1355
+        }
+      }
+    }
+  ]
+}

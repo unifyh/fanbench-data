@@ -107,6 +107,8 @@ input[type=checkbox] { accent-color: var(--accent); cursor: pointer; }
 .review-link:hover { text-decoration: underline; }
 .mobile-measurements { display: contents; }
 .measurement-cell { min-width: 0; display: flex; align-items: stretch; }
+.no-data { color: var(--muted); font-size: 14px; }
+.measurement-cell>.no-data { display: flex; align-items: center; min-height: 52px; }
 .bar-track { position: relative; width: calc(100% - var(--value-space)); min-height: 52px; display: flex; align-items: center; border-left: 1px solid #687365; font-variant-numeric: tabular-nums; }
 .bar { position: relative; container-type: inline-size; height: 27px; width: var(--bar-width); background: var(--bar-color); display: flex; align-items: center; }
 .rpm { padding-left: 9px; color: #fff; font-size: 11px; line-height: 1; white-space: nowrap; }
@@ -206,6 +208,7 @@ table td>span { display: block; font-size: 11px; color: var(--muted); margin-top
   .measurement-cell { display: grid; grid-template-columns: var(--application-width) minmax(0, 1fr); }
   .mobile-application { display: flex; align-items: center; color: #62725b; font-size: 11px; }
   .bar-track { min-height: 37px; }
+  .measurement-cell>.no-data { min-height: 37px; }
   .chart-footnote { padding-top: 7px; gap: 3px; }
   .chart-footnote p { font-size: 11px; }
   .scale-note { display: block; font-size: 10px; }

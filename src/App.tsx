@@ -2,13 +2,10 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import type { CSSProperties, ReactNode } from 'react';
 import { catalog, fans, testSetup } from './data';
 import { messages } from './i18n';
-import { applications, chartScale, exportCsv, modelName, readState, serializeState, toggleValue, visibleFans } from './lib/comparison';
+import { applications, chartScale, exportCsv, initialState, modelName, readState, serializeState, toggleValue, visibleFans } from './lib/comparison';
 import type { Application, Fan, Locale, ViewState } from './types';
 
-// Calculate once from the whole catalog: filtering and sorting must not resize bars.
-const scale = chartScale(fans);
-
-function ChartAxis({ bottom = false }: { bottom?: boolean }) {
+function ChartAxis({ scale, bottom = false }: { scale: ReturnType<typeof chartScale>; bottom?: boolean }) {
   return <div className={'axis-labels' + (bottom ? ' bottom-axis' : ' top-axis')} aria-hidden="true">
     {scale.ticks.map(value => <span key={value} style={{ left: `${value / scale.maximum * 100}%` }}>{value}</span>)}
   </div>;
@@ -53,6 +50,10 @@ function FormFactor({ fan, locale }: { fan: Fan; locale: Locale }) {
   return <span className={fan.thicknessMm === null ? 'form-factor unverified' : 'form-factor'} title={note} aria-label={note}>{fan.sizeMm} × {fan.thicknessMm ?? '?'} mm</span>;
 }
 
+function MissingMeasurement({ locale }: { locale: Locale }) {
+  return <span className="no-data" title={messages[locale].noData}><span aria-hidden="true">—</span><span className="sr-only">{messages[locale].noData}</span></span>;
+}
+
 function FilterField({ id, label, allLabel, options, selected, compact, onReset, onToggle }: {
   id: string; label: string; allLabel: string; options: { value: string; label: string }[];
   selected: string[]; compact: boolean; onReset: () => void; onToggle: (value: string) => void;
@@ -95,11 +96,13 @@ function FanDetails({ fan, locale, onClose }: { fan: Fan | null; locale: Locale;
       <span className="brand-name">{fan.brandLabel[locale]}</span>
       <h2 id="detail-title">{modelName(fan, locale)}</h2>
       <FormFactor fan={fan} locale={locale} />
-      <div className="detail-results">{applications.map(key => <div key={key}>
-        <span className={'application-label ' + key}><Icon name={key} />{t[key]}</span>
-        <strong>{fan.measurements[key].airflowCfm.toFixed(2)} <small>CFM</small></strong>
-        <span>{fan.measurements[key].rpm} RPM</span>
-      </div>)}</div>
+      <div className="detail-results">{applications.map(key => {
+        const value = fan.measurements[key];
+        return <div key={key}>
+          <span className={'application-label ' + key}><Icon name={key} />{t[key]}</span>
+          {value ? <><strong>{value.airflowCfm.toFixed(2)} <small>CFM</small></strong><span>{value.rpm} RPM</span></> : <MissingMeasurement locale={locale} />}
+        </div>;
+      })}</div>
       <p className="detail-condition">{t.testCondition}</p>
       {fan.dedicatedReviewUrl && <div className="detail-links"><ExternalLink href={fan.dedicatedReviewUrl}>{t.dedicatedReview}</ExternalLink></div>}
     </div>}
@@ -114,14 +117,16 @@ export default function App() {
   const [shareStatus, setShareStatus] = useState<'idle' | 'copied' | 'fallback'>('idle');
   const t = messages[state.locale];
   const shown = useMemo(() => visibleFans(fans, state), [state]);
+  const scale = useMemo(() => chartScale(shown), [shown]);
   const sizes = [...new Set(fans.map(fan => fan.sizeMm))].sort((a, b) => a - b);
   const thicknesses = [...new Set(fans.map(fan => fan.thicknessMm).filter(value => value !== null))].sort((a, b) => a - b);
   const brands = [...new Map(fans.map(fan => [fan.brand, fan.brandLabel])).entries()].sort((a, b) => a[1].en.localeCompare(b[1].en));
   const activeFilters = state.sizes.length + state.thicknesses.length + state.brands.length;
-  const hasFilters = activeFilters > 0 || state.query.length > 0 || state.onlySelected;
+  const canResetFilters = state.query.length > 0 || state.thicknesses.length > 0 || state.brands.length > 0 || state.onlySelected
+    || state.sizes.length !== initialState.sizes.length || initialState.sizes.some(size => !state.sizes.includes(size));
   const update = (patch: Partial<ViewState>) => setState(previous => ({ ...previous, ...patch }));
   const toggleFilter = (key: 'sizes' | 'thicknesses' | 'brands', value: string) => setState(previous => ({ ...previous, [key]: toggleValue(previous[key], value) }));
-  const resetFilters = () => update({ query: '', sizes: [], thicknesses: [], brands: [], onlySelected: false });
+  const resetFilters = () => update({ query: '', sizes: [...initialState.sizes], thicknesses: [], brands: [], onlySelected: false });
   const toggleSelection = (id: string) => setState(previous => ({ ...previous, selected: toggleValue(previous.selected, id) }));
   const sortBy = (key: Application) => update({ sort: key, direction: state.sort === key && state.direction === 'desc' ? 'asc' : 'desc' });
   const showChart = !compactLayout || state.view === 'chart';
@@ -212,25 +217,33 @@ export default function App() {
               <FilterField id="thickness-options" label={t.thickness} allLabel={t.all} compact={compactLayout} options={[...thicknesses.map(value => ({ value: String(value), label: `${value} mm` })), { value: 'unknown', label: t.unknown }]} selected={state.thicknesses} onReset={() => update({ thicknesses: [] })} onToggle={value => toggleFilter('thicknesses', value)} />
               <FilterField id="brand-options" label={t.brand} allLabel={t.all} compact={compactLayout} options={brands.map(([value, label]) => ({ value, label: label[state.locale] }))} selected={state.brands} onReset={() => update({ brands: [] })} onToggle={value => toggleFilter('brands', value)} />
             </div>
-            <div className="results-count" role="status">{t.showing} <strong>{shown.length}</strong> {t.of} {fans.length} {t.fans}{hasFilters && <button className="text-button" onClick={resetFilters}>{t.reset}</button>}</div>
+            <div className="results-count" role="status">{t.showing} <strong>{shown.length}</strong> {t.of} {fans.length} {t.fans}{canResetFilters && <button className="text-button" onClick={resetFilters}>{t.reset}</button>}</div>
           </div>
           {(state.selected.length > 0 || state.onlySelected) && <div className="selection-toolbar"><span><strong>{state.selected.length}</strong> {t.selected}</span><label><input type="checkbox" checked={state.onlySelected} onChange={event => update({ onlySelected: event.target.checked })} />{t.onlySelected}</label><button className="text-button" onClick={() => update({ selected: [], onlySelected: false })}>{t.clearSelection}</button></div>}
 
           {shown.length === 0 ? <div className="empty-state"><Icon name="search" size={36} /><h3>{t.noResults}</h3><p>{t.noResultsHint}</p><button className="button primary" onClick={resetFilters}>{t.reset}</button></div> : showChart ? <div className="chart-view" role="region" aria-label={t.chart} tabIndex={0}>
-            <div className="chart-heading comparison-grid"><div className="fan-column-label">{t.fan} · {t.dimensions}</div>{applications.map(key => <div key={key}>{renderColumnHeading(key)}<ChartAxis /></div>)}</div>
+            <div className="chart-heading comparison-grid"><div className="fan-column-label">{t.fan} · {t.dimensions}</div>{applications.map(key => <div key={key}>{renderColumnHeading(key)}<ChartAxis scale={scale} /></div>)}</div>
             <div className="fan-rows">{shown.map(fan => <article className={'fan-row comparison-grid' + (state.selected.includes(fan.id) ? ' selected' : '')} key={fan.id} data-fan-id={fan.id} aria-label={`${fan.brandLabel[state.locale]} ${modelName(fan, state.locale)}`}>
               {renderFanIdentity(fan)}
-              <div className="mobile-axis" aria-hidden="true"><ChartAxis /><span>CFM</span></div>
-              <div className="mobile-measurements">{applications.map(key => <div className={`measurement-cell ${key}`} key={key}>
-                <span className="mobile-application">{t[key]}</span>
-                <span className="sr-only">{t[key]}: {fan.measurements[key].airflowCfm.toFixed(2)} CFM, {fan.measurements[key].rpm} RPM</span>
-                <div className="bar-track" aria-hidden="true" style={{ '--bar-width': `${fan.measurements[key].airflowCfm / scale.maximum * 100}%` } as CSSProperties}>
-                  <div className="bar"><span className="rpm">{fan.measurements[key].rpm} RPM</span><strong className="airflow-value">{fan.measurements[key].airflowCfm.toFixed(2)}</strong></div>
-                </div>
-              </div>)}</div>
+              <div className="mobile-axis" aria-hidden="true"><ChartAxis scale={scale} /><span>CFM</span></div>
+              <div className="mobile-measurements">{applications.map(key => {
+                const value = fan.measurements[key];
+                return <div className={`measurement-cell ${key}`} key={key}>
+                  <span className="mobile-application">{t[key]}</span>
+                  {value ? <>
+                    <span className="sr-only">{t[key]}: {value.airflowCfm.toFixed(2)} CFM, {value.rpm} RPM</span>
+                    <div className="bar-track" aria-hidden="true" style={{ '--bar-width': `${value.airflowCfm / scale.maximum * 100}%` } as CSSProperties}>
+                      <div className="bar"><span className="rpm">{value.rpm} RPM</span><strong className="airflow-value">{value.airflowCfm.toFixed(2)}</strong></div>
+                    </div>
+                  </> : <><span className="sr-only">{t[key]}: </span><MissingMeasurement locale={state.locale} /></>}
+                </div>;
+              })}</div>
             </article>)}</div>
-            <div className="chart-bottom comparison-grid" aria-hidden="true"><div />{applications.map(key => <div key={key}><ChartAxis bottom /><div className="axis-title">{t.airflow} (CFM)</div></div>)}</div>
-          </div> : <div className="table-scroll" role="region" aria-label={t.table} tabIndex={0}><table><caption className="sr-only">{t.tableCaption}</caption><thead><tr><th scope="col">{t.fan}</th>{applications.map(key => <th scope="col" key={key} aria-sort={state.sort === key ? state.direction === 'desc' ? 'descending' : 'ascending' : 'none'}>{renderColumnHeading(key)}</th>)}</tr></thead><tbody>{shown.map(fan => <tr key={fan.id} className={state.selected.includes(fan.id) ? 'selected' : ''}><th scope="row">{renderFanIdentity(fan)}</th>{applications.map(key => <td key={key}><strong>{fan.measurements[key].airflowCfm.toFixed(2)} <small>CFM</small></strong><span>{fan.measurements[key].rpm} RPM</span></td>)}</tr>)}</tbody></table></div>}
+            <div className="chart-bottom comparison-grid" aria-hidden="true"><div />{applications.map(key => <div key={key}><ChartAxis scale={scale} bottom /><div className="axis-title">{t.airflow} (CFM)</div></div>)}</div>
+          </div> : <div className="table-scroll" role="region" aria-label={t.table} tabIndex={0}><table><caption className="sr-only">{t.tableCaption}</caption><thead><tr><th scope="col">{t.fan}</th>{applications.map(key => <th scope="col" key={key} aria-sort={state.sort === key ? state.direction === 'desc' ? 'descending' : 'ascending' : 'none'}>{renderColumnHeading(key)}</th>)}</tr></thead><tbody>{shown.map(fan => <tr key={fan.id} className={state.selected.includes(fan.id) ? 'selected' : ''}><th scope="row">{renderFanIdentity(fan)}</th>{applications.map(key => {
+            const value = fan.measurements[key];
+            return <td key={key}>{value ? <><strong>{value.airflowCfm.toFixed(2)} <small>CFM</small></strong><span>{value.rpm} RPM</span></> : <MissingMeasurement locale={state.locale} />}</td>;
+          })}</tr>)}</tbody></table></div>}
         </div>
         <div className="chart-footnote"><p>{t.testCondition} · {t.higherBetter}<span className="scale-note"> · {t.commonScale}: 0–{scale.maximum} CFM</span></p><button className="text-button download-button" onClick={download}><Icon name="download" size={15} />{t.download}</button></div>
         <details className="test-notes"><summary>{t.methodology}</summary><dl>{applications.map(key => <div key={key}><dt>{t[key]}</dt><dd>{testSetup.fixtures[key][state.locale]}</dd></div>)}</dl><p>{t.contextText}</p></details>

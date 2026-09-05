@@ -1,0 +1,28 @@
+{
+  "id": "fractal-design-torrent-case-fan",
+  "brand": "fractal-design",
+  "model": {
+    "en": "Torrent case fan",
+    "zh-Hans": "Torrent 机箱风扇"
+  },
+  "sizeMm": 180,
+  "thicknessMm": 38,
+  "dedicatedReviewUrl": null,
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep005"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 83.84,
+          "rpm": 879
+        }
+      }
+    }
+  ]
+}

@@ -2,13 +2,14 @@ export type Locale = 'en' | 'zh-Hans';
 export type Application = 'case' | 'heatsink' | 'radiator';
 export type Localized = Record<Locale, string>;
 export interface Measurement { airflowCfm: number; rpm: number }
+export type Measurements = Partial<Record<Application, Measurement>>;
 export interface ResultSource {
   episodeId: string;
 }
 export interface FanResult {
   id: string;
   sources: ResultSource[];
-  measurements: Record<Application, Measurement>;
+  measurements: Measurements;
 }
 export interface FanRecord {
   id: string;
@@ -24,7 +25,7 @@ export interface FanRecord {
 export interface Fan extends FanRecord {
   brandLabel: Localized;
   comparisonResult: FanResult;
-  measurements: Record<Application, Measurement>;
+  measurements: Measurements;
 }
 export interface Catalog {
   schemaVersion: number;
