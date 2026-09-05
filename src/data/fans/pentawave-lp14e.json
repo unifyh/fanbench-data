@@ -1,0 +1,35 @@
+{
+  "id": "pentawave-lp14e",
+  "brand": "pentawave",
+  "model": {
+    "en": "LP14E"
+  },
+  "sizeMm": 140,
+  "thicknessMm": 32,
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV13AqoBMEar/",
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep007"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 69.39,
+          "rpm": 1546
+        },
+        "heatsink": {
+          "airflowCfm": 60.27,
+          "rpm": 1686
+        },
+        "radiator": {
+          "airflowCfm": 52.29,
+          "rpm": 1717
+        }
+      }
+    }
+  ]
+}

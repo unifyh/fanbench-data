@@ -1,0 +1,41 @@
+{
+  "id": "arctic-p12-pro-pst-co",
+  "brand": "arctic",
+  "model": {
+    "en": "P12 Pro PST CO"
+  },
+  "sizeMm": 120,
+  "thicknessMm": 25,
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1y1BoBaEHL/",
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep008"
+        },
+        {
+          "episodeId": "ep009"
+        },
+        {
+          "episodeId": "ep011"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 45.25,
+          "rpm": 1940
+        },
+        "heatsink": {
+          "airflowCfm": 41.23,
+          "rpm": 1970
+        },
+        "radiator": {
+          "airflowCfm": 32.65,
+          "rpm": 1970
+        }
+      }
+    }
+  ]
+}
