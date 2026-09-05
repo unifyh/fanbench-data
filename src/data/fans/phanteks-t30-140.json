@@ -1,0 +1,44 @@
+{
+  "id": "phanteks-t30-140",
+  "brand": "phanteks",
+  "brandLabel": {
+    "en": "Phanteks",
+    "zh-Hans": "追风者"
+  },
+  "model": "T30 140",
+  "sizeMm": 140,
+  "thicknessMm": 30,
+  "dimensionsSource": "https://phanteks.com/product/t30-140/",
+  "dedicatedReviewUrl": null,
+  "aliases": [
+    "追风者 T30 140"
+  ],
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "testSetupId": "l207-nhd15-27mm-radiator",
+      "sources": [
+        {
+          "episodeId": "ep037",
+          "sourceLabel": "追风者 T30 140",
+          "videoTimestampSeconds": null
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 59.56,
+          "rpm": 1293
+        },
+        "heatsink": {
+          "airflowCfm": 53.77,
+          "rpm": 1432
+        },
+        "radiator": {
+          "airflowCfm": 42.01,
+          "rpm": 1460
+        }
+      }
+    }
+  ]
+}

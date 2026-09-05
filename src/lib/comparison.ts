@@ -1,4 +1,4 @@
-import type { Application, Fan, Locale, ViewState } from '../types.ts';
+import type { Application, Catalog, Fan, Locale, ViewState } from '../types.ts';
 
 export const applications: Application[] = ['case', 'heatsink', 'radiator'];
 export const initialState: ViewState = { locale: 'en', query: '', sizes: [], thicknesses: [], brands: [], sort: 'case', direction: 'desc', selected: [], onlySelected: false, view: 'chart' };
@@ -44,7 +44,7 @@ export function serializeState(state: ViewState): string {
 export function visibleFans(fans: Fan[], state: ViewState): Fan[] {
   const query = state.query.trim().toLocaleLowerCase();
   return fans.filter(fan => {
-    const searchable = [fan.model, fan.brand, fan.brandLabel.en, fan.brandLabel['zh-Hans'], fan.sourceLabel].join(' ').toLocaleLowerCase();
+    const searchable = [fan.model, fan.brand, fan.brandLabel.en, fan.brandLabel['zh-Hans'], ...fan.aliases].join(' ').toLocaleLowerCase();
     return (!query || searchable.includes(query))
       && (!state.sizes.length || state.sizes.includes(String(fan.sizeMm)))
       && (!state.thicknesses.length || state.thicknesses.includes(fan.thicknessMm === null ? 'unknown' : String(fan.thicknessMm)))
@@ -56,17 +56,28 @@ export function visibleFans(fans: Fan[], state: ViewState): Fan[] {
   });
 }
 
-export function chartMaximum(fans: Fan[]): number {
-  return Math.max(10, Math.ceil(Math.max(0, ...fans.flatMap(fan => applications.map(key => fan.measurements[key].airflowCfm))) / 10) * 10);
+export function chartScale(fans: Fan[]): { maximum: number; ticks: number[] } {
+  const largest = Math.max(1, ...fans.flatMap(fan => applications.map(key => fan.measurements[key].airflowCfm)));
+  const roughStep = largest / 4;
+  const magnitude = 10 ** Math.floor(Math.log10(roughStep));
+  const step = [1, 2, 2.5, 5, 10].find(value => value * magnitude >= roughStep)! * magnitude;
+  const maximum = Math.ceil(largest / step) * step;
+  return {
+    maximum,
+    ticks: Array.from({ length: Math.round(maximum / step) + 1 }, (_, index) => Number((index * step).toPrecision(10))),
+  };
 }
 
 export function toggleValue(values: string[], value: string): string[] {
   return values.includes(value) ? values.filter(item => item !== value) : [...values, value];
 }
 
-export function exportCsv(fans: Fan[], noiseDba: number, distanceCm: number, sourceUrl: string): string {
+export function exportCsv(fans: Fan[], catalog: Catalog): string {
   const escape = (value: unknown) => '"' + String(value ?? '').replaceAll('"', '""') + '"';
-  const rows: unknown[][] = [['brand', 'model', 'size_mm', 'thickness_mm', 'noise_dba', 'distance_cm', 'case_cfm', 'case_rpm', 'heatsink_cfm', 'heatsink_rpm', 'radiator_cfm', 'radiator_rpm', 'source_url']];
-  for (const fan of fans) rows.push([fan.brandLabel.en, fan.model, fan.sizeMm, fan.thicknessMm, noiseDba, distanceCm, ...applications.flatMap(key => [fan.measurements[key].airflowCfm.toFixed(2), fan.measurements[key].rpm]), sourceUrl]);
+  const rows: unknown[][] = [['brand', 'model', 'size_mm', 'thickness_mm', 'noise_dba', 'distance_cm', 'case_cfm', 'case_rpm', 'heatsink_cfm', 'heatsink_rpm', 'radiator_cfm', 'radiator_rpm', 'test_setup', 'result_id', 'source_urls']];
+  for (const fan of fans) {
+    const urls = [...new Set(fan.comparisonResult.sources.map(source => catalog.episodes[source.episodeId].url))];
+    rows.push([fan.brandLabel.en, fan.model, fan.sizeMm, fan.thicknessMm, catalog.noise.noiseDba, catalog.noise.distanceCm, ...applications.flatMap(key => [fan.measurements[key].airflowCfm.toFixed(2), fan.measurements[key].rpm]), fan.comparisonResult.testSetupId, fan.comparisonResult.id, urls.join(' | ')]);
+  }
   return '\uFEFF' + rows.map(row => row.map(escape).join(',')).join('\r\n');
 }

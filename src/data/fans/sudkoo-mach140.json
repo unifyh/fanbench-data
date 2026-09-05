@@ -1,0 +1,44 @@
+{
+  "id": "sudkoo-mach140",
+  "brand": "sudkoo",
+  "brandLabel": {
+    "en": "Sudkoo",
+    "zh-Hans": "Sudkoo"
+  },
+  "model": "MACH140",
+  "sizeMm": 140,
+  "thicknessMm": 30,
+  "dimensionsSource": null,
+  "dedicatedReviewUrl": null,
+  "aliases": [
+    "Sudkoo MACH140"
+  ],
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "testSetupId": "l207-nhd15-27mm-radiator",
+      "sources": [
+        {
+          "episodeId": "ep037",
+          "sourceLabel": "Sudkoo MACH140",
+          "videoTimestampSeconds": null
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 64.23,
+          "rpm": 1386
+        },
+        "heatsink": {
+          "airflowCfm": 54.4,
+          "rpm": 1490
+        },
+        "radiator": {
+          "airflowCfm": 37.72,
+          "rpm": 1448
+        }
+      }
+    }
+  ]
+}
