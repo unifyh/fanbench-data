@@ -1,0 +1,38 @@
+{
+  "id": "sanyo-denki-9wpa1212p4j001",
+  "brand": "sanyo-denki",
+  "model": {
+    "en": "9WPA1212P4J001"
+  },
+  "sizeMm": 120,
+  "thicknessMm": 25,
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1kLs7zYEGR/",
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep001"
+        },
+        {
+          "episodeId": "ep002"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 50.14,
+          "rpm": 1955
+        },
+        "heatsink": {
+          "airflowCfm": 47.52,
+          "rpm": 2063
+        },
+        "radiator": {
+          "airflowCfm": 36.78,
+          "rpm": 2063
+        }
+      }
+    }
+  ]
+}

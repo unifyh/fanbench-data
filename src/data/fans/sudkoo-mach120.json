@@ -1,0 +1,35 @@
+{
+  "id": "sudkoo-mach120",
+  "brand": "sudkoo",
+  "model": {
+    "en": "MACH120"
+  },
+  "sizeMm": 120,
+  "thicknessMm": 30,
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1m21KB5Eru/",
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep002"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 52.38,
+          "rpm": 1764
+        },
+        "heatsink": {
+          "airflowCfm": 45.81,
+          "rpm": 1800
+        },
+        "radiator": {
+          "airflowCfm": 30.34,
+          "rpm": 1862
+        }
+      }
+    }
+  ]
+}
