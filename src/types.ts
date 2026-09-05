@@ -4,35 +4,32 @@ export type Localized = Record<Locale, string>;
 export interface Measurement { airflowCfm: number; rpm: number }
 export interface ResultSource {
   episodeId: string;
-  sourceLabel: string;
-  videoTimestampSeconds: number | null;
 }
 export interface FanResult {
   id: string;
-  testSetupId: string;
   sources: ResultSource[];
   measurements: Record<Application, Measurement>;
 }
 export interface FanRecord {
   id: string;
   brand: string;
-  brandLabel: Localized;
-  model: string;
-  aliases: string[];
+  model: { en: string; 'zh-Hans'?: string };
+  aliases?: string[];
   sizeMm: number;
   thicknessMm: number | null;
-  dimensionsSource: string | null;
   dedicatedReviewUrl: string | null;
   comparisonResultId: string;
   results: FanResult[];
 }
 export interface Fan extends FanRecord {
+  brandLabel: Localized;
   comparisonResult: FanResult;
   measurements: Record<Application, Measurement>;
 }
 export interface Catalog {
   schemaVersion: number;
   reviewer: { name: string; profileUrl: string };
+  brands: Record<string, Localized>;
   noise: { noiseDba: number; distanceCm: number; measurementPosition: Localized };
   comparisonSetupId: string;
   testSetups: Record<string, { fixtures: Record<Application, Localized> }>;

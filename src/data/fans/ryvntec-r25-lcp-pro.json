@@ -1,0 +1,35 @@
+{
+  "id": "ryvntec-r25-lcp-pro",
+  "brand": "ryvntec",
+  "model": {
+    "en": "R25 LCP PRO"
+  },
+  "sizeMm": 120,
+  "thicknessMm": 25,
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV15gtc6YEuu/",
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep036"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 48.38,
+          "rpm": 1370
+        },
+        "heatsink": {
+          "airflowCfm": 43.02,
+          "rpm": 1463
+        },
+        "radiator": {
+          "airflowCfm": 24.87,
+          "rpm": 1370
+        }
+      }
+    }
+  ]
+}

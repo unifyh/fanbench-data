@@ -10,12 +10,13 @@ A bilingual, unofficial archive of test data published by **风向标 FanBench**
 - Airflow (CFM), RPM, form factor, and known dedicated review links. Source metadata is retained in the dataset.
 - Solid green bars with RPM inside and CFM at the end; compact rows and sticky desktop axes. The shared scale covers the entire catalog and stays fixed while filtering or sorting.
 - Multiple size, thickness, and brand filters; bilingual search and shareable shortlists.
-- English and Simplified Chinese, desktop columns and mobile cards, accessible data table and CSV export.
+- English and Simplified Chinese, with localized brand and product names (English fallback) in the UI and CSV export; desktop columns, mobile cards, and an accessible data table.
 - No backend, runtime CDN, external fonts, analytics, embedded videos, or paid service.
 
 ## Episode coverage
 
 - [EP037](https://www.bilibili.com/video/BV1NQti6HErx/)
+- [EP036](https://www.bilibili.com/video/BV15gtc6YEuu/)
 
 ## Development
 

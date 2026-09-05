@@ -1,0 +1,36 @@
+{
+  "id": "scythe-gentle-typhoon-gt-3000-pwm",
+  "brand": "scythe",
+  "model": {
+    "en": "Gentle Typhoon GT-3000 PWM",
+    "zh-Hans": "温柔台风 GT-3000 PWM"
+  },
+  "sizeMm": 120,
+  "thicknessMm": 25,
+  "dedicatedReviewUrl": null,
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep036"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 47.07,
+          "rpm": 1955
+        },
+        "heatsink": {
+          "airflowCfm": 41.17,
+          "rpm": 1940
+        },
+        "radiator": {
+          "airflowCfm": 32.48,
+          "rpm": 1940
+        }
+      }
+    }
+  ]
+}

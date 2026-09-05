@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import type { CSSProperties, ReactNode } from 'react';
 import { catalog, fans, testSetup } from './data';
 import { messages } from './i18n';
-import { applications, chartScale, exportCsv, readState, serializeState, toggleValue, visibleFans } from './lib/comparison';
+import { applications, chartScale, exportCsv, modelName, readState, serializeState, toggleValue, visibleFans } from './lib/comparison';
 import type { Application, Fan, Locale, ViewState } from './types';
 
 // Calculate once from the whole catalog: filtering and sorting must not resize bars.
@@ -93,7 +93,7 @@ function FanDetails({ fan, locale, onClose }: { fan: Fan | null; locale: Locale;
     {fan && <div className="dialog-inner">
       <button className="icon-button dialog-close" onClick={onClose} aria-label={t.close}><Icon name="close" /></button>
       <span className="brand-name">{fan.brandLabel[locale]}</span>
-      <h2 id="detail-title">{fan.model}</h2>
+      <h2 id="detail-title">{modelName(fan, locale)}</h2>
       <FormFactor fan={fan} locale={locale} />
       <div className="detail-results">{applications.map(key => <div key={key}>
         <span className={'application-label ' + key}><Icon name={key} />{t[key]}</span>
@@ -165,7 +165,7 @@ export default function App() {
   }
 
   function download() {
-    const csv = exportCsv(shown, catalog);
+    const csv = exportCsv(shown, catalog, state.locale);
     const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8;' }));
     const anchor = document.createElement('a');
     anchor.href = url; anchor.download = 'fanbench-data-36dba.csv'; anchor.click();
@@ -173,10 +173,11 @@ export default function App() {
   }
 
   function renderFanIdentity(fan: Fan) {
+    const model = modelName(fan, state.locale);
     return <div className="fan-identity">
       <div className="fan-title-line">
-        <input type="checkbox" className="fan-checkbox" aria-label={`${t.select} ${fan.model}`} checked={state.selected.includes(fan.id)} onChange={() => toggleSelection(fan.id)} />
-        <div className="fan-name"><span className="brand-name">{fan.brandLabel[state.locale]}</span><button className="model-button" onClick={() => setDetailFan(fan)} aria-label={`${t.details}: ${fan.model}`}>{fan.model}</button></div>
+        <input type="checkbox" className="fan-checkbox" aria-label={`${t.select} ${model}`} checked={state.selected.includes(fan.id)} onChange={() => toggleSelection(fan.id)} />
+        <div className="fan-name"><span className="brand-name">{fan.brandLabel[state.locale]}</span><button className="model-button" onClick={() => setDetailFan(fan)} aria-label={`${t.details}: ${model}`}>{model}</button></div>
       </div>
       <div className="fan-metadata"><FormFactor fan={fan} locale={state.locale} />
         {fan.dedicatedReviewUrl && <ExternalLink className="review-link" href={fan.dedicatedReviewUrl}>{t.dedicatedReview}</ExternalLink>}
@@ -217,7 +218,7 @@ export default function App() {
 
           {shown.length === 0 ? <div className="empty-state"><Icon name="search" size={36} /><h3>{t.noResults}</h3><p>{t.noResultsHint}</p><button className="button primary" onClick={resetFilters}>{t.reset}</button></div> : showChart ? <div className="chart-view" role="region" aria-label={t.chart} tabIndex={0}>
             <div className="chart-heading comparison-grid"><div className="fan-column-label">{t.fan} · {t.dimensions}</div>{applications.map(key => <div key={key}>{renderColumnHeading(key)}<ChartAxis /></div>)}</div>
-            <div className="fan-rows">{shown.map(fan => <article className={'fan-row comparison-grid' + (state.selected.includes(fan.id) ? ' selected' : '')} key={fan.id} data-fan-id={fan.id} aria-label={`${fan.brandLabel[state.locale]} ${fan.model}`}>
+            <div className="fan-rows">{shown.map(fan => <article className={'fan-row comparison-grid' + (state.selected.includes(fan.id) ? ' selected' : '')} key={fan.id} data-fan-id={fan.id} aria-label={`${fan.brandLabel[state.locale]} ${modelName(fan, state.locale)}`}>
               {renderFanIdentity(fan)}
               <div className="mobile-axis" aria-hidden="true"><ChartAxis /><span>CFM</span></div>
               <div className="mobile-measurements">{applications.map(key => <div className={`measurement-cell ${key}`} key={key}>
