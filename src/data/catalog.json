@@ -17,9 +17,17 @@
       "en": "Cooler Master",
       "zh-Hans": "酷冷至尊"
     },
+    "lian-li": {
+      "en": "Lian Li",
+      "zh-Hans": "联力"
+    },
     "noctua": {
       "en": "Noctua",
       "zh-Hans": "猫头鹰"
+    },
+    "pentawave": {
+      "en": "PentaWave",
+      "zh-Hans": "攀威"
     },
     "phanteks": {
       "en": "Phanteks",
@@ -40,6 +48,10 @@
     "sudkoo": {
       "en": "Sudkoo",
       "zh-Hans": "Sudkoo"
+    },
+    "xpg": {
+      "en": "XPG",
+      "zh-Hans": "XPG"
     }
   },
   "noise": {
@@ -70,6 +82,10 @@
     }
   },
   "episodes": {
+    "ep035": {
+      "number": 35,
+      "url": "https://www.bilibili.com/video/BV1PJ8E6MEb4/"
+    },
     "ep036": {
       "number": 36,
       "url": "https://www.bilibili.com/video/BV15gtc6YEuu/"
