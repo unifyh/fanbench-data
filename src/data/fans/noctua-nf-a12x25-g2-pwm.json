@@ -1,0 +1,38 @@
+{
+  "id": "noctua-nf-a12x25-g2-pwm",
+  "brand": "noctua",
+  "model": {
+    "en": "NF-A12x25 G2 PWM"
+  },
+  "sizeMm": 120,
+  "thicknessMm": 25,
+  "dedicatedReviewUrl": null,
+  "aliases": [
+    "NF-A12×25 G2 PWM"
+  ],
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep036"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 52.43,
+          "rpm": 1779
+        },
+        "heatsink": {
+          "airflowCfm": 45.93,
+          "rpm": 1748
+        },
+        "radiator": {
+          "airflowCfm": 36.01,
+          "rpm": 1851
+        }
+      }
+    }
+  ]
+}

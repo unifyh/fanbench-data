@@ -1,8 +1,46 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "reviewer": {
     "name": "风向标 FanBench",
     "profileUrl": "https://space.bilibili.com/3546883662284811/upload/video"
+  },
+  "brands": {
+    "arctic": {
+      "en": "ARCTIC",
+      "zh-Hans": "安特高能"
+    },
+    "be-quiet": {
+      "en": "be quiet!",
+      "zh-Hans": "be quiet!"
+    },
+    "cooler-master": {
+      "en": "Cooler Master",
+      "zh-Hans": "酷冷至尊"
+    },
+    "noctua": {
+      "en": "Noctua",
+      "zh-Hans": "猫头鹰"
+    },
+    "phanteks": {
+      "en": "Phanteks",
+      "zh-Hans": "追风者"
+    },
+    "ryvntec": {
+      "en": "RYVNTEC",
+      "zh-Hans": "睿温"
+    },
+    "sanyo-denki": {
+      "en": "Sanyo Denki",
+      "zh-Hans": "山洋电气"
+    },
+    "scythe": {
+      "en": "Scythe",
+      "zh-Hans": "大镰刀"
+    },
+    "sudkoo": {
+      "en": "Sudkoo",
+      "zh-Hans": "Sudkoo"
+    }
   },
   "noise": {
     "noiseDba": 36,
@@ -32,6 +70,10 @@
     }
   },
   "episodes": {
+    "ep036": {
+      "number": 36,
+      "url": "https://www.bilibili.com/video/BV15gtc6YEuu/"
+    },
     "ep037": {
       "number": 37,
       "url": "https://www.bilibili.com/video/BV1NQti6HErx/"

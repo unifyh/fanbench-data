@@ -1,11 +1,11 @@
 {
-  "id": "cooler-master-masterfan-a120",
-  "brand": "cooler-master",
+  "id": "be-quiet-silent-wings-pro-4-120mm-pwm",
+  "brand": "be-quiet",
   "model": {
-    "en": "MasterFan A120"
+    "en": "Silent Wings Pro 4 120mm PWM"
   },
   "sizeMm": 120,
-  "thicknessMm": 30,
+  "thicknessMm": 25,
   "dedicatedReviewUrl": null,
   "comparisonResultId": "baseline",
   "results": [
@@ -13,21 +13,21 @@
       "id": "baseline",
       "sources": [
         {
-          "episodeId": "ep037"
+          "episodeId": "ep036"
         }
       ],
       "measurements": {
         "case": {
-          "airflowCfm": 56.68,
-          "rpm": 1986
+          "airflowCfm": 42.91,
+          "rpm": 1748
         },
         "heatsink": {
-          "airflowCfm": 47.8,
-          "rpm": 1908
+          "airflowCfm": 41.07,
+          "rpm": 1877
         },
         "radiator": {
-          "airflowCfm": 38.22,
-          "rpm": 1986
+          "airflowCfm": 28.96,
+          "rpm": 1877
         }
       }
     }

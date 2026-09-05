@@ -1,4 +1,4 @@
-import type { Application, Catalog, Fan, Locale, ViewState } from '../types.ts';
+import type { Application, Catalog, Fan, FanRecord, Locale, ViewState } from '../types.ts';
 
 export const applications: Application[] = ['case', 'heatsink', 'radiator'];
 export const initialState: ViewState = { locale: 'en', query: '', sizes: [], thicknesses: [], brands: [], sort: 'case', direction: 'desc', selected: [], onlySelected: false, view: 'chart' };
@@ -41,11 +41,17 @@ export function serializeState(state: ViewState): string {
   return p.toString();
 }
 
+export function modelName(fan: FanRecord, locale: Locale): string {
+  return fan.model[locale] ?? fan.model.en;
+}
+
 export function visibleFans(fans: Fan[], state: ViewState): Fan[] {
   const query = state.query.trim().toLocaleLowerCase();
   return fans.filter(fan => {
-    const searchable = [fan.model, fan.brand, fan.brandLabel.en, fan.brandLabel['zh-Hans'], ...fan.aliases].join(' ').toLocaleLowerCase();
-    return (!query || searchable.includes(query))
+    const names = [...Object.values(fan.model), ...(fan.aliases ?? [])];
+    const brands = [fan.brand, ...Object.values(fan.brandLabel)];
+    const searchable = [...names, ...brands, ...brands.flatMap(brand => names.map(name => `${brand} ${name}`))];
+    return (!query || searchable.some(value => value.toLocaleLowerCase().includes(query)))
       && (!state.sizes.length || state.sizes.includes(String(fan.sizeMm)))
       && (!state.thicknesses.length || state.thicknesses.includes(fan.thicknessMm === null ? 'unknown' : String(fan.thicknessMm)))
       && (!state.brands.length || state.brands.includes(fan.brand))
@@ -72,12 +78,12 @@ export function toggleValue(values: string[], value: string): string[] {
   return values.includes(value) ? values.filter(item => item !== value) : [...values, value];
 }
 
-export function exportCsv(fans: Fan[], catalog: Catalog): string {
+export function exportCsv(fans: Fan[], catalog: Catalog, locale: Locale = 'en'): string {
   const escape = (value: unknown) => '"' + String(value ?? '').replaceAll('"', '""') + '"';
   const rows: unknown[][] = [['brand', 'model', 'size_mm', 'thickness_mm', 'noise_dba', 'distance_cm', 'case_cfm', 'case_rpm', 'heatsink_cfm', 'heatsink_rpm', 'radiator_cfm', 'radiator_rpm', 'test_setup', 'result_id', 'source_urls']];
   for (const fan of fans) {
     const urls = [...new Set(fan.comparisonResult.sources.map(source => catalog.episodes[source.episodeId].url))];
-    rows.push([fan.brandLabel.en, fan.model, fan.sizeMm, fan.thicknessMm, catalog.noise.noiseDba, catalog.noise.distanceCm, ...applications.flatMap(key => [fan.measurements[key].airflowCfm.toFixed(2), fan.measurements[key].rpm]), fan.comparisonResult.testSetupId, fan.comparisonResult.id, urls.join(' | ')]);
+    rows.push([fan.brandLabel[locale], modelName(fan, locale), fan.sizeMm, fan.thicknessMm, catalog.noise.noiseDba, catalog.noise.distanceCm, ...applications.flatMap(key => [fan.measurements[key].airflowCfm.toFixed(2), fan.measurements[key].rpm]), catalog.comparisonSetupId, fan.comparisonResult.id, urls.join(' | ')]);
   }
   return '\uFEFF' + rows.map(row => row.map(escape).join(',')).join('\r\n');
 }

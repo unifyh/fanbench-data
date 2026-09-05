@@ -114,7 +114,7 @@ input[type=checkbox] { accent-color: var(--accent); cursor: pointer; }
 /* Short bars retain their true length; place RPM below the end value if it cannot fit inside. */
 @container (max-width: 70px) {
   .rpm { position: absolute; left: calc(100% + 9px); top: calc(50% + 4px); padding-left: 0; color: var(--muted); font-size: 10px; }
-  .airflow-value { transform: translateY(-100%); margin-top: 2px; }
+  .airflow-value { transform: translateY(-100%); margin-top: 2px; line-height: 1; }
 }
 .mobile-application, .mobile-axis { display: none; }
 .chart-footnote { display: flex; align-items: center; justify-content: space-between; gap: 8px 20px; flex-wrap: wrap; padding-top: 16px; }

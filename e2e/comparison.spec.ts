@@ -5,7 +5,7 @@ test('all three results, sorting, filters, language and attribution work', async
   page.on('pageerror', error => errors.push(error.message));
   await page.goto('?lang=en');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('FanBench Data Archive');
-  await expect(page.locator('.fan-row')).toHaveCount(6);
+  await expect(page.locator('.fan-row')).toHaveCount(10);
   await expect(page.locator('.fan-row').first().locator('.measurement-cell')).toHaveCount(3);
   if (isMobile) {
     await page.getByRole('combobox', { name: 'Sort by', exact: true }).selectOption('radiator');
@@ -42,6 +42,43 @@ test('all three results, sorting, filters, language and attribution work', async
   expect(errors).toEqual([]);
 });
 
+test('localized product names work across search, selection, details and exports', async ({ page, isMobile }) => {
+  await page.goto('?lang=en');
+  await page.getByRole('searchbox').fill('大镰刀 温柔台风 GT-3000 PWM');
+  await expect(page.locator('.fan-row')).toHaveCount(1);
+  const fan = page.locator('[data-fan-id="scythe-gentle-typhoon-gt-3000-pwm"]');
+  await expect(fan.locator('.model-button')).toHaveText('Gentle Typhoon GT-3000 PWM');
+  await fan.getByRole('checkbox', { name: 'Select Gentle Typhoon GT-3000 PWM', exact: true }).check();
+  await page.getByRole('button', { name: '简中', exact: true }).click();
+  await expect(fan).toHaveAccessibleName('大镰刀 温柔台风 GT-3000 PWM');
+  await expect(fan.locator('.brand-name')).toHaveText('大镰刀');
+  await expect(fan.locator('.model-button')).toHaveText('温柔台风 GT-3000 PWM');
+  await expect(fan.getByRole('checkbox', { name: '选择 温柔台风 GT-3000 PWM', exact: true })).toBeChecked();
+  await fan.getByRole('button', { name: '风扇详情: 温柔台风 GT-3000 PWM', exact: true }).click();
+  await expect(page.getByRole('dialog').getByRole('heading', { level: 2 })).toHaveText('温柔台风 GT-3000 PWM');
+  await page.getByRole('button', { name: '关闭', exact: true }).click();
+  await page.getByRole('searchbox').fill('Scythe Gentle Typhoon GT-3000 PWM');
+  await expect(page.locator('.fan-row')).toHaveCount(1);
+  if (isMobile) {
+    await page.getByRole('button', { name: '表格', exact: true }).click();
+    await expect(page.getByRole('table').locator('.model-button')).toHaveText('温柔台风 GT-3000 PWM');
+  }
+  const downloadPromise = page.waitForEvent('download');
+  await page.getByRole('button', { name: '下载 CSV', exact: true }).click();
+  const stream = await (await downloadPromise).createReadStream();
+  const chunks: Buffer[] = [];
+  for await (const chunk of stream) chunks.push(Buffer.from(chunk));
+  const csv = Buffer.concat(chunks).toString('utf8');
+  expect(csv).toContain('"大镰刀","温柔台风 GT-3000 PWM"');
+  expect(csv).toContain('"47.07","1955"');
+  await page.getByRole('searchbox').fill('RYVNTEC R25 LCP PRO');
+  await expect(page.locator('.model-button')).toHaveText('R25 LCP PRO');
+  await expect(page.locator('.fan-identity .brand-name')).toHaveText('睿温');
+  await page.getByRole('button', { name: 'EN', exact: true }).click();
+  await expect(page.locator('.model-button')).toHaveText('R25 LCP PRO');
+  await expect(page.locator('.fan-identity .brand-name')).toHaveText('RYVNTEC');
+});
+
 test('shortlist, details, CSV, empty filters and table retain measurements', async ({ page, isMobile }) => {
   await page.goto('?lang=en');
   const fan = page.locator('[data-fan-id="cooler-master-masterfan-a140"]');
@@ -71,7 +108,7 @@ test('shortlist, details, CSV, empty filters and table retain measurements', asy
     await page.goto('?lang=en&view=table');
     await expect(page.locator('.chart-view')).toBeVisible();
     await page.getByRole('button', { name: 'Sort by: Case', exact: true }).click();
-    await expect(page.locator('.fan-row').first()).toContainText('MasterFan A120');
+    await expect(page.locator('.fan-row').first()).toContainText('Silent Wings Pro 4 120mm PWM');
     await expect(page.getByRole('button', { name: 'Sort by: Case', exact: true })).toBeFocused();
   }
   if (isMobile) await page.getByRole('button', { name: /^Filters/ }).click();
@@ -85,7 +122,7 @@ test('shortlist, details, CSV, empty filters and table retain measurements', asy
   }
   await expect(page.getByRole('heading', { name: 'No fans match these filters' })).toBeVisible();
   await page.locator('.empty-state').getByRole('button', { name: 'Reset filters', exact: true }).click();
-  await expect(page.locator('.fan-row')).toHaveCount(6);
+  await expect(page.locator('.fan-row')).toHaveCount(10);
 });
 
 test('layout fits both languages and all chart values are visible without hovering', async ({ page }) => {
@@ -100,7 +137,7 @@ test('layout fits both languages and all chart values are visible without hoveri
       }),
     }));
     expect(layout.page).toBeLessThanOrEqual(layout.viewport);
-    expect(layout.values).toHaveLength(36);
+    expect(layout.values).toHaveLength(60);
     expect(layout.values.every(Boolean)).toBe(true);
   }
 });
