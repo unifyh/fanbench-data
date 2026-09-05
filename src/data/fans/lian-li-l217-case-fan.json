@@ -1,0 +1,28 @@
+{
+  "id": "lian-li-l217-case-fan",
+  "brand": "lian-li",
+  "model": {
+    "en": "L217 case fan",
+    "zh-Hans": "L217 机箱风扇"
+  },
+  "sizeMm": 170,
+  "thicknessMm": 30,
+  "dedicatedReviewUrl": null,
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep005"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 78.45,
+          "rpm": 1086
+        }
+      }
+    }
+  ]
+}

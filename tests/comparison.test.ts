@@ -10,11 +10,12 @@ const fanDirectory = new URL('../src/data/fans/', import.meta.url);
 const records: FanRecord[] = readdirSync(fanDirectory).filter(file => file.endsWith('.json')).map(file => JSON.parse(readFileSync(new URL(file, fanDirectory), 'utf8')));
 const fans = buildComparison(records, catalog);
 
-test('source data keeps 57 complete operating points, identities, conditions and precision', () => {
+test('source data keeps 69 operating points, identities, conditions and precision', () => {
   assert.equal(catalog.noise.noiseDba, 36);
   assert.equal(catalog.noise.distanceCm, 30);
   assert.equal(new Set(fans.map(fan => fan.id)).size, fans.length);
-  assert.equal(fans.length, 19);
+  assert.equal(fans.length, 29);
+  assert.equal(fans.reduce((total, fan) => total + Object.keys(fan.measurements).length, 0), 69);
   for (const fan of fans) {
     assert.ok(fan.brandLabel.en && fan.brandLabel['zh-Hans']);
     assert.ok(fan.model.en);
@@ -23,29 +24,46 @@ test('source data keeps 57 complete operating points, identities, conditions and
     if (fan.thicknessMm !== null) {
       assert.ok(fan.thicknessMm > 0);
     }
-    for (const key of applications) {
-      assert.ok(Number.isFinite(fan.measurements[key].airflowCfm) && fan.measurements[key].airflowCfm > 0);
-      assert.ok(Number.isInteger(fan.measurements[key].rpm) && fan.measurements[key].rpm > 0);
+    for (const value of Object.values(fan.measurements)) {
+      assert.ok(Number.isFinite(value.airflowCfm) && value.airflowCfm > 0);
+      assert.ok(Number.isInteger(value.rpm) && value.rpm > 0);
     }
   }
   const a140 = fans.find(fan => fan.id === 'cooler-master-masterfan-a140')!;
-  assert.equal(a140.measurements.case.airflowCfm, 66.96);
-  assert.equal(a140.measurements.radiator.airflowCfm, 41.95);
-  assert.equal(fans.filter(fan => fan.dedicatedReviewUrl !== null).length, 5);
+  assert.equal(a140.measurements.case?.airflowCfm, 66.96);
+  assert.equal(a140.measurements.radiator?.airflowCfm, 41.95);
+  assert.equal(fans.filter(fan => fan.dedicatedReviewUrl !== null).length, 9);
 });
 
 test('each application sorts every fan using its own measurement without changing other values', () => {
-  assert.deepEqual(visibleFans(fans, { ...initialState, sort: 'heatsink' }).map(fan => fan.model.en), ['9RA1412P1G001', 'MACH140', 'T30 140', 'MasterFan A140', 'P14 Pro PST', 'P28', 'MasterFan A120', 'T30 120', '9WPA1212P4J001', '9RA1212P4G001', 'LF12 2200', 'NF-A12x25 G2 PWM', 'MACH120', 'VENTO PRO 120 PWM', 'LP12E', 'P12E', 'R25 LCP PRO', 'Gentle Typhoon GT-3000 PWM', 'Silent Wings Pro 4 120mm PWM']);
+  assert.deepEqual(visibleFans(fans, { ...initialState, sort: 'heatsink' }).slice(0, 5).map(fan => fan.model.en), ['9RA1412P1G001', 'MACH140', 'T30 140', '9RA1212P1K001', 'MasterFan A140']);
   const radiator = visibleFans(fans, { ...initialState, sort: 'radiator' });
-  assert.deepEqual(radiator.map(fan => fan.model.en), ['9RA1412P1G001', 'T30 140', 'MasterFan A140', 'P14 Pro PST', 'MasterFan A120', 'MACH140', '9WPA1212P4J001', 'P28', 'NF-A12x25 G2 PWM', '9RA1212P4G001', 'T30 120', 'LF12 2200', 'LP12E', 'VENTO PRO 120 PWM', 'Gentle Typhoon GT-3000 PWM', 'P12E', 'MACH120', 'Silent Wings Pro 4 120mm PWM', 'R25 LCP PRO']);
-  assert.equal(radiator[1].measurements.case.airflowCfm, 59.56);
+  assert.deepEqual(radiator.slice(0, 5).map(fan => fan.model.en), ['9RA1412P1G001', 'T30 140', 'MasterFan A140', 'P14 Pro PST', 'MasterFan A120']);
+  assert.equal(radiator[1].measurements.case?.airflowCfm, 59.56);
   assert.equal(visibleFans(fans, { ...initialState, sort: 'radiator', direction: 'asc' })[0].model.en, 'R25 LCP PRO');
+});
+
+test('case-only fans sort last for missing applications in either direction and remain selectable', () => {
+  const havn = fans.find(fan => fan.id === 'havn-h18-performance')!;
+  const asus = fans.find(fan => fan.id === 'asus-pa602-case-fan')!;
+  const a140 = fans.find(fan => fan.id === 'cooler-master-masterfan-a140')!;
+  const t30 = fans.find(fan => fan.id === 'phanteks-t30-140')!;
+  const subset = [havn, a140, asus, t30];
+  const allSizes = { ...initialState, sizes: [] };
+  assert.deepEqual(visibleFans(subset, allSizes), [havn, asus, a140, t30]);
+  assert.deepEqual(visibleFans(subset, { ...allSizes, direction: 'asc' }), [t30, a140, asus, havn]);
+  for (const sort of ['heatsink', 'radiator'] as const) {
+    assert.deepEqual(visibleFans(subset, { ...allSizes, sort }), [t30, a140, asus, havn]);
+    assert.deepEqual(visibleFans(subset, { ...allSizes, sort, direction: 'asc' }), [a140, t30, asus, havn]);
+    assert.deepEqual(visibleFans(subset, { ...allSizes, sort, selected: [havn.id], onlySelected: true }), [havn]);
+  }
+  assert.deepEqual(chartScale([havn]), { maximum: 150, ticks: [0, 50, 100, 150] });
 });
 
 test('filters OR within a field, AND across fields, including unknown thickness', () => {
   const filtered = visibleFans(fans, { ...initialState, sizes: ['120', '140'], thicknesses: ['30', '38'], brands: ['cooler-master', 'phanteks'] });
   assert.deepEqual(filtered.map(fan => fan.model.en), ['MasterFan A140', 'T30 140', 'MasterFan A120', 'T30 120']);
-  assert.deepEqual(visibleFans(fans, { ...initialState, thicknesses: ['30'] }).map(fan => fan.model.en), ['MasterFan A140', 'MACH140', 'T30 140', 'MasterFan A120', 'T30 120', 'MACH120']);
+  assert.deepEqual(visibleFans(fans, { ...initialState, thicknesses: ['30'] }).map(fan => fan.model.en), ['MasterFan A140', 'MACH140', 'L207 case fan', 'T30 140', 'MasterFan A120', 'T30 120', 'MACH120']);
   const unknownThickness = { ...fans[0], thicknessMm: null };
   assert.deepEqual(visibleFans([unknownThickness], { ...initialState, thicknesses: ['unknown'] }), [unknownThickness]);
   assert.deepEqual(readState('?thickness=unknown', 'en', [unknownThickness]).thicknesses, ['unknown']);
@@ -73,13 +91,15 @@ test('product names localize with an English fallback and search matches either 
 });
 
 test('shared scale covers all applications with readable ticks across catalog ranges', () => {
-  assert.deepEqual(chartScale(fans), { maximum: 80, ticks: [0, 20, 40, 60, 80] });
+  assert.deepEqual(chartScale(fans), { maximum: 150, ticks: [0, 50, 100, 150] });
+  assert.deepEqual(chartScale(visibleFans(fans, initialState)), { maximum: 80, ticks: [0, 20, 40, 60, 80] });
+  assert.deepEqual(chartScale(visibleFans(fans, { ...initialState, query: 'R25' })), { maximum: 60, ticks: [0, 20, 40, 60] });
   const empty = chartScale([]);
   assert.ok(empty.maximum > 0);
   assert.equal(empty.ticks.at(-1), empty.maximum);
   for (const maximum of [0.8, 20, 39.9, 50, 70.01, 100, 121]) {
     const fan = structuredClone(fans[0]);
-    for (const key of applications) fan.measurements[key].airflowCfm = maximum;
+    for (const key of applications) fan.measurements[key] = { airflowCfm: maximum, rpm: 1000 };
     const scale = chartScale([fan]);
     assert.ok(scale.maximum >= maximum);
     assert.ok(scale.maximum <= maximum * 1.5);
@@ -87,6 +107,21 @@ test('shared scale covers all applications with readable ticks across catalog ra
     assert.equal(scale.ticks.at(-1), scale.maximum);
     assert.ok(scale.ticks.length >= 3 && scale.ticks.length <= 5);
   }
+});
+
+test('size defaults apply only without a URL override, and All survives sharing and reloads', () => {
+  assert.deepEqual(readState('', 'en', fans), initialState);
+  assert.deepEqual(readState('?lang=zh-Hans&q=P28', 'en', fans).sizes, ['120', '140']);
+  assert.deepEqual(visibleFans(fans, initialState), fans.filter(fan => [120, 140].includes(fan.sizeMm)).sort((a, b) => b.measurements.case!.airflowCfm - a.measurements.case!.airflowCfm));
+  for (const sizes of [[], ['180'], ['120', '140'], ['140', '120']]) {
+    const state = { ...initialState, sizes };
+    assert.deepEqual(readState('?' + serializeState(state), 'en', fans), state);
+  }
+  const all = readState('?size=all', 'en', fans);
+  assert.deepEqual(all.sizes, []);
+  assert.equal(visibleFans(fans, all).length, fans.length);
+  assert.deepEqual(readState('?size=', 'en', fans).sizes, []);
+  assert.deepEqual(readState('?size=180,180,invalid', 'en', fans).sizes, ['180']);
 });
 
 test('share URLs round-trip the full bilingual filtered shortlist and reject invalid values', () => {
@@ -109,7 +144,7 @@ test('shortlist is explicit and survives unrelated filters', () => {
 
 test('CSV exports units, conditions and provenance; unknown thickness stays empty', () => {
   const output = exportCsv(fans, catalog);
-  assert.equal(output.split('\r\n').length, 20);
+  assert.equal(output.split('\r\n').length, 30);
   assert.ok(output.includes('"66.96","1463"'));
   assert.ok(output.includes('"MACH140","140","30","36","30"'));
   assert.ok(output.includes('"MasterFan A120","120","30","36","30"'));
@@ -133,7 +168,7 @@ test('repeated appearances keep one fan and preserve all episode references', ()
     const repeated = fans.filter(fan => fan.id === id);
     assert.equal(repeated.length, 1);
     assert.equal(repeated[0].results.length, 1);
-    assert.deepEqual(repeated[0].comparisonResult.sources, [{ episodeId: 'ep001' }, { episodeId: 'ep002' }]);
+    assert.deepEqual(repeated[0].comparisonResult.sources, [{ episodeId: 'ep001' }, { episodeId: 'ep002' }, { episodeId: 'ep003' }, { episodeId: 'ep004' }, { episodeId: 'ep006' }]);
     assert.ok(exportCsv(repeated, catalog).includes(catalog.episodes.ep001.url + ' | ' + catalog.episodes.ep002.url));
   }
   const record = structuredClone(records[0]);
@@ -148,6 +183,40 @@ test('repeated appearances keep one fan and preserve all episode references', ()
   assert.ok(exportCsv(comparison, nextCatalog).includes(catalog.episodes.ep037.url + ' | https://example.com/ep038'));
 });
 
+test('case-only results export empty measurement cells without losing recorded values or sources', () => {
+  const havn = fans.find(fan => fan.id === 'havn-h18-performance')!;
+  assert.deepEqual(havn.measurements, { case: { airflowCfm: 105.39, rpm: 931 } });
+  const csv = exportCsv([havn], catalog);
+  assert.ok(csv.includes('"105.39","931","","","","","l207-nhd15-27mm-radiator"'));
+  assert.ok(csv.includes(catalog.episodes.ep005.url));
+  assert.ok(!csv.includes('undefined') && !csv.includes('NaN'));
+  assert.equal(visibleFans(fans, { ...initialState, sizes: [], query: 'HAVN BF360 case fan' })[0].id, havn.id);
+});
+
+test('validation accepts partial results and rejects empty, unknown or invalid measurements', () => {
+  const partial = structuredClone(records[0]);
+  partial.results[0].measurements = { case: { airflowCfm: 105.39, rpm: 931 } };
+  assert.deepEqual(buildComparison([partial], catalog)[0].measurements, partial.results[0].measurements);
+  const empty = structuredClone(partial);
+  empty.results[0].measurements = {};
+  assert.throws(() => buildComparison([empty], catalog), /Result has no measurements/);
+  const unknown = structuredClone(partial);
+  Object.assign(unknown.results[0].measurements, { unknown: { airflowCfm: 10, rpm: 1000 } });
+  assert.throws(() => buildComparison([unknown], catalog), /Unknown application/);
+  for (const measurement of [
+    { airflowCfm: 0, rpm: 931 },
+    { airflowCfm: NaN, rpm: 931 },
+    { airflowCfm: Infinity, rpm: 931 },
+    { airflowCfm: 105.39, rpm: 0 },
+    { airflowCfm: 105.39, rpm: 931.5 },
+    null,
+  ]) {
+    const invalid = structuredClone(partial);
+    Object.assign(invalid.results[0].measurements, { case: measurement });
+    assert.throws(() => buildComparison([invalid], catalog), /Invalid measurement/);
+  }
+});
+
 test('retests only change displayed values when explicitly selected, with their own provenance', () => {
   const record = structuredClone(records[0]);
   const nextCatalog = structuredClone(catalog);
@@ -160,7 +229,7 @@ test('retests only change displayed values when explicitly selected, with their 
   assert.deepEqual(buildComparison([record], nextCatalog)[0].measurements, records[0].results[0].measurements);
   record.comparisonResultId = 'retest';
   const comparison = buildComparison([record], nextCatalog);
-  assert.equal(comparison[0].measurements.case.airflowCfm, 70.25);
+  assert.equal(comparison[0].measurements.case?.airflowCfm, 70.25);
   assert.equal(comparison[0].results.length, 2);
   const csv = exportCsv(comparison, nextCatalog);
   assert.ok(csv.includes('"70.25","1800"'));

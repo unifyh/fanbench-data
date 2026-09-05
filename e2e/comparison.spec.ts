@@ -5,7 +5,7 @@ test('all three results, sorting, filters, language and attribution work', async
   page.on('pageerror', error => errors.push(error.message));
   await page.goto('?lang=en');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('FanBench Data Archive');
-  await expect(page.locator('.fan-row')).toHaveCount(19);
+  await expect(page.locator('.fan-row')).toHaveCount(22);
   await expect(page.locator('.fan-row').first().locator('.measurement-cell')).toHaveCount(3);
   if (isMobile) {
     await page.getByRole('combobox', { name: 'Sort by', exact: true }).selectOption('radiator');
@@ -18,14 +18,14 @@ test('all three results, sorting, filters, language and attribution work', async
   if (isMobile) await page.getByRole('button', { name: /^Filters/ }).click();
   else await page.getByRole('button', { name: 'Thickness All', exact: true }).click();
   await page.getByRole('group', { name: 'Thickness', exact: true }).getByRole('button', { name: '30 mm', exact: true }).click();
-  await expect(page.locator('.fan-row')).toHaveCount(6);
+  await expect(page.locator('.fan-row')).toHaveCount(7);
   await expect(page.locator('[data-fan-id="sudkoo-mach140"] .form-factor')).toHaveText('140 × 30 mm');
   await expect(page.locator('[data-fan-id="cooler-master-masterfan-a120"] .form-factor')).toHaveText('120 × 30 mm');
   if (!isMobile) await page.getByRole('button', { name: 'Brand All', exact: true }).click();
   await page.getByRole('group', { name: 'Brand', exact: true }).getByRole('button', { name: 'Cooler Master', exact: true }).click();
   await expect(page.locator('.fan-row')).toHaveCount(2);
-  if (!isMobile) await page.getByRole('button', { name: 'Size All', exact: true }).click();
-  await page.getByRole('group', { name: 'Size', exact: true }).getByRole('button', { name: '140 mm', exact: true }).click();
+  if (!isMobile) await page.getByRole('button', { name: 'Size 120 mm, 140 mm', exact: true }).click();
+  await page.getByRole('group', { name: 'Size', exact: true }).getByRole('button', { name: '120 mm', exact: true }).click();
   await expect(page.locator('.fan-row')).toHaveCount(1);
   await expect(page.locator('.fan-row')).toContainText('MasterFan A140');
   await expect(page.locator('.fan-row').getByRole('link', { name: 'Watch review' })).toHaveAttribute('href', 'https://www.bilibili.com/video/BV1NQti6HErx/');
@@ -112,8 +112,8 @@ test('shortlist, details, CSV, empty filters and table retain measurements', asy
     await expect(page.getByRole('button', { name: 'Sort by: Case', exact: true })).toBeFocused();
   }
   if (isMobile) await page.getByRole('button', { name: /^Filters/ }).click();
-  else await page.getByRole('button', { name: 'Size All', exact: true }).click();
-  await page.getByRole('group', { name: 'Size', exact: true }).getByRole('button', { name: '120 mm', exact: true }).click();
+  else await page.getByRole('button', { name: 'Size 120 mm, 140 mm', exact: true }).click();
+  await page.getByRole('group', { name: 'Size', exact: true }).getByRole('button', { name: '140 mm', exact: true }).click();
   if (!isMobile) await page.getByRole('button', { name: 'Brand All', exact: true }).click();
   await page.getByRole('group', { name: 'Brand', exact: true }).getByRole('button', { name: 'ARCTIC', exact: true }).click();
   if (!isMobile) {
@@ -122,12 +122,67 @@ test('shortlist, details, CSV, empty filters and table retain measurements', asy
   }
   await expect(page.getByRole('heading', { name: 'No fans match these filters' })).toBeVisible();
   await page.locator('.empty-state').getByRole('button', { name: 'Reset filters', exact: true }).click();
-  await expect(page.locator('.fan-row')).toHaveCount(19);
+  await expect(page.locator('.fan-row')).toHaveCount(22);
+});
+
+test('case-only fans retain missing cells in sorting, details, table and CSV', async ({ page, isMobile }) => {
+  const errors: string[] = [];
+  page.on('pageerror', error => errors.push(error.message));
+  await page.goto('?lang=en&size=all');
+  const havn = page.locator('[data-fan-id="havn-h18-performance"]');
+  await expect(page.locator('.fan-row').first()).toHaveAttribute('data-fan-id', 'havn-h18-performance');
+  await expect(page.locator('.fan-row .no-data')).toHaveCount(18);
+  for (const application of ['heatsink', 'radiator']) {
+    for (const order of ['desc', 'asc']) {
+      await page.goto(`?lang=en&size=all&sort=${application}&order=${order}`);
+      const missing = await page.locator('.fan-row').evaluateAll((rows, key) => rows.map(row => Boolean(row.querySelector(`.${key} .no-data`))), application);
+      expect(missing).toEqual([...Array(20).fill(false), ...Array(9).fill(true)]);
+    }
+  }
+  await havn.getByRole('checkbox', { name: 'Select H18 Performance', exact: true }).check();
+  await page.getByRole('checkbox', { name: 'Show selected only' }).check();
+  await expect(page.locator('.fan-row')).toHaveCount(1);
+  await expect(havn.locator('.measurement-cell')).toHaveCount(3);
+  await expect(havn.locator('.bar')).toHaveCount(1);
+  await expect(havn.locator('.case .airflow-value')).toHaveText('105.39');
+  await expect(havn.locator('.case .rpm')).toHaveText('931 RPM');
+  await expect(havn.locator('.no-data')).toHaveCount(2);
+  await expect(havn.locator('.no-data').first()).toHaveAttribute('title', 'No data');
+  await expect(havn.locator('.form-factor')).toHaveText('180 × 40 mm');
+  await expect(havn.getByRole('link', { name: 'Watch review' })).toHaveAttribute('href', 'https://www.bilibili.com/video/BV1Cv2VBfE6p/');
+  const aligned = await havn.locator('.no-data').evaluateAll(elements => elements.every(element => {
+    const dash = element.getBoundingClientRect();
+    const cell = element.closest('.measurement-cell')!.getBoundingClientRect();
+    return dash.width > 0 && dash.left >= cell.left && dash.right <= cell.right && dash.top >= cell.top && dash.bottom <= cell.bottom;
+  }));
+  expect(aligned).toBe(true);
+  await havn.getByRole('button', { name: 'Fan details: H18 Performance', exact: true }).click();
+  await expect(page.getByRole('dialog').locator('.no-data')).toHaveCount(2);
+  await expect(page.getByRole('dialog')).toContainText('105.39 CFM');
+  await expect(page.getByRole('dialog')).not.toContainText('0.00');
+  await page.getByRole('button', { name: 'Close', exact: true }).click();
+  await page.getByRole('button', { name: '简中', exact: true }).click();
+  await expect(havn.locator('.no-data').first()).toHaveAttribute('title', '暂无数据');
+  if (isMobile) {
+    await page.getByRole('button', { name: '表格', exact: true }).click();
+    await expect(page.getByRole('table').locator('tbody tr')).toHaveCount(1);
+    await expect(page.getByRole('table').locator('.no-data')).toHaveCount(2);
+    await expect(page.getByRole('table').getByRole('cell', { name: '105.39 CFM 931 RPM' })).toBeVisible();
+  }
+  const downloadPromise = page.waitForEvent('download');
+  await page.getByRole('button', { name: '下载 CSV', exact: true }).click();
+  const stream = await (await downloadPromise).createReadStream();
+  const chunks: Buffer[] = [];
+  for await (const chunk of stream) chunks.push(Buffer.from(chunk));
+  const csv = Buffer.concat(chunks).toString('utf8');
+  expect(csv).toContain('"HAVN","H18 Performance","180","40","36","30","105.39","931","","","",""');
+  expect(csv.split('\r\n')).toHaveLength(2);
+  expect(errors).toEqual([]);
 });
 
 test('layout fits both languages and all chart values are visible without hovering', async ({ page }) => {
   for (const locale of ['en', 'zh-Hans']) {
-    await page.goto('?lang=' + locale);
+    await page.goto('?size=all&lang=' + locale);
     const layout = await page.evaluate(() => ({
       page: document.documentElement.scrollWidth, viewport: innerWidth,
       values: [...document.querySelectorAll('.airflow-value, .rpm')].map(element => {
@@ -137,7 +192,7 @@ test('layout fits both languages and all chart values are visible without hoveri
       }),
     }));
     expect(layout.page).toBeLessThanOrEqual(layout.viewport);
-    expect(layout.values).toHaveLength(114);
+    expect(layout.values).toHaveLength(138);
     expect(layout.values.every(Boolean)).toBe(true);
   }
 });
@@ -172,17 +227,68 @@ test('desktop filter options stay inside their dropdowns in both languages', asy
   }
 });
 
-test('filtering and sorting preserve bar lengths and the shared scale', async ({ page }) => {
+test('size defaults, All, explicit sizes and reset survive reloads', async ({ page, isMobile }) => {
   await page.goto('?lang=en');
+  await expect(page.locator('.fan-row')).toHaveCount(22);
+  await expect(page.locator('.scale-note')).toContainText('0–80 CFM');
+  await expect(page.locator('.results-count').getByRole('button', { name: 'Reset filters', exact: true })).toHaveCount(0);
+  if (isMobile) await page.getByRole('button', { name: /^Filters/ }).click();
+  else await page.getByRole('button', { name: 'Size 120 mm, 140 mm', exact: true }).click();
+  const size = page.getByRole('group', { name: 'Size', exact: true });
+  await expect(size.getByRole('button', { name: '120 mm', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await expect(size.getByRole('button', { name: '140 mm', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await expect(size.getByRole('button', { name: '180 mm', exact: true })).toHaveAttribute('aria-pressed', 'false');
+  await size.getByRole('button', { name: 'All', exact: true }).click();
+  await expect(page.locator('.fan-row')).toHaveCount(29);
+  await expect(page.locator('.scale-note')).toContainText('0–150 CFM');
+  expect(new URL(page.url()).searchParams.get('size')).toBe('all');
+  await page.reload();
+  await expect(page.locator('.fan-row')).toHaveCount(29);
+  await expect(page.locator('.scale-note')).toContainText('0–150 CFM');
+  if (isMobile) await page.getByRole('button', { name: /^Filters/ }).click();
+  else await page.getByRole('button', { name: 'Size All', exact: true }).click();
+  await size.getByRole('button', { name: '180 mm', exact: true }).click();
+  await expect(page.locator('.fan-row')).toHaveCount(2);
+  expect(new URL(page.url()).searchParams.get('size')).toBe('180');
+  await page.reload();
+  await expect(page.locator('.fan-row')).toHaveCount(2);
+  await expect(page.locator('[data-fan-id="havn-h18-performance"]')).toBeVisible();
+  await page.getByRole('button', { name: 'Reset filters', exact: true }).click();
+  await expect(page.locator('.fan-row')).toHaveCount(22);
+  await expect(page.locator('.scale-note')).toContainText('0–80 CFM');
+  expect(new URL(page.url()).searchParams.get('size')).toBe('120,140');
+  await page.reload();
+  await expect(page.locator('.fan-row')).toHaveCount(22);
+});
+
+test('filtering resizes the shared scale and sorting preserves bar lengths', async ({ page, isMobile }) => {
+  await page.goto('?lang=en&size=all');
   const fan = page.locator('[data-fan-id="cooler-master-masterfan-a140"]');
   const widths = () => fan.locator('.bar').evaluateAll(bars => bars.map(bar => bar.getBoundingClientRect().width));
+  const axes = page.locator(isMobile ? '.mobile-axis .axis-labels' : '.chart-heading .axis-labels');
+  await expect(page.locator('.scale-note')).toContainText('0–150 CFM');
   const initial = await widths();
   await page.getByRole('searchbox').fill('A140');
   await expect(page.locator('.fan-row')).toHaveCount(1);
-  expect(await widths()).toEqual(initial);
   await expect(page.locator('.scale-note')).toContainText('0–80 CFM');
-  await page.goto('?lang=en&sort=radiator');
+  const filtered = await widths();
+  for (const [index, width] of filtered.entries()) expect(width / initial[index]).toBeCloseTo(150 / 80, 2);
+  expect(await axes.allTextContents()).toEqual(Array(isMobile ? 1 : 3).fill('020406080'));
+  if (isMobile) await page.getByRole('combobox', { name: 'Sort by', exact: true }).selectOption('radiator');
+  else await page.getByRole('button', { name: 'Sort by: Radiator', exact: true }).click();
+  expect(await widths()).toEqual(filtered);
+  await page.getByRole('searchbox').fill('R25');
+  await expect(page.locator('.scale-note')).toContainText('0–60 CFM');
+  expect(await axes.allTextContents()).toEqual(Array(isMobile ? 1 : 3).fill('0204060'));
+  await page.getByRole('searchbox').fill('');
+  await expect(page.locator('.scale-note')).toContainText('0–150 CFM');
   expect(await widths()).toEqual(initial);
+  await fan.getByRole('checkbox').check();
+  await page.getByRole('checkbox', { name: 'Show selected only' }).check();
+  await expect(page.locator('.scale-note')).toContainText('0–80 CFM');
+  expect(await widths()).toEqual(filtered);
+  await page.getByRole('checkbox', { name: 'Show selected only' }).uncheck();
+  await expect(page.locator('.scale-note')).toContainText('0–150 CFM');
 });
 
 test('long desktop charts keep headings and numeric ticks visible while scrolling', async ({ page, isMobile }) => {

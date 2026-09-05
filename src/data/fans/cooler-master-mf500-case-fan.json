@@ -1,0 +1,28 @@
+{
+  "id": "cooler-master-mf500-case-fan",
+  "brand": "cooler-master",
+  "model": {
+    "en": "MF500 case fan",
+    "zh-Hans": "MF500 机箱风扇"
+  },
+  "sizeMm": 200,
+  "thicknessMm": 25,
+  "dedicatedReviewUrl": null,
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep005"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 76.3,
+          "rpm": 848
+        }
+      }
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 3,
+  "schemaVersion": 4,
   "reviewer": {
     "name": "风向标 FanBench",
     "profileUrl": "https://space.bilibili.com/3546883662284811/upload/video"
@@ -9,6 +9,10 @@
       "en": "ARCTIC",
       "zh-Hans": "安特高能"
     },
+    "asus": {
+      "en": "ASUS",
+      "zh-Hans": "华硕"
+    },
     "be-quiet": {
       "en": "be quiet!",
       "zh-Hans": "be quiet!"
@@ -16,6 +20,14 @@
     "cooler-master": {
       "en": "Cooler Master",
       "zh-Hans": "酷冷至尊"
+    },
+    "fractal-design": {
+      "en": "Fractal Design",
+      "zh-Hans": "分形工艺"
+    },
+    "havn": {
+      "en": "HAVN",
+      "zh-Hans": "HAVN"
     },
     "lian-li": {
       "en": "Lian Li",
@@ -89,6 +101,22 @@
     "ep002": {
       "number": 2,
       "url": "https://www.bilibili.com/video/BV1m21KB5Eru/"
+    },
+    "ep003": {
+      "number": 3,
+      "url": "https://www.bilibili.com/video/BV1692MB3EVj/"
+    },
+    "ep004": {
+      "number": 4,
+      "url": "https://www.bilibili.com/video/BV1AqCKBeEWU/"
+    },
+    "ep005": {
+      "number": 5,
+      "url": "https://www.bilibili.com/video/BV1Cv2VBfE6p/"
+    },
+    "ep006": {
+      "number": 6,
+      "url": "https://www.bilibili.com/video/BV1GQmLBSEP7/"
     },
     "ep035": {
       "number": 35,

@@ -1,0 +1,31 @@
+{
+  "id": "havn-h18-performance",
+  "brand": "havn",
+  "model": {
+    "en": "H18 Performance"
+  },
+  "aliases": [
+    "BF360 case fan",
+    "BF360 机箱风扇"
+  ],
+  "sizeMm": 180,
+  "thicknessMm": 40,
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1Cv2VBfE6p/",
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep005"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 105.39,
+          "rpm": 931
+        }
+      }
+    }
+  ]
+}
