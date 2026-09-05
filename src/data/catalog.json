@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 2,
+  "reviewer": {
+    "name": "风向标 FanBench",
+    "profileUrl": "https://space.bilibili.com/3546883662284811/upload/video"
+  },
+  "noise": {
+    "noiseDba": 36,
+    "distanceCm": 30,
+    "measurementPosition": {
+      "en": "30 cm from the fan intake",
+      "zh-Hans": "距风扇进风面 30 cm"
+    }
+  },
+  "comparisonSetupId": "l207-nhd15-27mm-radiator",
+  "testSetups": {
+    "l207-nhd15-27mm-radiator": {
+      "fixtures": {
+        "case": {
+          "en": "Lian Li L207 mesh front panel, placed 10 mm in front of the fan intake to simulate case resistance.",
+          "zh-Hans": "联力 L207 机箱网孔前面板，置于风扇进风面前方，间距 10 mm，模拟机箱安装阻抗。"
+        },
+        "heatsink": {
+          "en": "One Noctua NH-D15 heatsink tower, placed behind the fan exhaust to simulate an air-cooling heatsink.",
+          "zh-Hans": "猫头鹰 NH-D15 单侧塔体，置于风扇出风面后方，模拟风冷散热器阻抗。"
+        },
+        "radiator": {
+          "en": "A standard 120/140 radiator, 27 mm thick, placed behind the fan exhaust to simulate a liquid-cooling radiator.",
+          "zh-Hans": "27 mm 厚的标准 120/140 冷排，置于风扇出风面后方，模拟水冷散热器阻抗。"
+        }
+      }
+    }
+  },
+  "episodes": {
+    "ep037": {
+      "number": 37,
+      "url": "https://www.bilibili.com/video/BV1NQti6HErx/"
+    }
+  }
+}

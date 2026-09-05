@@ -1,0 +1,44 @@
+{
+  "id": "arctic-p14-pro-pst",
+  "brand": "arctic",
+  "brandLabel": {
+    "en": "ARCTIC",
+    "zh-Hans": "安特高能"
+  },
+  "model": "P14 Pro PST",
+  "sizeMm": 140,
+  "thicknessMm": 27,
+  "dimensionsSource": "https://www.arctic.de/en/P14-Pro-PST/",
+  "dedicatedReviewUrl": null,
+  "aliases": [
+    "安特高能 P14 Pro PST"
+  ],
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "testSetupId": "l207-nhd15-27mm-radiator",
+      "sources": [
+        {
+          "episodeId": "ep037",
+          "sourceLabel": "安特高能 P14 Pro PST",
+          "videoTimestampSeconds": null
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 61.2,
+          "rpm": 1577
+        },
+        "heatsink": {
+          "airflowCfm": 50.62,
+          "rpm": 1577
+        },
+        "radiator": {
+          "airflowCfm": 40.77,
+          "rpm": 1531
+        }
+      }
+    }
+  ]
+}

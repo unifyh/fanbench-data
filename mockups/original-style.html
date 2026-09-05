@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>FanBench Data Archive · Mockup</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #fff; color: #262d29; font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif; }
+    button, input, select { font: inherit; color: inherit; }
+    button { cursor: pointer; }
+    :focus-visible { outline: 2px solid #285d48; outline-offset: 3px; }
+    main { max-width: 1340px; padding: 0 28px 26px; margin: 0 auto; }
+    header { display: flex; align-items: center; justify-content: space-between; height: 60px; border-bottom: 1px solid #e1e5e1; margin-bottom: 18px; }
+    h1 { font-size: 19px; font-weight: 600; margin: 0; }
+    .languages { display: flex; gap: 3px; }
+    .languages button { background: transparent; border: 0; padding: 8px 11px; font-size: 12px; border-radius: 3px; }
+    .languages button[aria-pressed=true] { background: #edf2eb; }
+    .filters { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-bottom: 22px; font-size: 12px; }
+    .filters input, .filters select { background: #fff; border: 1px solid #dce1dc; border-radius: 3px; padding: 7px 9px; height: 34px; }
+    .filters input { width: 230px; }
+    .filters label { display: flex; align-items: center; gap: 7px; color: #697467; }
+    .count { margin-left: auto; color: #687462; font-size: 11px; }
+    .chart-scroll { overflow: auto; max-height: calc(100dvh - 230px); min-height: 240px; padding-bottom: 4px; scrollbar-gutter: stable; }
+    .chart { display: grid; grid-template-columns: 304px repeat(3, minmax(0, 1fr)); column-gap: 28px; min-width: 1040px; }
+    .column-head { position: sticky; top: 0; z-index: 2; height: 67px; background: #fff; }
+    .heading { height: 32px; display: flex; align-items: flex-start; gap: 9px; width: 100%; border: 0; background: transparent; padding: 0; font-size: 16px; text-align: left; font-weight: 550; }
+    .heading .arrow { color: #98a096; font-size: 14px; }
+    .heading.active .arrow { color: #354a3a; }
+    .name-heading { color: #788172; font-size: 12px; justify-content: flex-end; padding-right: 15px; font-weight: 400; }
+    .fan-label { height: 52px; display: flex; flex-direction: column; justify-content: center; align-items: flex-end; padding-right: 15px; gap: 3px; }
+    .fan-name { display: flex; align-items: baseline; justify-content: flex-end; gap: 7px; line-height: 21px; white-space: nowrap; }
+    .brand-name { font-size: 11px; font-weight: 400; color: #65705f; }
+    .model-name { font-size: 14px; font-weight: 600; color: #242a27; }
+    .fan-meta { display: flex; gap: 11px; align-items: center; font-size: 10px; color: #72806a; min-height: 15px; }
+    .fan-meta a { color: #4b7154; text-decoration: none; }
+    .fan-meta a:hover { text-decoration: underline; }
+    .plot { width: calc(100% - 58px); }
+    .metric { height: 52px; position: relative; display: flex; align-items: center; border-left: 1px solid #687365; font-variant-numeric: tabular-nums; }
+    .bar { width: calc(var(--ratio) * 100%); height: 27px; background: var(--color); display: flex; align-items: center; padding-left: 9px; white-space: nowrap; }
+    .rpm { font-size: 11px; color: #fff; line-height: 1; }
+    .value { position: absolute; left: calc(var(--ratio) * 100% + 9px); font-size: 20px; font-weight: 500; white-space: nowrap; }
+    .axis { position: relative; border-top: 1px solid #687365; height: 24px; font-size: 10px; color: #7a8473; font-variant-numeric: tabular-nums; }
+    .axis span { position: absolute; top: 5px; transform: translateX(-50%); }
+    .axis span:first-child { transform: none; }
+    .axis span::before { content: ''; position: absolute; height: 4px; border-left: 1px solid #7a8473; top: -5px; left: 50%; }
+    .axis span:first-child::before { left: 0; }
+    .axis-title { font-size: 12px; color: #626e5c; margin-top: 3px; text-align: center; }
+    .top-axis { border-top: 0; border-bottom: 1px solid #a3ada0; height: 26px; }
+    .top-axis span { top: 1px; }
+    .top-axis span::before { top: 20px; }
+    .axis-unit { color: #74806d; font-size: 10px; font-weight: 400; align-self: center; }
+    .case, .heatsink, .radiator { --color: #4a8168; }
+    .footnote { color: #697760; font-size: 11px; margin: 22px 0 16px; }
+    .footer { padding-top: 12px; border-top: 1px solid #e1e5df; color: #6e7867; font-size: 11px; }
+    .empty { display: none; color: #6e7867; padding: 30px; text-align: center; font-size: 13px; }
+    .demo-note { margin: -6px 0 16px; font-size: 12px; color: #6e684d; }
+    .demo-note[hidden] { display: none; }
+    @media (max-width: 640px) {
+      main { padding-inline: 14px; }
+      header { margin-bottom: 13px; }
+      .filters { gap: 9px; margin-bottom: 16px; }
+      .filters input { width: 100%; }
+      .filters label { gap: 5px; font-size: 11px; }
+      .filters select { max-width: 120px; }
+      .count { margin-left: 0; }
+      .chart-scroll { max-height: calc(100dvh - 270px); }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header><h1 id="title">风向标测试数据汇总</h1><div class="languages"><button data-lang="en">EN</button><button data-lang="zh-Hans">简中</button></div></header>
+  <div class="filters">
+    <input id="search" type="search">
+    <label><span id="size-label"></span><select id="size"></select></label>
+    <label><span id="thickness-label"></span><select id="thickness"></select></label>
+    <label><span id="brand-label"></span><select id="brand"></select></label>
+    <span class="count" id="count"></span>
+  </div>
+  <p class="demo-note" id="demo-note" hidden></p>
+  <div class="chart-scroll" tabindex="0"><div class="chart" id="chart"></div></div>
+  <p class="empty" id="empty"></p>
+  <p class="footnote" id="footnote"></p>
+  <p class="footer" id="footer"></p>
+</main>
+<script>
+  const fans = __FAN_DATA__;
+  const labels = {
+    en: { title: 'FanBench Data Archive', search: 'Search fans or brands', size: 'Size', thickness: 'Thickness', brand: 'Brand', all: 'All', unknown: 'Unverified', fan: 'Fan · size × thickness', case: 'Case', heatsink: 'Heatsink', radiator: 'Radiator', airflow: 'Airflow (CFM)', review: 'Review ↗', count: 'fans', empty: 'No matching fans', footnote: '36 dBA @ 30 cm from intake · Higher airflow is better · Shared scale: 0–70 CFM', footer: 'Tests: 风向标 FanBench · Unofficial archive of test data published by FanBench. Not affiliated with FanBench.' },
+    'zh-Hans': { title: '风向标测试数据汇总', search: '搜索型号或品牌', size: '尺寸', thickness: '厚度', brand: '品牌', all: '全部', unknown: '待核实', fan: '风扇 · 尺寸 × 厚度', case: '机箱', heatsink: '风冷散热器', radiator: '冷排', airflow: '风量（CFM）', review: '评测 ↗', count: '款风扇', empty: '没有符合条件的风扇', footnote: '36 dBA @ 距进风面 30 cm · 风量越高越好 · 统一刻度：0–70 CFM', footer: '测试：风向标 FanBench · 非官方数据汇总站，数据来自风向标公开测试，与风向标无隶属关系。' }
+  };
+  const params = new URLSearchParams(location.search);
+  let lang = params.get('lang') === 'en' ? 'en' : 'zh-Hans';
+  const previewRows = params.get('rows') === '37' ? 37 : 0;
+  function makeScale(maximum) {
+    const roughStep = Math.max(maximum, 1) / 4;
+    const magnitude = 10 ** Math.floor(Math.log10(roughStep));
+    const step = [1, 2, 2.5, 5, 10].find(value => value * magnitude >= roughStep) * magnitude;
+    const limit = Math.ceil(Math.max(maximum, 1) / step) * step;
+    return { maximum: limit, ticks: Array.from({ length: Math.round(limit / step) + 1 }, (_, index) => Number((index * step).toPrecision(10))) };
+  }
+  // Use the entire catalog so filters and sorting never resize an unchanged result.
+  const scale = makeScale(Math.max(0, ...fans.flatMap(fan => ['case', 'heatsink', 'radiator'].map(key => fan.measurements[key].airflowCfm))));
+  let sort = 'case';
+  let descending = true;
+  const $ = id => document.getElementById(id);
+  const escape = text => String(text).replace(/[&<>"']/g, ch => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[ch]));
+  function options(id, values) {
+    const previous = $(id).value;
+    $(id).innerHTML = `<option value="">${labels[lang].all}</option>` + values.map(([value, label]) => `<option value="${escape(value)}">${escape(label)}</option>`).join('');
+    $(id).value = previous;
+  }
+  function render() {
+    const t = labels[lang];
+    document.documentElement.lang = lang;
+    $('title').textContent = t.title;
+    $('search').placeholder = t.search;
+    $('search').setAttribute('aria-label', t.search);
+    for (const key of ['size', 'thickness', 'brand']) $(key + '-label').textContent = t[key];
+    options('size', [...new Set(fans.map(fan => fan.sizeMm))].sort((a,b) => a-b).map(value => [value, value + ' mm']));
+    options('thickness', [...new Set(fans.map(fan => fan.thicknessMm))].sort((a,b) => (a ?? 999)-(b ?? 999)).map(value => [value ?? 'unknown', value === null ? t.unknown : value + ' mm']));
+    options('brand', [...new Map(fans.map(fan => [fan.brand, fan.brandLabel[lang]])).entries()]);
+    document.querySelectorAll('[data-lang]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.lang === lang)));
+    const query = $('search').value.trim().toLowerCase();
+    const visible = fans.filter(fan => [fan.model, fan.brandLabel.en, fan.brandLabel['zh-Hans']].join(' ').toLowerCase().includes(query) && (!$('size').value || String(fan.sizeMm) === $('size').value) && (!$('thickness').value || String(fan.thicknessMm ?? 'unknown') === $('thickness').value) && (!$('brand').value || fan.brand === $('brand').value)).sort((a,b) => (b.measurements[sort].airflowCfm-a.measurements[sort].airflowCfm)*(descending ? 1 : -1));
+    const rows = previewRows && visible.length ? Array.from({ length: previewRows }, (_, index) => visible[index % visible.length]) : visible;
+    $('count').textContent = `${visible.length} / ${fans.length} ${t.count}`;
+    $('demo-note').hidden = !previewRows;
+    $('demo-note').textContent = lang === 'en' ? 'Layout preview: 37 rows repeating the available fans. No additional test data.' : '布局预览：用已有风扇重复展示 37 行，不代表新增测试数据。';
+    $('empty').textContent = t.empty;
+    $('empty').style.display = visible.length ? 'none' : 'block';
+    $('footnote').textContent = t.footnote.replace('0–70', `0–${scale.maximum}`);
+    $('footer').textContent = t.footer;
+    const names = `<div><div class="column-head"><div class="heading name-heading">${t.fan}</div></div>${rows.map(fan => `<div class="fan-label"><div class="fan-name"><span class="brand-name">${escape(fan.brandLabel[lang])}</span><span class="model-name">${escape(fan.model)}</span></div><div class="fan-meta"><span>${fan.sizeMm} × ${fan.thicknessMm ?? '?'} mm</span>${fan.dedicatedReviewUrl ? `<a href="${escape(fan.dedicatedReviewUrl)}" target="_blank" rel="noopener noreferrer">${t.review}</a>` : ''}</div></div>`).join('')}</div>`;
+    const ticks = scale.ticks.map(value => `<span style="left:${value / scale.maximum * 100}%">${value}</span>`).join('');
+    const columns = ['case', 'heatsink', 'radiator'].map(key => `<section class="${key}"><div class="column-head"><button class="heading ${sort === key ? 'active' : ''}" data-sort="${key}">${t[key]}<span class="arrow">${sort === key ? descending ? '↓' : '↑' : '↕'}</span><span class="axis-unit">CFM</span></button><div class="plot"><div class="axis top-axis">${ticks}</div></div></div><div class="plot">${rows.map(fan => { const value = fan.measurements[key]; return `<div class="metric" style="--ratio:${value.airflowCfm/scale.maximum}"><div class="bar"><span class="rpm">${value.rpm} RPM</span></div><span class="value">${value.airflowCfm.toFixed(2)}</span></div>`; }).join('')}<div class="axis">${ticks}</div><div class="axis-title">${t.airflow}</div></div></section>`).join('');
+    $('chart').innerHTML = names + columns;
+    document.querySelectorAll('[data-sort]').forEach(button => button.addEventListener('click', () => { descending = sort === button.dataset.sort ? !descending : true; sort = button.dataset.sort; render(); }));
+  }
+  document.querySelectorAll('[data-lang]').forEach(button => button.addEventListener('click', () => { lang = button.dataset.lang; render(); }));
+  for (const key of ['search', 'size', 'thickness', 'brand']) $(key).addEventListener(key === 'search' ? 'input' : 'change', render);
+  render();
+</script>
+</body>
+</html>

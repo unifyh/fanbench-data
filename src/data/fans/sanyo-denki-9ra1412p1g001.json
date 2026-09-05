@@ -1,0 +1,44 @@
+{
+  "id": "sanyo-denki-9ra1412p1g001",
+  "brand": "sanyo-denki",
+  "brandLabel": {
+    "en": "Sanyo Denki",
+    "zh-Hans": "山洋电气"
+  },
+  "model": "9RA1412P1G001",
+  "sizeMm": 140,
+  "thicknessMm": 38,
+  "dimensionsSource": "https://products.sanyodenki.com/en/sanace/dc/dc-fan/9RA1412P1G001/",
+  "dedicatedReviewUrl": null,
+  "aliases": [
+    "山洋电气 9RA1412P1G001"
+  ],
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "testSetupId": "l207-nhd15-27mm-radiator",
+      "sources": [
+        {
+          "episodeId": "ep037",
+          "sourceLabel": "山洋电气 9RA1412P1G001",
+          "videoTimestampSeconds": null
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 68.5,
+          "rpm": 1562
+        },
+        "heatsink": {
+          "airflowCfm": 59.3,
+          "rpm": 1686
+        },
+        "radiator": {
+          "airflowCfm": 47.5,
+          "rpm": 1624
+        }
+      }
+    }
+  ]
+}

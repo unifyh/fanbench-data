@@ -1,0 +1,44 @@
+{
+  "id": "cooler-master-masterfan-a140",
+  "brand": "cooler-master",
+  "brandLabel": {
+    "en": "Cooler Master",
+    "zh-Hans": "酷冷至尊"
+  },
+  "model": "MasterFan A140",
+  "sizeMm": 140,
+  "thicknessMm": 30,
+  "dimensionsSource": "https://www.bilibili.com/video/BV1NQti6HErx/",
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1NQti6HErx/",
+  "aliases": [
+    "酷冷至尊 MasterFan A140"
+  ],
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "testSetupId": "l207-nhd15-27mm-radiator",
+      "sources": [
+        {
+          "episodeId": "ep037",
+          "sourceLabel": "酷冷至尊 MasterFan A140",
+          "videoTimestampSeconds": null
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 66.96,
+          "rpm": 1463
+        },
+        "heatsink": {
+          "airflowCfm": 50.78,
+          "rpm": 1417
+        },
+        "radiator": {
+          "airflowCfm": 41.95,
+          "rpm": 1490
+        }
+      }
+    }
+  ]
+}
