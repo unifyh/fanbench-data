@@ -1,14 +1,15 @@
 {
-  "id": "lian-li-p28",
-  "brand": "lian-li",
+  "id": "asus-proart-pf120",
+  "brand": "asus",
   "model": {
-    "en": "P28"
+    "en": "ProArt PF120",
+    "zh-Hans": "ProArt 创梦 PF120"
   },
   "sizeMm": 120,
   "thicknessMm": 28,
-  "dedicatedReviewUrl": null,
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1kJrPBnEVR/",
   "aliases": [
-    "UNI FAN P28"
+    "ProArt 创梦 120"
   ],
   "comparisonResultId": "baseline",
   "results": [
@@ -19,21 +20,21 @@
           "episodeId": "ep010"
         },
         {
-          "episodeId": "ep035"
+          "episodeId": "ep011"
         }
       ],
       "measurements": {
         "case": {
-          "airflowCfm": 55.6,
-          "rpm": 1893
+          "airflowCfm": 53.94,
+          "rpm": 1800
         },
         "heatsink": {
-          "airflowCfm": 49.8,
-          "rpm": 1924
+          "airflowCfm": 45.77,
+          "rpm": 1800
         },
         "radiator": {
-          "airflowCfm": 36.05,
-          "rpm": 1924
+          "airflowCfm": 35.96,
+          "rpm": 1877
         }
       }
     }

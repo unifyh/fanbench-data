@@ -1,0 +1,38 @@
+{
+  "id": "deepcool-fd12-v2",
+  "brand": "deepcool",
+  "model": {
+    "en": "FD12 V2"
+  },
+  "sizeMm": 120,
+  "thicknessMm": 25,
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1zXiMB1EE9/",
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep009"
+        },
+        {
+          "episodeId": "ep011"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 44.6,
+          "rpm": 1748
+        },
+        "heatsink": {
+          "airflowCfm": 42.46,
+          "rpm": 1924
+        },
+        "radiator": {
+          "airflowCfm": 30.35,
+          "rpm": 1862
+        }
+      }
+    }
+  ]
+}

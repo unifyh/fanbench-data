@@ -1,0 +1,35 @@
+{
+  "id": "segotep-ex-120",
+  "brand": "segotep",
+  "model": {
+    "en": "EX-120"
+  },
+  "sizeMm": 120,
+  "thicknessMm": 25,
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1C8kTBPE2C/",
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep011"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 49.32,
+          "rpm": 1758
+        },
+        "heatsink": {
+          "airflowCfm": 47.56,
+          "rpm": 1913
+        },
+        "radiator": {
+          "airflowCfm": 33.05,
+          "rpm": 1882
+        }
+      }
+    }
+  ]
+}
