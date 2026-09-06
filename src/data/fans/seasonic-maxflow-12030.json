@@ -1,40 +1,33 @@
 {
-  "id": "pccooler-f9-r120",
-  "brand": "pccooler",
+  "id": "seasonic-maxflow-12030",
+  "brand": "seasonic",
   "model": {
-    "en": "F9 R120",
-    "zh-Hans": "野兽 F9 R120"
+    "en": "MAXFlow 12030"
   },
   "sizeMm": 120,
   "thicknessMm": 30,
-  "dedicatedReviewUrl": null,
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1w4Vb6sEZP/",
   "comparisonResultId": "baseline",
   "results": [
     {
       "id": "baseline",
       "sources": [
         {
-          "episodeId": "ep021"
-        },
-        {
-          "episodeId": "ep023"
-        },
-        {
           "episodeId": "ep027"
         }
       ],
       "measurements": {
         "case": {
-          "airflowCfm": 54.13,
-          "rpm": 1624
+          "airflowCfm": 61.74,
+          "rpm": 1531
         },
         "heatsink": {
-          "airflowCfm": 46.88,
+          "airflowCfm": 48.32,
           "rpm": 1624
         },
         "radiator": {
-          "airflowCfm": 24.64,
-          "rpm": 1562
+          "airflowCfm": 28.3,
+          "rpm": 1531
         }
       }
     }

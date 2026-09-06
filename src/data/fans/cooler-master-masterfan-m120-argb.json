@@ -1,0 +1,35 @@
+{
+  "id": "cooler-master-masterfan-m120-argb",
+  "brand": "cooler-master",
+  "model": {
+    "en": "MasterFan M120 ARGB"
+  },
+  "sizeMm": 120,
+  "thicknessMm": 30,
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1MDdbBTEq2/",
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep023"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 51.48,
+          "rpm": 1862
+        },
+        "heatsink": {
+          "airflowCfm": 47.55,
+          "rpm": 1940
+        },
+        "radiator": {
+          "airflowCfm": 37.24,
+          "rpm": 1970
+        }
+      }
+    }
+  ]
+}

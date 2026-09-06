@@ -40,12 +40,12 @@ test('corrections reject missing measurements and unrelated episode references',
   assert.throws(() => buildCorrections([{ ...correction, reportedValue: 1851 }], fans, catalog), /Invalid reported correction value/);
 });
 
-test('source data keeps 104 operating points, identities, conditions and precision', () => {
+test('source data keeps 125 operating points, identities, conditions and precision', () => {
   assert.equal(catalog.noise.noiseDba, 36);
   assert.equal(catalog.noise.distanceCm, 30);
   assert.equal(new Set(fans.map(fan => fan.id)).size, fans.length);
-  assert.equal(fans.length, 40);
-  assert.equal(fans.reduce((total, fan) => total + Object.keys(fan.measurements).length, 0), 104);
+  assert.equal(fans.length, 47);
+  assert.equal(fans.reduce((total, fan) => total + Object.keys(fan.measurements).length, 0), 125);
   for (const fan of fans) {
     assert.ok(fan.brandLabel.en && fan.brandLabel['zh-Hans']);
     assert.ok(fan.model.en);
@@ -62,7 +62,7 @@ test('source data keeps 104 operating points, identities, conditions and precisi
   const a140 = fans.find(fan => fan.id === 'cooler-master-masterfan-a140')!;
   assert.equal(a140.measurements.case?.airflowCfm, 66.96);
   assert.equal(a140.measurements.radiator?.airflowCfm, 41.95);
-  assert.equal(fans.filter(fan => fan.dedicatedReviewUrl !== null).length, 25);
+  assert.equal(fans.filter(fan => fan.dedicatedReviewUrl !== null).length, 31);
 });
 
 test('each application sorts every fan using its own measurement without changing other values', () => {
@@ -92,13 +92,13 @@ test('case-only fans sort last for missing applications in either direction and 
 
 test('filters OR within a field, AND across fields, including unknown thickness', () => {
   const filtered = visibleFans(fans, { ...initialState, sizes: ['120', '140'], thicknesses: ['30', '38'], brands: ['cooler-master', 'phanteks'] });
-  assert.deepEqual(filtered.map(fan => fan.model.en), ['MasterFan A140', 'T30 140', 'MasterFan A120', 'T30 120']);
-  assert.deepEqual(visibleFans(fans, { ...initialState, thicknesses: ['30'] }).map(fan => fan.model.en), ['MasterFan A140', 'MACH140', 'L207 case fan', 'T30 140', 'MasterFan A120', 'T30 120', 'F9 R120', 'MACH120']);
+  assert.deepEqual(filtered.map(fan => fan.model.en), ['MasterFan A140', 'T30 140', 'MasterFan A120', 'T30 120', 'MasterFan M120 ARGB']);
+  assert.deepEqual(visibleFans(fans, { ...initialState, thicknesses: ['30'] }).map(fan => fan.model.en), ['MasterFan A140', 'MACH140', 'MAXFlow 12030', 'L207 case fan', 'T30 140', 'MasterFan A120', 'T30 120', 'F9 R120', 'MACH120', 'MasterFan M120 ARGB']);
   const unknownThickness = { ...fans[0], thicknessMm: null };
   assert.deepEqual(visibleFans([unknownThickness], { ...initialState, thicknesses: ['unknown'] }), [unknownThickness]);
   assert.deepEqual(readState('?thickness=unknown', 'en', [unknownThickness]).thicknesses, ['unknown']);
   assert.equal(visibleFans(fans, { ...initialState, sizes: ['120'], brands: ['havn'] }).length, 0);
-  assert.equal(visibleFans(fans, { ...initialState, query: '酷冷至尊' }).length, 5);
+  assert.equal(visibleFans(fans, { ...initialState, query: '酷冷至尊' }).length, 6);
   assert.equal(visibleFans(fans, { ...initialState, query: '  p14 PRO  ' })[0].brand, 'arctic');
 });
 
@@ -174,7 +174,7 @@ test('shortlist is explicit and survives unrelated filters', () => {
 
 test('CSV exports units, conditions and provenance; unknown thickness stays empty', () => {
   const output = exportCsv(fans, catalog);
-  assert.equal(output.split('\r\n').length, 41);
+  assert.equal(output.split('\r\n').length, 48);
   assert.ok(output.includes('"66.96","1463"'));
   assert.ok(output.includes('"MACH140","140","30","36","30"'));
   assert.ok(output.includes('"MasterFan A120","120","30","36","30"'));
@@ -192,7 +192,7 @@ test('repeated appearances keep one fan and preserve all episode references', ()
   const noctua = fans.filter(fan => fan.id === 'noctua-nf-a12x25-g2-pwm');
   assert.equal(noctua.length, 1);
   assert.equal(noctua[0].results.length, 1);
-  assert.deepEqual(noctua[0].comparisonResult.sources, ['ep009', 'ep010', 'ep011', 'ep012', 'ep015', 'ep016', 'ep017', 'ep018', 'ep019', 'ep020', 'ep035', 'ep036'].map(episodeId => ({ episodeId })));
+  assert.deepEqual(noctua[0].comparisonResult.sources, ['ep009', 'ep010', 'ep011', 'ep012', 'ep015', 'ep016', 'ep017', 'ep018', 'ep019', 'ep020', 'ep024', 'ep035', 'ep036'].map(episodeId => ({ episodeId })));
   assert.equal(noctua[0].measurements.radiator?.rpm, 1851);
   assert.ok(exportCsv(noctua, catalog).includes(catalog.episodes.ep035.url + ' | ' + catalog.episodes.ep036.url));
   for (const id of ['sanyo-denki-9wpa1212p4j001', 'sanyo-denki-9ra1212p4g001', 'phanteks-t30-120']) {
@@ -200,7 +200,8 @@ test('repeated appearances keep one fan and preserve all episode references', ()
     assert.equal(repeated.length, 1);
     assert.equal(repeated[0].results.length, 1);
     const episodes = ['ep001', 'ep002', 'ep003', 'ep004', 'ep006', 'ep007', 'ep008', 'ep009'];
-    if (id === 'phanteks-t30-120') episodes.push('ep010', 'ep013', 'ep021');
+    if (id === 'phanteks-t30-120') episodes.push('ep010', 'ep013', 'ep021', 'ep023', 'ep027');
+    if (id === 'sanyo-denki-9ra1212p4g001') episodes.push('ep024');
     assert.deepEqual(repeated[0].comparisonResult.sources, episodes.map(episodeId => ({ episodeId })));
     assert.ok(exportCsv(repeated, catalog).includes(catalog.episodes.ep001.url + ' | ' + catalog.episodes.ep002.url));
   }
@@ -228,7 +229,7 @@ test('case-only results export empty measurement cells without losing recorded v
   assert.equal(nfA14.results.length, 2);
   assert.deepEqual(nfA14.results[0].sources, [{ episodeId: 'ep005' }]);
   assert.deepEqual(nfA14.results[0].measurements, { case: { airflowCfm: 66.18, rpm: 1355 } });
-  assert.deepEqual(nfA14.comparisonResult.sources, [{ episodeId: 'ep014' }]);
+  assert.deepEqual(nfA14.comparisonResult.sources, [{ episodeId: 'ep014' }, { episodeId: 'ep025' }]);
   assert.deepEqual(nfA14.measurements, {
     case: { airflowCfm: 66.18, rpm: 1355 },
     heatsink: { airflowCfm: 51.61, rpm: 1340 },

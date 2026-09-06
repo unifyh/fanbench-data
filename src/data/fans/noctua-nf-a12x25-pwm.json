@@ -1,14 +1,14 @@
 {
-  "id": "noctua-nf-a12x15-pwm",
+  "id": "noctua-nf-a12x25-pwm",
   "brand": "noctua",
   "model": {
-    "en": "NF-A12x15 PWM"
+    "en": "NF-A12x25 PWM"
   },
   "aliases": [
-    "NF-A12×15 PWM"
+    "NF-A12×25 PWM"
   ],
   "sizeMm": 120,
-  "thicknessMm": 15,
+  "thicknessMm": 25,
   "dedicatedReviewUrl": null,
   "comparisonResultId": "baseline",
   "results": [
@@ -16,24 +16,21 @@
       "id": "baseline",
       "sources": [
         {
-          "episodeId": "ep022"
-        },
-        {
-          "episodeId": "ep028"
+          "episodeId": "ep024"
         }
       ],
       "measurements": {
         "case": {
-          "airflowCfm": 35.36,
-          "rpm": 1846
+          "airflowCfm": 46.06,
+          "rpm": 1908
         },
         "heatsink": {
-          "airflowCfm": 31.8,
-          "rpm": 1670
+          "airflowCfm": 41.11,
+          "rpm": 1908
         },
         "radiator": {
-          "airflowCfm": 18.8,
-          "rpm": 1479
+          "airflowCfm": 29.51,
+          "rpm": 1831
         }
       }
     }
