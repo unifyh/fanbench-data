@@ -1,0 +1,36 @@
+{
+  "id": "lian-li-uni-fan-sl-flex-120-reverse",
+  "brand": "lian-li",
+  "model": {
+    "en": "UNI FAN SL FLEX 120 (Reverse)",
+    "zh-Hans": "UNI FAN SL FLEX 120 反叶"
+  },
+  "sizeMm": 120,
+  "thicknessMm": 28,
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1Dou768ECz/",
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep033"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 42.55,
+          "rpm": 1531
+        },
+        "heatsink": {
+          "airflowCfm": 37.29,
+          "rpm": 1593
+        },
+        "radiator": {
+          "airflowCfm": 27.15,
+          "rpm": 1593
+        }
+      }
+    }
+  ]
+}

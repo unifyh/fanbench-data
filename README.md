@@ -18,6 +18,8 @@ An unofficial archive of test data published by **风向标 FanBench**, with PC 
 - [FanBench - 037 | 酷冷至尊 MASTERFAN A140 FC 性能测试报告](https://www.bilibili.com/video/BV1NQti6HErx/)
 - [FanBench - 036 | 睿温 R25 LCP PRO 性能测试报告](https://www.bilibili.com/video/BV15gtc6YEuu/)
 - [FanBench - 035 | 攀威 LF12 2200 性能测试报告](https://www.bilibili.com/video/BV1PJ8E6MEb4/)
+- [FanBench - 034 | 超频三 光翼 F7 X120 性能测试报告](https://www.bilibili.com/video/BV1pbgH6FEzo/)
+- [FanBench - 033 | 联力 UNI FAN SL FLEX 120 性能测试报告](https://www.bilibili.com/video/BV1Dou768ECz/)
 - [FanBench - 032 | 丛林豹 P2 APEX 性能测试报告](https://www.bilibili.com/video/BV1PHK46vEzX/)
 - [FanBench - 031 | 超频三 F5 T120 性能测试报告](https://www.bilibili.com/video/BV1L2Ne6BEGb/)
 - [FanBench - 030 | ROG 风神 GR120 性能测试报告](https://www.bilibili.com/video/BV1x5Tk6EEKS/)

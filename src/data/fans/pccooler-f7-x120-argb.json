@@ -1,0 +1,36 @@
+{
+  "id": "pccooler-f7-x120-argb",
+  "brand": "pccooler",
+  "model": {
+    "en": "F7 X120 ARGB",
+    "zh-Hans": "光翼 F7 X120 ARGB"
+  },
+  "sizeMm": 120,
+  "thicknessMm": 28,
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1pbgH6FEzo/",
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep034"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 42.15,
+          "rpm": 1862
+        },
+        "heatsink": {
+          "airflowCfm": 40.57,
+          "rpm": 2000
+        },
+        "radiator": {
+          "airflowCfm": 29.39,
+          "rpm": 2017
+        }
+      }
+    }
+  ]
+}
