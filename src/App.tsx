@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { CSSProperties, ReactNode } from 'react';
-import { catalog, fans, testSetup } from './data';
+import { catalog, corrections, fans, testSetup } from './data';
 import { messages } from './i18n';
 import { applications, chartScale, exportCsv, initialState, modelName, readState, serializeState, toggleValue, visibleFans } from './lib/comparison';
 import type { Application, Fan, Locale, ViewState } from './types';
@@ -109,11 +109,45 @@ function FanDetails({ fan, locale, onClose }: { fan: Fan | null; locale: Locale;
   </dialog>;
 }
 
+function DataCorrections({ open, locale, onClose }: { open: boolean; locale: Locale; onClose: () => void }) {
+  const ref = useRef<HTMLDialogElement>(null);
+  const t = messages[locale];
+  useEffect(() => {
+    if (open && !ref.current?.open) ref.current?.showModal();
+    if (!open && ref.current?.open) ref.current?.close();
+  }, [open]);
+  const episodeLabel = (number: number) => 'EP' + String(number).padStart(3, '0');
+  return <dialog ref={ref} className="corrections-dialog" aria-labelledby="corrections-title" aria-describedby="corrections-intro" onCancel={onClose} onClose={onClose} onClick={event => { if (event.target === event.currentTarget) onClose(); }}>
+    <div className="dialog-inner">
+      <button className="icon-button dialog-close" onClick={onClose} aria-label={t.close} autoFocus><Icon name="close" /></button>
+      <h2 id="corrections-title">{t.corrections}</h2>
+      <p id="corrections-intro">{t.correctionsIntro}</p>
+      <ul className="correction-list">{corrections.map(correction => {
+        const unit = correction.field === 'rpm' ? 'RPM' : 'CFM';
+        const format = (value: number) => correction.field === 'rpm' ? String(value) : value.toFixed(2);
+        return <li key={`${correction.fanId}-${correction.resultId}-${correction.episodeId}-${correction.application}-${correction.field}`} className="correction-entry">
+          <div className="correction-heading">
+            <ExternalLink href={correction.episode.url}>{episodeLabel(correction.episode.number)}</ExternalLink>
+            <h3><span className="brand-name">{correction.fan.brandLabel[locale]}</span>{modelName(correction.fan, locale)}</h3>
+          </div>
+          <p className="correction-measurement">{t[correction.application]}</p>
+          <dl className="correction-values">
+            <div><dt>{t.inVideo}</dt><dd>{format(correction.reportedValue)} <small>{unit}</small></dd></div>
+            <div><dt>{t.valueUsed}</dt><dd><strong>{format(correction.correctedValue)}</strong> <small>{unit}</small></dd></div>
+          </dl>
+          <p className="correction-reason">{t.correctionReason}{' '}<span className="correction-references">{correction.references.map(episode => <ExternalLink key={episode.number} href={episode.url}>{episodeLabel(episode.number)}</ExternalLink>)}</span></p>
+        </li>;
+      })}</ul>
+    </div>
+  </dialog>;
+}
+
 export default function App() {
   const [state, setState] = useState<ViewState>(() => readState(location.search, preferredLocale(), fans));
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [compactLayout, setCompactLayout] = useState(() => window.matchMedia('(max-width: 640px)').matches);
   const [detailFan, setDetailFan] = useState<Fan | null>(null);
+  const [correctionsOpen, setCorrectionsOpen] = useState(false);
   const [shareStatus, setShareStatus] = useState<'idle' | 'copied' | 'fallback'>('idle');
   const t = messages[state.locale];
   const shown = useMemo(() => visibleFans(fans, state), [state]);
@@ -250,7 +284,8 @@ export default function App() {
       </section>
 
     </main>
-    <footer className="site-footer page-width"><p>{t.attribution}</p><p className="independent-note">{t.independent}</p></footer>
+    <footer className="site-footer page-width"><p>{t.attribution}</p><p className="independent-note">{t.independent}</p><button className="text-button corrections-trigger" aria-haspopup="dialog" onClick={() => setCorrectionsOpen(true)}>{t.corrections}</button></footer>
     <FanDetails fan={detailFan} locale={state.locale} onClose={() => setDetailFan(null)} />
+    <DataCorrections open={correctionsOpen} locale={state.locale} onClose={() => setCorrectionsOpen(false)} />
   </>;
 }

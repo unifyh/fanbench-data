@@ -1,0 +1,36 @@
+{
+  "id": "pccooler-f9-r120",
+  "brand": "pccooler",
+  "model": {
+    "en": "F9 R120",
+    "zh-Hans": "野兽 F9 R120"
+  },
+  "sizeMm": 120,
+  "thicknessMm": 30,
+  "dedicatedReviewUrl": null,
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep021"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 54.13,
+          "rpm": 1624
+        },
+        "heatsink": {
+          "airflowCfm": 46.88,
+          "rpm": 1624
+        },
+        "radiator": {
+          "airflowCfm": 24.64,
+          "rpm": 1562
+        }
+      }
+    }
+  ]
+}

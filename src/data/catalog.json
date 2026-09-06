@@ -45,6 +45,10 @@
       "en": "Noctua",
       "zh-Hans": "猫头鹰"
     },
+    "pccooler": {
+      "en": "PCCOOLER",
+      "zh-Hans": "超频三"
+    },
     "pentawave": {
       "en": "PentaWave",
       "zh-Hans": "攀威"
@@ -173,6 +177,26 @@
     "ep017": {
       "number": 17,
       "url": "https://www.bilibili.com/video/BV1vgPpzUEGZ/"
+    },
+    "ep018": {
+      "number": 18,
+      "url": "https://www.bilibili.com/video/BV1JFcmzQEGk/"
+    },
+    "ep019": {
+      "number": 19,
+      "url": "https://www.bilibili.com/video/BV1MUwezvENE/"
+    },
+    "ep020": {
+      "number": 20,
+      "url": "https://www.bilibili.com/video/BV1rk9LB7Esr/"
+    },
+    "ep021": {
+      "number": 21,
+      "url": "https://www.bilibili.com/video/BV1L4QFBxEUG/"
+    },
+    "ep022": {
+      "number": 22,
+      "url": "https://www.bilibili.com/video/BV1qRXpBbEBW/"
     },
     "ep035": {
       "number": 35,

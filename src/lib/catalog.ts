@@ -1,4 +1,4 @@
-import type { Catalog, Fan, FanRecord } from '../types.ts';
+import type { Catalog, DataCorrection, Fan, FanRecord } from '../types.ts';
 import { applications } from './comparison.ts';
 
 export function buildComparison(records: FanRecord[], catalog: Catalog): Fan[] {
@@ -35,5 +35,28 @@ export function buildComparison(records: FanRecord[], catalog: Catalog): Fan[] {
     const comparisonResult = record.results.find(result => result.id === record.comparisonResultId);
     if (!comparisonResult) throw new Error(`Missing comparison result: ${record.id}/${record.comparisonResultId}`);
     return { ...record, brandLabel, comparisonResult, measurements: comparisonResult.measurements };
+  });
+}
+
+export function buildCorrections(records: DataCorrection[], fans: Fan[], catalog: Catalog) {
+  return records.map(record => {
+    const fan = fans.find(fan => fan.id === record.fanId);
+    const result = fan?.results.find(result => result.id === record.resultId);
+    const correctedValue = result?.measurements[record.application]?.[record.field];
+    if (!fan || !result || correctedValue === undefined) throw new Error('Missing correction measurement');
+    if (!Number.isFinite(record.reportedValue) || record.reportedValue <= 0 || record.reportedValue === correctedValue) {
+      throw new Error('Invalid reported correction value');
+    }
+    const resolveEpisode = (id: string) => {
+      const episode = catalog.episodes[id];
+      if (!episode || !result.sources.some(source => source.episodeId === id)) throw new Error('Invalid correction episode');
+      return episode;
+    };
+    if (!record.confirmedIn.length || record.confirmedIn.includes(record.episodeId)) throw new Error('Missing independent correction reference');
+    return {
+      ...record, fan, correctedValue,
+      episode: resolveEpisode(record.episodeId),
+      references: record.confirmedIn.map(resolveEpisode),
+    };
   });
 }
