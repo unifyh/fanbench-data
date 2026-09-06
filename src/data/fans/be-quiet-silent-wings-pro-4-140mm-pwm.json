@@ -1,0 +1,35 @@
+{
+  "id": "be-quiet-silent-wings-pro-4-140mm-pwm",
+  "brand": "be-quiet",
+  "model": {
+    "en": "Silent Wings Pro 4 140mm PWM"
+  },
+  "sizeMm": 140,
+  "thicknessMm": 25,
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1QmdgBxEBj/",
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep025"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 55.47,
+          "rpm": 1562
+        },
+        "heatsink": {
+          "airflowCfm": 48.78,
+          "rpm": 1748
+        },
+        "radiator": {
+          "airflowCfm": 39.89,
+          "rpm": 1763
+        }
+      }
+    }
+  ]
+}

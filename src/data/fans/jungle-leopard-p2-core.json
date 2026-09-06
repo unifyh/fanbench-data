@@ -1,0 +1,35 @@
+{
+  "id": "jungle-leopard-p2-core",
+  "brand": "jungle-leopard",
+  "model": {
+    "en": "P2 CORE"
+  },
+  "sizeMm": 120,
+  "thicknessMm": 25,
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1afLi6YEDb/",
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep026"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 50.16,
+          "rpm": 1800
+        },
+        "heatsink": {
+          "airflowCfm": 44.25,
+          "rpm": 1862
+        },
+        "radiator": {
+          "airflowCfm": 31.43,
+          "rpm": 1862
+        }
+      }
+    }
+  ]
+}

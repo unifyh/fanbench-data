@@ -1,0 +1,35 @@
+{
+  "id": "id-cooling-am-120-slim",
+  "brand": "id-cooling",
+  "model": {
+    "en": "AM-120 SLIM"
+  },
+  "sizeMm": 120,
+  "thicknessMm": 15,
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1bfEr6UEsh/",
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep028"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 38.16,
+          "rpm": 2079
+        },
+        "heatsink": {
+          "airflowCfm": 36.74,
+          "rpm": 2193
+        },
+        "radiator": {
+          "airflowCfm": 23.1,
+          "rpm": 2017
+        }
+      }
+    }
+  ]
+}

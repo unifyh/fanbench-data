@@ -37,6 +37,10 @@
       "en": "ID-COOLING",
       "zh-Hans": "酷凛"
     },
+    "jungle-leopard": {
+      "en": "Jungle Leopard",
+      "zh-Hans": "丛林豹"
+    },
     "lian-li": {
       "en": "Lian Li",
       "zh-Hans": "联力"
@@ -68,6 +72,10 @@
     "scythe": {
       "en": "Scythe",
       "zh-Hans": "大镰刀"
+    },
+    "seasonic": {
+      "en": "Seasonic",
+      "zh-Hans": "海韵"
     },
     "segotep": {
       "en": "Segotep",
@@ -197,6 +205,30 @@
     "ep022": {
       "number": 22,
       "url": "https://www.bilibili.com/video/BV1qRXpBbEBW/"
+    },
+    "ep023": {
+      "number": 23,
+      "url": "https://www.bilibili.com/video/BV1MDdbBTEq2/"
+    },
+    "ep024": {
+      "number": 24,
+      "url": "https://www.bilibili.com/video/BV13x96BKE4L/"
+    },
+    "ep025": {
+      "number": 25,
+      "url": "https://www.bilibili.com/video/BV1QmdgBxEBj/"
+    },
+    "ep026": {
+      "number": 26,
+      "url": "https://www.bilibili.com/video/BV1afLi6YEDb/"
+    },
+    "ep027": {
+      "number": 27,
+      "url": "https://www.bilibili.com/video/BV1w4Vb6sEZP/"
+    },
+    "ep028": {
+      "number": 28,
+      "url": "https://www.bilibili.com/video/BV1bfEr6UEsh/"
     },
     "ep035": {
       "number": 35,

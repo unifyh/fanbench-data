@@ -96,7 +96,7 @@ input[type=checkbox] { accent-color: var(--accent); cursor: pointer; }
 .fan-title-line { display: flex; gap: 11px; align-items: center; }
 .chart-view .fan-name { margin-left: auto; }
 .fan-checkbox { width: 15px; height: 15px; margin: 0; flex-shrink: 0; }
-.brand-name { display: block; color: #65705f; font-size: 11px; margin-bottom: 3px; }
+.brand-name { display: block; color: #48544b; font-size: 13px; margin-bottom: 3px; }
 .model-button { display: flex; align-items: center; gap: 6px; text-align: left; background: transparent; padding: 0; font-size: 14px; font-weight: 600; line-height: 1.45; }
 .model-button:hover { text-decoration: underline; }
 .fan-metadata { margin-left: 26px; margin-top: 3px; display: flex; flex-wrap: wrap; align-items: center; gap: 3px 12px; }
