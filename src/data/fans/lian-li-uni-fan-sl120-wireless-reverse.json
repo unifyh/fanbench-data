@@ -1,0 +1,36 @@
+{
+  "id": "lian-li-uni-fan-sl120-wireless-reverse",
+  "brand": "lian-li",
+  "model": {
+    "en": "UNI FAN SL120 Wireless (Reverse)",
+    "zh-Hans": "UNI FAN SL120 无线版 反叶"
+  },
+  "sizeMm": 120,
+  "thicknessMm": 28,
+  "dedicatedReviewUrl": null,
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep030"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 43.98,
+          "rpm": 1550
+        },
+        "heatsink": {
+          "airflowCfm": 39.03,
+          "rpm": 1620
+        },
+        "radiator": {
+          "airflowCfm": 29.69,
+          "rpm": 1722
+        }
+      }
+    }
+  ]
+}

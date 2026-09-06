@@ -1,0 +1,36 @@
+{
+  "id": "pccooler-f5-t120r",
+  "brand": "pccooler",
+  "model": {
+    "en": "F5 T120R (Reverse)",
+    "zh-Hans": "F5 T120R 反叶"
+  },
+  "sizeMm": 120,
+  "thicknessMm": 25,
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1L2Ne6BEGb/",
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep031"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 38.96,
+          "rpm": 1608
+        },
+        "heatsink": {
+          "airflowCfm": 38.04,
+          "rpm": 1732
+        },
+        "radiator": {
+          "airflowCfm": 26.61,
+          "rpm": 1732
+        }
+      }
+    }
+  ]
+}

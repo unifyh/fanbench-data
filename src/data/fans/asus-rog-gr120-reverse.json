@@ -1,0 +1,36 @@
+{
+  "id": "asus-rog-gr120-reverse",
+  "brand": "asus",
+  "model": {
+    "en": "ROG GR120 (Reverse)",
+    "zh-Hans": "ROG 风神 GR120 反叶"
+  },
+  "sizeMm": 120,
+  "thicknessMm": 30,
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1x5Tk6EEKS/",
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep030"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 45.24,
+          "rpm": 1650
+        },
+        "heatsink": {
+          "airflowCfm": 42.05,
+          "rpm": 1740
+        },
+        "radiator": {
+          "airflowCfm": 29.5,
+          "rpm": 1710
+        }
+      }
+    }
+  ]
+}

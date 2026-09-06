@@ -40,12 +40,12 @@ test('corrections reject missing measurements and unrelated episode references',
   assert.throws(() => buildCorrections([{ ...correction, reportedValue: 1851 }], fans, catalog), /Invalid reported correction value/);
 });
 
-test('source data keeps 125 operating points, identities, conditions and precision', () => {
+test('source data keeps 155 operating points, identities, conditions and precision', () => {
   assert.equal(catalog.noise.noiseDba, 36);
   assert.equal(catalog.noise.distanceCm, 30);
   assert.equal(new Set(fans.map(fan => fan.id)).size, fans.length);
-  assert.equal(fans.length, 47);
-  assert.equal(fans.reduce((total, fan) => total + Object.keys(fan.measurements).length, 0), 125);
+  assert.equal(fans.length, 57);
+  assert.equal(fans.reduce((total, fan) => total + Object.keys(fan.measurements).length, 0), 155);
   for (const fan of fans) {
     assert.ok(fan.brandLabel.en && fan.brandLabel['zh-Hans']);
     assert.ok(fan.model.en);
@@ -62,7 +62,7 @@ test('source data keeps 125 operating points, identities, conditions and precisi
   const a140 = fans.find(fan => fan.id === 'cooler-master-masterfan-a140')!;
   assert.equal(a140.measurements.case?.airflowCfm, 66.96);
   assert.equal(a140.measurements.radiator?.airflowCfm, 41.95);
-  assert.equal(fans.filter(fan => fan.dedicatedReviewUrl !== null).length, 31);
+  assert.equal(fans.filter(fan => fan.dedicatedReviewUrl !== null).length, 37);
 });
 
 test('each application sorts every fan using its own measurement without changing other values', () => {
@@ -93,7 +93,7 @@ test('case-only fans sort last for missing applications in either direction and 
 test('filters OR within a field, AND across fields, including unknown thickness', () => {
   const filtered = visibleFans(fans, { ...initialState, sizes: ['120', '140'], thicknesses: ['30', '38'], brands: ['cooler-master', 'phanteks'] });
   assert.deepEqual(filtered.map(fan => fan.model.en), ['MasterFan A140', 'T30 140', 'MasterFan A120', 'T30 120', 'MasterFan M120 ARGB']);
-  assert.deepEqual(visibleFans(fans, { ...initialState, thicknesses: ['30'] }).map(fan => fan.model.en), ['MasterFan A140', 'MACH140', 'MAXFlow 12030', 'L207 case fan', 'T30 140', 'MasterFan A120', 'T30 120', 'F9 R120', 'MACH120', 'MasterFan M120 ARGB']);
+  assert.deepEqual(visibleFans(fans, { ...initialState, thicknesses: ['30'] }).map(fan => fan.model.en), ['MasterFan A140', 'MACH140', 'MAXFlow 12030', 'L207 case fan', 'T30 140', 'MasterFan A120', 'T30 120', 'F9 R120', 'MACH120', 'MasterFan M120 ARGB', 'ROG GR120 (Standard)', 'ROG GR120 (Reverse)']);
   const unknownThickness = { ...fans[0], thicknessMm: null };
   assert.deepEqual(visibleFans([unknownThickness], { ...initialState, thicknesses: ['unknown'] }), [unknownThickness]);
   assert.deepEqual(readState('?thickness=unknown', 'en', [unknownThickness]).thicknesses, ['unknown']);
@@ -174,7 +174,7 @@ test('shortlist is explicit and survives unrelated filters', () => {
 
 test('CSV exports units, conditions and provenance; unknown thickness stays empty', () => {
   const output = exportCsv(fans, catalog);
-  assert.equal(output.split('\r\n').length, 48);
+  assert.equal(output.split('\r\n').length, 58);
   assert.ok(output.includes('"66.96","1463"'));
   assert.ok(output.includes('"MACH140","140","30","36","30"'));
   assert.ok(output.includes('"MasterFan A120","120","30","36","30"'));
@@ -201,7 +201,7 @@ test('repeated appearances keep one fan and preserve all episode references', ()
     assert.equal(repeated[0].results.length, 1);
     const episodes = ['ep001', 'ep002', 'ep003', 'ep004', 'ep006', 'ep007', 'ep008', 'ep009'];
     if (id === 'phanteks-t30-120') episodes.push('ep010', 'ep013', 'ep021', 'ep023', 'ep027');
-    if (id === 'sanyo-denki-9ra1212p4g001') episodes.push('ep024');
+    if (id === 'sanyo-denki-9ra1212p4g001') episodes.push('ep024', 'ep031', 'ep032');
     assert.deepEqual(repeated[0].comparisonResult.sources, episodes.map(episodeId => ({ episodeId })));
     assert.ok(exportCsv(repeated, catalog).includes(catalog.episodes.ep001.url + ' | ' + catalog.episodes.ep002.url));
   }
