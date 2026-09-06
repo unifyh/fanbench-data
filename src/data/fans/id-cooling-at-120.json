@@ -1,0 +1,38 @@
+{
+  "id": "id-cooling-at-120",
+  "brand": "id-cooling",
+  "model": {
+    "en": "AT-120"
+  },
+  "sizeMm": 120,
+  "thicknessMm": 25,
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV131zNBvERi/",
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep012"
+        },
+        {
+          "episodeId": "ep015"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 44.08,
+          "rpm": 1846
+        },
+        "heatsink": {
+          "airflowCfm": 39.34,
+          "rpm": 1877
+        },
+        "radiator": {
+          "airflowCfm": 31.07,
+          "rpm": 1955
+        }
+      }
+    }
+  ]
+}
