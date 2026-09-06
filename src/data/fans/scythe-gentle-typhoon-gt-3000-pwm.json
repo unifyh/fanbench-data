@@ -7,12 +7,15 @@
   },
   "sizeMm": 120,
   "thicknessMm": 25,
-  "dedicatedReviewUrl": null,
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1MUwezvENE/",
   "comparisonResultId": "baseline",
   "results": [
     {
       "id": "baseline",
       "sources": [
+        {
+          "episodeId": "ep019"
+        },
         {
           "episodeId": "ep036"
         }

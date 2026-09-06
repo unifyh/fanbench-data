@@ -1,0 +1,36 @@
+{
+  "id": "cooler-master-mobius-120-slim",
+  "brand": "cooler-master",
+  "model": {
+    "en": "Mobius 120 Slim",
+    "zh-Hans": "莫比乌斯 120 Slim"
+  },
+  "sizeMm": 120,
+  "thicknessMm": 15,
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1qRXpBbEBW/",
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep022"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 38.07,
+          "rpm": 2032
+        },
+        "heatsink": {
+          "airflowCfm": 34.54,
+          "rpm": 2115
+        },
+        "radiator": {
+          "airflowCfm": 24.81,
+          "rpm": 2079
+        }
+      }
+    }
+  ]
+}

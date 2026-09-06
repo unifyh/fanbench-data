@@ -145,11 +145,30 @@ table td>span { display: block; font-size: 11px; color: var(--muted); margin-top
 .test-notes dd { margin: 0; }
 .test-notes p { line-height: 1.7; max-width: 850px; margin-block: 8px; }
 .site-footer { border-top: 1px solid var(--line); padding-block: 13px 20px; margin-top: 14px; display: flex; flex-wrap: wrap; gap: 5px 16px; font-size: 11px; color: var(--muted); line-height: 1.6; }
-.fan-dialog { border: 1px solid #d8dfd2; border-radius: 6px; background: #fff; color: #273629; width: min(580px, calc(100% - 32px)); padding: 0; max-height: calc(100dvh - 40px); }
-.fan-dialog::backdrop { background: #202d2470; }
+.corrections-trigger { margin-left: auto; min-height: 24px; }
+.fan-dialog, .corrections-dialog { border: 1px solid #d8dfd2; border-radius: 6px; background: #fff; color: #273629; width: min(580px, calc(100% - 32px)); padding: 0; max-height: calc(100dvh - 40px); }
+.fan-dialog::backdrop, .corrections-dialog::backdrop { background: #202d2470; }
 .dialog-inner { padding: 28px; position: relative; }
 .dialog-close { position: absolute; right: 12px; top: 12px; }
-.fan-dialog h2 { font-size: 24px; margin: 12px 0 8px; padding-right: 25px; }
+.fan-dialog h2, .corrections-dialog h2 { font-size: 24px; margin: 12px 0 8px; padding-right: 25px; }
+.corrections-dialog { font-size: 13px; line-height: 1.6; }
+#corrections-intro, .correction-reason, .correction-measurement { color: var(--muted); }
+.correction-list { list-style: none; padding: 0; margin: 20px 0 0; }
+.correction-entry { border-top: 1px solid var(--line); padding-top: 16px; }
+.correction-entry + .correction-entry { margin-top: 18px; }
+.correction-heading { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 12px; }
+.correction-heading h3 { font-size: 14px; font-weight: 600; }
+.correction-heading .brand-name { display: inline; margin-right: 7px; }
+.corrections-dialog a { display: inline-flex; align-items: center; gap: 3px; min-height: 24px; color: var(--accent); }
+.corrections-dialog a:hover { text-decoration: underline; }
+.correction-measurement { margin-top: 8px; font-size: 12px; }
+.correction-values { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 4px 0 10px; }
+.correction-values dt { color: var(--muted); font-size: 11px; }
+.correction-values dd { margin: 0; font-size: 20px; font-variant-numeric: tabular-nums; }
+.correction-values strong { color: var(--accent); font-weight: 600; }
+.correction-values small { font-size: 11px; color: var(--muted); }
+.correction-reason { font-size: 12px; }
+.correction-references { display: inline-flex; flex-wrap: wrap; gap: 4px 12px; }
 .fan-dialog .form-factor { font-size: 12px; }
 .detail-results { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; }
 .detail-results>div { display: flex; flex-direction: column; gap: 9px; }
@@ -217,8 +236,9 @@ table td>span { display: block; font-size: 11px; color: var(--muted); margin-top
   .test-notes summary { min-height: 36px; padding-block: 10px; }
   .test-notes dl>div { grid-template-columns: 76px 1fr; gap: 8px; }
   .site-footer { margin-top: 9px; font-size: 11px; }
+  .corrections-trigger { margin-left: 0; min-height: 36px; }
   .dialog-inner { padding: 25px 20px; }
-  .fan-dialog h2 { font-size: 21px; }
+  .fan-dialog h2, .corrections-dialog h2 { font-size: 21px; }
   .detail-results { gap: 8px; }
   .detail-results strong { font-size: 20px; }
   .detail-results small { font-size: 8px; }

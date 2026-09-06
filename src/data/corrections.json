@@ -1,0 +1,20 @@
+[
+  {
+    "fanId": "noctua-nf-a12x25-g2-pwm",
+    "resultId": "baseline",
+    "episodeId": "ep010",
+    "application": "radiator",
+    "field": "rpm",
+    "reportedValue": 1815,
+    "confirmedIn": ["ep009", "ep011"]
+  },
+  {
+    "fanId": "xpg-vento-pro-120-pwm",
+    "resultId": "baseline",
+    "episodeId": "ep020",
+    "application": "radiator",
+    "field": "rpm",
+    "reportedValue": 1905,
+    "confirmedIn": ["ep018", "ep019", "ep035"]
+  }
+]

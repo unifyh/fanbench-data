@@ -27,6 +27,15 @@ export interface Fan extends FanRecord {
   comparisonResult: FanResult;
   measurements: Measurements;
 }
+export interface DataCorrection {
+  fanId: string;
+  resultId: string;
+  episodeId: string;
+  application: Application;
+  field: keyof Measurement;
+  reportedValue: number;
+  confirmedIn: string[];
+}
 export interface Catalog {
   schemaVersion: number;
   reviewer: { name: string; profileUrl: string };

@@ -1,8 +1,8 @@
 {
-  "id": "cooler-master-edge-120-argb",
+  "id": "cooler-master-sickleflow-edge-120-argb",
   "brand": "cooler-master",
   "model": {
-    "en": "EDGE 120 ARGB",
+    "en": "SickleFlow EDGE 120 ARGB",
     "zh-Hans": "漩涡 EDGE 120 ARGB"
   },
   "sizeMm": 120,
@@ -15,6 +15,9 @@
       "sources": [
         {
           "episodeId": "ep017"
+        },
+        {
+          "episodeId": "ep018"
         }
       ],
       "measurements": {
