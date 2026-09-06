@@ -1,23 +1,18 @@
 {
-  "id": "segotep-ex-120",
-  "brand": "segotep",
+  "id": "cooler-master-mobius-120-vx",
+  "brand": "cooler-master",
   "model": {
-    "en": "EX-120"
+    "en": "Mobius 120 VX",
+    "zh-Hans": "莫比乌斯 120 VX"
   },
   "sizeMm": 120,
   "thicknessMm": 25,
-  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1C8kTBPE2C/",
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1rocWzxEdn/",
   "comparisonResultId": "baseline",
   "results": [
     {
       "id": "baseline",
       "sources": [
-        {
-          "episodeId": "ep011"
-        },
-        {
-          "episodeId": "ep012"
-        },
         {
           "episodeId": "ep015"
         },
@@ -30,16 +25,16 @@
       ],
       "measurements": {
         "case": {
-          "airflowCfm": 49.32,
-          "rpm": 1758
+          "airflowCfm": 46.9,
+          "rpm": 1986
         },
         "heatsink": {
-          "airflowCfm": 47.56,
-          "rpm": 1913
+          "airflowCfm": 43.72,
+          "rpm": 1940
         },
         "radiator": {
-          "airflowCfm": 33.05,
-          "rpm": 1882
+          "airflowCfm": 29.84,
+          "rpm": 1970
         }
       }
     }

@@ -33,6 +33,10 @@
       "en": "HAVN",
       "zh-Hans": "HAVN"
     },
+    "id-cooling": {
+      "en": "ID-COOLING",
+      "zh-Hans": "酷凛"
+    },
     "lian-li": {
       "en": "Lian Li",
       "zh-Hans": "联力"
@@ -145,6 +149,30 @@
     "ep011": {
       "number": 11,
       "url": "https://www.bilibili.com/video/BV1C8kTBPE2C/"
+    },
+    "ep012": {
+      "number": 12,
+      "url": "https://www.bilibili.com/video/BV131zNBvERi/"
+    },
+    "ep013": {
+      "number": 13,
+      "url": "https://www.bilibili.com/video/BV1qf6vBcE73/"
+    },
+    "ep014": {
+      "number": 14,
+      "url": "https://www.bilibili.com/video/BV1avF6zDEUz/"
+    },
+    "ep015": {
+      "number": 15,
+      "url": "https://www.bilibili.com/video/BV1rocWzxEdn/"
+    },
+    "ep016": {
+      "number": 16,
+      "url": "https://www.bilibili.com/video/BV1ECfYBuEwg/"
+    },
+    "ep017": {
+      "number": 17,
+      "url": "https://www.bilibili.com/video/BV1vgPpzUEGZ/"
     },
     "ep035": {
       "number": 35,

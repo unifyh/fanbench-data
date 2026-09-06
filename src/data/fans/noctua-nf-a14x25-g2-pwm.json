@@ -10,7 +10,7 @@
   "sizeMm": 140,
   "thicknessMm": 25,
   "dedicatedReviewUrl": null,
-  "comparisonResultId": "baseline",
+  "comparisonResultId": "ep014",
   "results": [
     {
       "id": "baseline",
@@ -23,6 +23,28 @@
         "case": {
           "airflowCfm": 66.18,
           "rpm": 1355
+        }
+      }
+    },
+    {
+      "id": "ep014",
+      "sources": [
+        {
+          "episodeId": "ep014"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 66.18,
+          "rpm": 1355
+        },
+        "heatsink": {
+          "airflowCfm": 51.61,
+          "rpm": 1340
+        },
+        "radiator": {
+          "airflowCfm": 38.88,
+          "rpm": 1370
         }
       }
     }

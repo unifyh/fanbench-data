@@ -1,0 +1,36 @@
+{
+  "id": "cooler-master-edge-120-argb",
+  "brand": "cooler-master",
+  "model": {
+    "en": "EDGE 120 ARGB",
+    "zh-Hans": "漩涡 EDGE 120 ARGB"
+  },
+  "sizeMm": 120,
+  "thicknessMm": 25,
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1vgPpzUEGZ/",
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep017"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 48.12,
+          "rpm": 1893
+        },
+        "heatsink": {
+          "airflowCfm": 47.26,
+          "rpm": 2090
+        },
+        "radiator": {
+          "airflowCfm": 34.6,
+          "rpm": 2002
+        }
+      }
+    }
+  ]
+}
