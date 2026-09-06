@@ -1,35 +1,32 @@
 {
-  "id": "jungle-leopard-p2-core",
-  "brand": "jungle-leopard",
+  "id": "id-cooling-am-120",
+  "brand": "id-cooling",
   "model": {
-    "en": "P2 CORE"
+    "en": "AM-120"
   },
   "sizeMm": 120,
   "thicknessMm": 25,
-  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1afLi6YEDb/",
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1oDjd6YEXp/",
   "comparisonResultId": "baseline",
   "results": [
     {
       "id": "baseline",
       "sources": [
         {
-          "episodeId": "ep026"
-        },
-        {
           "episodeId": "ep029"
         }
       ],
       "measurements": {
         "case": {
-          "airflowCfm": 50.16,
-          "rpm": 1800
+          "airflowCfm": 47.62,
+          "rpm": 1924
         },
         "heatsink": {
-          "airflowCfm": 44.25,
-          "rpm": 1862
+          "airflowCfm": 42.05,
+          "rpm": 1924
         },
         "radiator": {
-          "airflowCfm": 31.43,
+          "airflowCfm": 26.6,
           "rpm": 1862
         }
       }

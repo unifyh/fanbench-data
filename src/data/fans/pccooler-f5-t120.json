@@ -1,0 +1,38 @@
+{
+  "id": "pccooler-f5-t120",
+  "brand": "pccooler",
+  "model": {
+    "en": "F5 T120"
+  },
+  "sizeMm": 120,
+  "thicknessMm": 25,
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1L2Ne6BEGb/",
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep031"
+        },
+        {
+          "episodeId": "ep032"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 42.01,
+          "rpm": 1700
+        },
+        "heatsink": {
+          "airflowCfm": 41.05,
+          "rpm": 1831
+        },
+        "radiator": {
+          "airflowCfm": 30.48,
+          "rpm": 1877
+        }
+      }
+    }
+  ]
+}

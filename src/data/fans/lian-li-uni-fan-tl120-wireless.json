@@ -1,0 +1,36 @@
+{
+  "id": "lian-li-uni-fan-tl120-wireless",
+  "brand": "lian-li",
+  "model": {
+    "en": "UNI FAN TL120 Wireless (Standard)",
+    "zh-Hans": "UNI FAN TL120 无线版 正叶"
+  },
+  "sizeMm": 120,
+  "thicknessMm": 28,
+  "dedicatedReviewUrl": null,
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep030"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 46.21,
+          "rpm": 1731
+        },
+        "heatsink": {
+          "airflowCfm": 42.86,
+          "rpm": 1816
+        },
+        "radiator": {
+          "airflowCfm": 32.57,
+          "rpm": 1833
+        }
+      }
+    }
+  ]
+}

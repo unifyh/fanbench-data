@@ -1,0 +1,35 @@
+{
+  "id": "jungle-leopard-p2-apex",
+  "brand": "jungle-leopard",
+  "model": {
+    "en": "P2 APEX"
+  },
+  "sizeMm": 120,
+  "thicknessMm": 25,
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1PHK46vEzX/",
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep032"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 45.97,
+          "rpm": 1779
+        },
+        "heatsink": {
+          "airflowCfm": 43.24,
+          "rpm": 1840
+        },
+        "radiator": {
+          "airflowCfm": 32.2,
+          "rpm": 1893
+        }
+      }
+    }
+  ]
+}
