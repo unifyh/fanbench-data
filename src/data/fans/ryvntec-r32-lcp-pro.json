@@ -1,0 +1,35 @@
+{
+  "id": "ryvntec-r32-lcp-pro",
+  "brand": "ryvntec",
+  "model": {
+    "en": "R32 LCP PRO"
+  },
+  "sizeMm": 120,
+  "thicknessMm": 32,
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1bVYT6pEHD/",
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep038"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 50.17,
+          "rpm": 1200
+        },
+        "heatsink": {
+          "airflowCfm": 38.54,
+          "rpm": 1293
+        },
+        "radiator": {
+          "airflowCfm": 27.59,
+          "rpm": 1386
+        }
+      }
+    }
+  ]
+}

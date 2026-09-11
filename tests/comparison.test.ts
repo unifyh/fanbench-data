@@ -40,12 +40,12 @@ test('corrections reject missing measurements and unrelated episode references',
   assert.throws(() => buildCorrections([{ ...correction, reportedValue: 1851 }], fans, catalog), /Invalid reported correction value/);
 });
 
-test('source data keeps 167 operating points, identities, conditions and precision', () => {
+test('source data keeps 170 operating points, identities, conditions and precision', () => {
   assert.equal(catalog.noise.noiseDba, 36);
   assert.equal(catalog.noise.distanceCm, 30);
   assert.equal(new Set(fans.map(fan => fan.id)).size, fans.length);
-  assert.equal(fans.length, 61);
-  assert.equal(fans.reduce((total, fan) => total + Object.keys(fan.measurements).length, 0), 167);
+  assert.equal(fans.length, 62);
+  assert.equal(fans.reduce((total, fan) => total + Object.keys(fan.measurements).length, 0), 170);
   for (const fan of fans) {
     assert.ok(fan.brandLabel.en && fan.brandLabel['zh-Hans']);
     assert.ok(fan.model.en);
@@ -62,7 +62,7 @@ test('source data keeps 167 operating points, identities, conditions and precisi
   const a140 = fans.find(fan => fan.id === 'cooler-master-masterfan-a140')!;
   assert.equal(a140.measurements.case?.airflowCfm, 66.96);
   assert.equal(a140.measurements.radiator?.airflowCfm, 41.95);
-  assert.equal(fans.filter(fan => fan.dedicatedReviewUrl !== null).length, 41);
+  assert.equal(fans.filter(fan => fan.dedicatedReviewUrl !== null).length, 42);
 });
 
 test('each application sorts every fan using its own measurement without changing other values', () => {
@@ -174,7 +174,7 @@ test('shortlist is explicit and survives unrelated filters', () => {
 
 test('CSV exports units, conditions and provenance; unknown thickness stays empty', () => {
   const output = exportCsv(fans, catalog);
-  assert.equal(output.split('\r\n').length, 62);
+  assert.equal(output.split('\r\n').length, 63);
   assert.ok(output.includes('"66.96","1463"'));
   assert.ok(output.includes('"MACH140","140","30","36","30"'));
   assert.ok(output.includes('"MasterFan A120","120","30","36","30"'));
@@ -200,21 +200,21 @@ test('repeated appearances keep one fan and preserve all episode references', ()
     assert.equal(repeated.length, 1);
     assert.equal(repeated[0].results.length, 1);
     const episodes = ['ep001', 'ep002', 'ep003', 'ep004', 'ep006', 'ep007', 'ep008', 'ep009'];
-    if (id === 'phanteks-t30-120') episodes.push('ep010', 'ep013', 'ep021', 'ep023', 'ep027');
+    if (id === 'phanteks-t30-120') episodes.push('ep010', 'ep013', 'ep021', 'ep023', 'ep027', 'ep038');
     if (id === 'sanyo-denki-9ra1212p4g001') episodes.push('ep024', 'ep031', 'ep032');
     assert.deepEqual(repeated[0].comparisonResult.sources, episodes.map(episodeId => ({ episodeId })));
     assert.ok(exportCsv(repeated, catalog).includes(catalog.episodes.ep001.url + ' | ' + catalog.episodes.ep002.url));
   }
   const record = structuredClone(p14Record);
   const nextCatalog = structuredClone(catalog);
-  nextCatalog.episodes.ep038 = { number: 38, url: 'https://example.com/ep038' };
-  record.results[0].sources.push({ episodeId: 'ep038' });
+  nextCatalog.episodes.ep039 = { number: 39, url: 'https://example.com/ep039' };
+  record.results[0].sources.push({ episodeId: 'ep039' });
   const comparison = buildComparison([record], nextCatalog);
   assert.equal(comparison.length, 1);
   assert.equal(comparison[0].results.length, 1);
   assert.equal(comparison[0].comparisonResult.sources.length, p14Record.results[0].sources.length + 1);
   assert.deepEqual(comparison[0].measurements, p14Record.results[0].measurements);
-  assert.ok(exportCsv(comparison, nextCatalog).includes(catalog.episodes.ep037.url + ' | https://example.com/ep038'));
+  assert.ok(exportCsv(comparison, nextCatalog).includes(catalog.episodes.ep037.url + ' | https://example.com/ep039'));
 });
 
 test('case-only results export empty measurement cells without losing recorded values or sources', () => {
