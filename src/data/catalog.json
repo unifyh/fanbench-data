@@ -25,6 +25,10 @@
       "en": "DeepCool",
       "zh-Hans": "九州风神"
     },
+    "delta": {
+      "en": "Delta",
+      "zh-Hans": "台达"
+    },
     "fractal-design": {
       "en": "Fractal Design",
       "zh-Hans": "分形工艺"
@@ -269,6 +273,10 @@
     "ep038": {
       "number": 38,
       "url": "https://www.bilibili.com/video/BV1bVYT6pEHD/"
+    },
+    "ep039": {
+      "number": 39,
+      "url": "https://www.bilibili.com/video/BV1Rsej6fE1H/"
     }
   }
 }

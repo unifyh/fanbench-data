@@ -284,7 +284,13 @@ export default function App() {
       </section>
 
     </main>
-    <footer className="site-footer page-width"><p>{t.attribution}</p><p className="independent-note">{t.independent}</p><button className="text-button corrections-trigger" aria-haspopup="dialog" onClick={() => setCorrectionsOpen(true)}>{t.corrections}</button></footer>
+    <footer className="site-footer page-width">
+      <p>{t.attribution}</p><p className="independent-note">{t.independent}</p>
+      <div className="footer-links">
+        <button className="text-button corrections-trigger" aria-haspopup="dialog" onClick={() => setCorrectionsOpen(true)}>{t.corrections}</button>
+        <ExternalLink className="text-button" href="https://github.com/unifyh/fanbench-data">{t.sourceCode}</ExternalLink>
+      </div>
+    </footer>
     <FanDetails fan={detailFan} locale={state.locale} onClose={() => setDetailFan(null)} />
     <DataCorrections open={correctionsOpen} locale={state.locale} onClose={() => setCorrectionsOpen(false)} />
   </>;
