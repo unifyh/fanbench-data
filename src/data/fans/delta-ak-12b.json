@@ -1,0 +1,35 @@
+{
+  "id": "delta-ak-12b",
+  "brand": "delta",
+  "model": {
+    "en": "AK-12B"
+  },
+  "sizeMm": 120,
+  "thicknessMm": 25,
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1Rsej6fE1H/",
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep039"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 40.82,
+          "rpm": 1670
+        },
+        "heatsink": {
+          "airflowCfm": 37.28,
+          "rpm": 1717
+        },
+        "radiator": {
+          "airflowCfm": 23.12,
+          "rpm": 1577
+        }
+      }
+    }
+  ]
+}

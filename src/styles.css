@@ -145,7 +145,8 @@ table td>span { display: block; font-size: 11px; color: var(--muted); margin-top
 .test-notes dd { margin: 0; }
 .test-notes p { line-height: 1.7; max-width: 850px; margin-block: 8px; }
 .site-footer { border-top: 1px solid var(--line); padding-block: 13px 20px; margin-top: 14px; display: flex; flex-wrap: wrap; gap: 5px 16px; font-size: 11px; color: var(--muted); line-height: 1.6; }
-.corrections-trigger { margin-left: auto; min-height: 24px; }
+.footer-links { margin-left: auto; display: flex; flex-wrap: wrap; gap: 5px 16px; }
+.footer-links .text-button { min-height: 24px; }
 .fan-dialog, .corrections-dialog { border: 1px solid #d8dfd2; border-radius: 6px; background: #fff; color: #273629; width: min(580px, calc(100% - 32px)); padding: 0; max-height: calc(100dvh - 40px); }
 .fan-dialog::backdrop, .corrections-dialog::backdrop { background: #202d2470; }
 .dialog-inner { padding: 28px; position: relative; }
@@ -236,7 +237,8 @@ table td>span { display: block; font-size: 11px; color: var(--muted); margin-top
   .test-notes summary { min-height: 36px; padding-block: 10px; }
   .test-notes dl>div { grid-template-columns: 76px 1fr; gap: 8px; }
   .site-footer { margin-top: 9px; font-size: 11px; }
-  .corrections-trigger { margin-left: 0; min-height: 36px; }
+  .footer-links { margin-left: 0; }
+  .footer-links .text-button { min-height: 36px; }
   .dialog-inner { padding: 25px 20px; }
   .fan-dialog h2, .corrections-dialog h2 { font-size: 21px; }
   .detail-results { gap: 8px; }
