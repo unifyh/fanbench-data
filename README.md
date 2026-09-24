@@ -15,6 +15,7 @@ An unofficial archive of test data published by **风向标 FanBench**, with PC 
 
 ## Episode coverage
 
+- [FanBench - 040 | 酷冷至尊 MASTERFAN M140 ARGB 性能测试报告](https://www.bilibili.com/video/BV1TwaP63Ef5/)
 - [FanBench - 039 | 台达 AK-12B 性能测试报告](https://www.bilibili.com/video/BV1Rsej6fE1H/)
 - [FanBench - 038 | 睿温 R32 LCP PRO 性能测试报告](https://www.bilibili.com/video/BV1bVYT6pEHD/)
 - [FanBench - 037 | 酷冷至尊 MASTERFAN A140 FC 性能测试报告](https://www.bilibili.com/video/BV1NQti6HErx/)

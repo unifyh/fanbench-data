@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('footer corrections show both typos in either language without changing the comparison', async ({ page, isMobile }) => {
+test('footer corrections show recorded discrepancies in either language without changing the comparison', async ({ page, isMobile }) => {
   if (isMobile) await page.setViewportSize({ width: 320, height: 640 });
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
@@ -17,13 +17,15 @@ test('footer corrections show both typos in either language without changing the
     await expect(dialog.getByRole('heading', { level: 2 })).toHaveText(title);
     await expect(dialog).toContainText(chinese ? '本非官方汇总站维护' : 'maintained by this unofficial archive');
     const entries = dialog.getByRole('listitem');
-    await expect(entries).toHaveCount(2);
+    await expect(entries).toHaveCount(3);
     await expect(entries.nth(0)).toContainText(chinese ? '猫头鹰' : 'Noctua');
     await expect(entries.nth(0)).toContainText('NF-A12x25 G2 PWM');
     await expect(entries.nth(1)).toContainText('XPG');
     await expect(entries.nth(1)).toContainText('VENTO PRO 120 PWM');
-    for (const [index, values] of [['1815 RPM', '1851 RPM'], ['1905 RPM', '1908 RPM']].entries()) {
-      await expect(entries.nth(index).locator('.correction-measurement')).toHaveText(chinese ? '冷排' : 'Radiator');
+    await expect(entries.nth(2)).toContainText(chinese ? '酷冷至尊' : 'Cooler Master');
+    await expect(entries.nth(2)).toContainText('MasterFan M120 ARGB');
+    for (const [index, values] of [['1815 RPM', '1851 RPM'], ['1905 RPM', '1908 RPM'], ['1948 RPM', '1940 RPM']].entries()) {
+      await expect(entries.nth(index).locator('.correction-measurement')).toHaveText(index === 2 ? (chinese ? '风冷散热器' : 'Heatsink') : (chinese ? '冷排' : 'Radiator'));
       await expect(entries.nth(index).locator('dt')).toHaveText(chinese ? ['视频标注', '本站采用'] : ['In video', 'Value used']);
       await expect(entries.nth(index).locator('dd')).toHaveText(values);
       await expect(entries.nth(index).locator('.correction-reason')).toContainText(chinese ? '对照其他期数中的同一测试结果后修正' : 'cross-checking the same result in other episodes');
@@ -31,6 +33,7 @@ test('footer corrections show both typos in either language without changing the
     for (const [episode, video] of [
       ['EP010', 'BV1kJrPBnEVR'], ['EP009', 'BV1zXiMB1EE9'], ['EP011', 'BV1C8kTBPE2C'],
       ['EP020', 'BV1rk9LB7Esr'], ['EP018', 'BV1JFcmzQEGk'], ['EP019', 'BV1MUwezvENE'], ['EP035', 'BV1PJ8E6MEb4'],
+      ['EP040', 'BV1TwaP63Ef5'], ['EP023', 'BV1MDdbBTEq2'],
     ]) {
       await expect(dialog.getByRole('link', { name: episode, exact: true })).toHaveAttribute('href', `https://www.bilibili.com/video/${video}/`);
     }
