@@ -1,36 +1,33 @@
 {
-  "id": "cooler-master-masterfan-a140",
+  "id": "cooler-master-masterfan-m140-argb",
   "brand": "cooler-master",
   "model": {
-    "en": "MasterFan A140"
+    "en": "MasterFan M140 ARGB"
   },
   "sizeMm": 140,
   "thicknessMm": 30,
-  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1NQti6HErx/",
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1TwaP63Ef5/",
   "comparisonResultId": "baseline",
   "results": [
     {
       "id": "baseline",
       "sources": [
         {
-          "episodeId": "ep037"
-        },
-        {
           "episodeId": "ep040"
         }
       ],
       "measurements": {
         "case": {
-          "airflowCfm": 66.96,
-          "rpm": 1463
-        },
-        "heatsink": {
-          "airflowCfm": 50.78,
+          "airflowCfm": 60.66,
           "rpm": 1417
         },
+        "heatsink": {
+          "airflowCfm": 50.51,
+          "rpm": 1479
+        },
         "radiator": {
-          "airflowCfm": 41.95,
-          "rpm": 1490
+          "airflowCfm": 39.9,
+          "rpm": 1500
         }
       }
     }

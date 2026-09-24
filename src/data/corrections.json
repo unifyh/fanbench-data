@@ -16,5 +16,14 @@
     "field": "rpm",
     "reportedValue": 1905,
     "confirmedIn": ["ep018", "ep019", "ep035"]
+  },
+  {
+    "fanId": "cooler-master-masterfan-m120-argb",
+    "resultId": "baseline",
+    "episodeId": "ep040",
+    "application": "heatsink",
+    "field": "rpm",
+    "reportedValue": 1948,
+    "confirmedIn": ["ep023"]
   }
 ]
