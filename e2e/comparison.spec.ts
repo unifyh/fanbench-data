@@ -133,12 +133,12 @@ test('case-only fans retain missing cells in sorting, details, table and CSV', a
   await page.goto('?lang=en&size=all');
   const havn = page.locator('[data-fan-id="havn-h18-performance"]');
   await expect(page.locator('.fan-row').first()).toHaveAttribute('data-fan-id', 'havn-h18-performance');
-  await expect(page.locator('.fan-row .no-data')).toHaveCount(16);
+  await expect(page.locator('.fan-row .no-data')).toHaveCount(18);
   for (const application of ['heatsink', 'radiator']) {
     for (const order of ['desc', 'asc']) {
       await page.goto(`?lang=en&size=all&sort=${application}&order=${order}`);
       const missing = await page.locator('.fan-row').evaluateAll((rows, key) => rows.map(row => Boolean(row.querySelector(`.${key} .no-data`))), application);
-      expect(missing).toEqual([...Array(56).fill(false), ...Array(8).fill(true)]);
+      expect(missing).toEqual([...Array(56).fill(false), ...Array(9).fill(true)]);
     }
   }
   await havn.getByRole('checkbox', { name: 'Select H18 Performance', exact: true }).check();
@@ -194,7 +194,7 @@ test('layout fits both languages and all chart values are visible without hoveri
       }),
     }));
     expect(layout.page).toBeLessThanOrEqual(layout.viewport);
-    expect(layout.values).toHaveLength(352);
+    expect(layout.values).toHaveLength(354);
     expect(layout.values.every(Boolean)).toBe(true);
   }
 });
@@ -241,19 +241,19 @@ test('size defaults, All, explicit sizes and reset survive reloads', async ({ pa
   await expect(size.getByRole('button', { name: '140 mm', exact: true })).toHaveAttribute('aria-pressed', 'true');
   await expect(size.getByRole('button', { name: '180 mm', exact: true })).toHaveAttribute('aria-pressed', 'false');
   await size.getByRole('button', { name: 'All', exact: true }).click();
-  await expect(page.locator('.fan-row')).toHaveCount(64);
+  await expect(page.locator('.fan-row')).toHaveCount(65);
   await expect(page.locator('.scale-note')).toContainText('0–150 CFM');
   expect(new URL(page.url()).searchParams.get('size')).toBe('all');
   await page.reload();
-  await expect(page.locator('.fan-row')).toHaveCount(64);
+  await expect(page.locator('.fan-row')).toHaveCount(65);
   await expect(page.locator('.scale-note')).toContainText('0–150 CFM');
   if (isMobile) await page.getByRole('button', { name: /^Filters/ }).click();
   else await page.getByRole('button', { name: 'Size All', exact: true }).click();
   await size.getByRole('button', { name: '180 mm', exact: true }).click();
-  await expect(page.locator('.fan-row')).toHaveCount(2);
+  await expect(page.locator('.fan-row')).toHaveCount(3);
   expect(new URL(page.url()).searchParams.get('size')).toBe('180');
   await page.reload();
-  await expect(page.locator('.fan-row')).toHaveCount(2);
+  await expect(page.locator('.fan-row')).toHaveCount(3);
   await expect(page.locator('[data-fan-id="havn-h18-performance"]')).toBeVisible();
   await page.getByRole('button', { name: 'Reset filters', exact: true }).click();
   await expect(page.locator('.fan-row')).toHaveCount(57);

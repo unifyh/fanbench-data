@@ -1,32 +1,29 @@
 {
-  "id": "havn-h18-performance",
-  "brand": "havn",
+  "id": "cooler-master-mighty40-v180",
+  "brand": "cooler-master",
   "model": {
-    "en": "H18 Performance"
+    "en": "Mighty40 V180"
   },
   "aliases": [
-    "BF360 case fan",
-    "BF360 机箱风扇"
+    "HAF II 500 case fan",
+    "HAF II 500 机箱风扇"
   ],
   "sizeMm": 180,
   "thicknessMm": 40,
-  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1Cv2VBfE6p/",
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1RoaX6dEN5/",
   "comparisonResultId": "baseline",
   "results": [
     {
       "id": "baseline",
       "sources": [
         {
-          "episodeId": "ep005"
-        },
-        {
           "episodeId": "ep041"
         }
       ],
       "measurements": {
         "case": {
-          "airflowCfm": 105.39,
-          "rpm": 931
+          "airflowCfm": 98.72,
+          "rpm": 1040
         }
       }
     }
