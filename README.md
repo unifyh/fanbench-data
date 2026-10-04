@@ -11,6 +11,7 @@ An unofficial archive of test data published by **风向标 FanBench**, with PC 
 - Solid green bars with RPM inside and CFM at the end; compact rows and sticky desktop axes. All three columns share a scale that adjusts to the filtered fans.
 - Multiple size, thickness, and brand filters; search and shareable shortlists. Size defaults to 120 and 140 mm; choose All to include larger fans. Reset filters restores these defaults.
 - English and Simplified Chinese, with localized brand and product names (English fallback) in the UI and CSV export; desktop columns, mobile cards, and an accessible data table.
+- Copy chart images to the clipboard or download a PNG. Images include all filtered rows in their displayed order (including the selected-only filter), all three columns, the current language, test conditions, and attribution. The export uses a fixed-width layout on desktop and mobile. Clipboard copying requires HTTPS or localhost and a supported browser, including Firefox 127+; PNG download is available when copying is blocked.
 - No backend, runtime CDN, external fonts, analytics, embedded videos, or paid service.
 
 ## Episode coverage
@@ -75,6 +76,9 @@ npm run test:e2e
 ```
 
 Browser tests use locally installed Microsoft Edge (desktop and mobile emulation). Install Edge or change the browser channel in `playwright.config.ts` to a supported Playwright browser. The test runner starts a local preview of the built site.
+
+To run image export coverage in Firefox, first run `npx playwright install firefox`, then `npm run test:e2e:firefox`.
+The Firefox suite checks PNG rendering and native clipboard writes. The paste round-trip check is skipped there because the bundled headless Firefox does not retain PNG clipboard data; Edge covers that check.
 
 ## Hosting
 

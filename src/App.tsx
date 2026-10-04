@@ -3,6 +3,7 @@ import type { CSSProperties, ReactNode } from 'react';
 import { catalog, corrections, fans, testSetup } from './data';
 import { messages } from './i18n';
 import { applications, chartScale, exportCsv, initialState, modelName, readState, serializeState, toggleValue, visibleFans } from './lib/comparison';
+import { canCopyChartImage, copyChartImage, downloadBlob, renderChartImage } from './lib/chartImage';
 import type { Application, Fan, Locale, ViewState } from './types';
 
 function ChartAxis({ scale, bottom = false }: { scale: ReturnType<typeof chartScale>; bottom?: boolean }) {
@@ -22,6 +23,7 @@ function Icon({ name, size = 18 }: { name: string; size?: number }) {
     chart: <><path d="M4 4v16h16M8 8h10M8 12h7M8 16h4" /></>,
     table: <><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M3 9h18M3 14h18M10 4v16" /></>,
     download: <><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5" /></>,
+    copy: <><rect x="8" y="8" width="13" height="13" rx="2" /><path d="M16 8V3H3v13h5" /></>,
     close: <path d="m6 6 12 12M6 18 18 6" />,
     info: <><circle cx="12" cy="12" r="9" /><path d="M12 11v6m0-10v1" /></>,
     case: <><rect x="6" y="2" width="12" height="20" rx="2" /><circle cx="12" cy="9" r="3" /><circle cx="12" cy="17" r="2" /></>,
@@ -149,6 +151,9 @@ export default function App() {
   const [detailFan, setDetailFan] = useState<Fan | null>(null);
   const [correctionsOpen, setCorrectionsOpen] = useState(false);
   const [shareStatus, setShareStatus] = useState<'idle' | 'copied' | 'fallback'>('idle');
+  const [imageStatus, setImageStatus] = useState<'idle' | 'copyingImage' | 'downloadingImage' | 'imageCopied' | 'imageDownloaded' | 'imageCopyFailed' | 'imageExportFailed'>('idle');
+  const imageExportBusy = useRef(false);
+  const imageBusy = imageStatus === 'copyingImage' || imageStatus === 'downloadingImage';
   const t = messages[state.locale];
   const shown = useMemo(() => visibleFans(fans, state), [state]);
   const scale = useMemo(() => chartScale(shown), [shown]);
@@ -205,10 +210,27 @@ export default function App() {
 
   function download() {
     const csv = exportCsv(shown, catalog, state.locale);
-    const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8;' }));
-    const anchor = document.createElement('a');
-    anchor.href = url; anchor.download = 'fanbench-data-36dba.csv'; anchor.click();
-    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+    downloadBlob(new Blob([csv], { type: 'text/csv;charset=utf-8;' }), 'fanbench-data-36dba.csv');
+  }
+
+  async function exportImage(action: 'copy' | 'download') {
+    if (imageExportBusy.current || !shown.length) return;
+    if (action === 'copy' && !canCopyChartImage()) { setImageStatus('imageCopyFailed'); return; }
+    imageExportBusy.current = true;
+    setImageStatus(action === 'copy' ? 'copyingImage' : 'downloadingImage');
+    try {
+      const png = renderChartImage(shown, state.locale);
+      // Start the clipboard write in this click handler; wait for both operations even if copying fails.
+      const [rendered, copied] = await Promise.allSettled([png, action === 'copy' ? copyChartImage(png) : Promise.resolve()]);
+      if (rendered.status === 'rejected') { setImageStatus('imageExportFailed'); return; }
+      if (copied.status === 'rejected') { setImageStatus('imageCopyFailed'); return; }
+      if (action === 'download') downloadBlob(rendered.value, `fanbench-data-36dba-${state.locale}.png`);
+      setImageStatus(action === 'copy' ? 'imageCopied' : 'imageDownloaded');
+    } catch {
+      setImageStatus('imageExportFailed');
+    } finally {
+      imageExportBusy.current = false;
+    }
   }
 
   function renderFanIdentity(fan: Fan) {
@@ -279,7 +301,12 @@ export default function App() {
             return <td key={key}>{value ? <><strong>{value.airflowCfm.toFixed(2)} <small>CFM</small></strong><span>{value.rpm} RPM</span></> : <MissingMeasurement locale={state.locale} />}</td>;
           })}</tr>)}</tbody></table></div>}
         </div>
-        <div className="chart-footnote"><p>{t.testCondition} · {t.higherBetter}<span className="scale-note"> · {t.commonScale}: 0–{scale.maximum} CFM</span></p><button className="text-button download-button" onClick={download}><Icon name="download" size={15} />{t.download}</button></div>
+        <div className="chart-footnote"><p>{t.testCondition} · {t.higherBetter}<span className="scale-note"> · {t.commonScale}: 0–{scale.maximum} CFM</span></p><div className="export-actions">
+          <button className="text-button download-button" disabled={!shown.length || imageBusy} onClick={() => exportImage('copy')}><Icon name="copy" size={15} />{imageStatus === 'copyingImage' ? t.copyingImage : t.copyImage}</button>
+          <button className="text-button download-button" disabled={!shown.length || imageBusy} onClick={() => exportImage('download')}><Icon name="download" size={15} />{imageStatus === 'downloadingImage' ? t.downloadingImage : t.downloadPng}</button>
+          <button className="text-button download-button" onClick={download}><Icon name="download" size={15} />{t.download}</button>
+        </div></div>
+        <p className="image-export-status" role="status">{imageStatus === 'idle' ? '' : t[imageStatus]}</p>
         <details className="test-notes"><summary>{t.methodology}</summary><dl>{applications.map(key => <div key={key}><dt>{t[key]}</dt><dd>{testSetup.fixtures[key][state.locale]}</dd></div>)}</dl><p>{t.contextText}</p></details>
       </section>
 
