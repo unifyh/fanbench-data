@@ -41,12 +41,12 @@ test('corrections reject missing measurements and unrelated episode references',
   assert.throws(() => buildCorrections([{ ...correction, reportedValue: 1851 }], fans, catalog), /Invalid reported correction value/);
 });
 
-test('source data keeps 177 operating points, identities, conditions and precision', () => {
+test('source data keeps 183 operating points, identities, conditions and precision', () => {
   assert.equal(catalog.noise.noiseDba, 36);
   assert.equal(catalog.noise.distanceCm, 30);
   assert.equal(new Set(fans.map(fan => fan.id)).size, fans.length);
-  assert.equal(fans.length, 65);
-  assert.equal(fans.reduce((total, fan) => total + Object.keys(fan.measurements).length, 0), 177);
+  assert.equal(fans.length, 67);
+  assert.equal(fans.reduce((total, fan) => total + Object.keys(fan.measurements).length, 0), 183);
   for (const fan of fans) {
     assert.ok(fan.brandLabel.en && fan.brandLabel['zh-Hans']);
     assert.ok(fan.model.en);
@@ -63,7 +63,7 @@ test('source data keeps 177 operating points, identities, conditions and precisi
   const a140 = fans.find(fan => fan.id === 'cooler-master-masterfan-a140')!;
   assert.equal(a140.measurements.case?.airflowCfm, 66.96);
   assert.equal(a140.measurements.radiator?.airflowCfm, 41.95);
-  assert.equal(fans.filter(fan => fan.dedicatedReviewUrl !== null).length, 45);
+  assert.equal(fans.filter(fan => fan.dedicatedReviewUrl !== null).length, 46);
 });
 
 test('each application sorts every fan using its own measurement without changing other values', () => {
@@ -175,7 +175,7 @@ test('shortlist is explicit and survives unrelated filters', () => {
 
 test('CSV exports units, conditions and provenance; unknown thickness stays empty', () => {
   const output = exportCsv(fans, catalog);
-  assert.equal(output.split('\r\n').length, 66);
+  assert.equal(output.split('\r\n').length, 68);
   assert.ok(output.includes('"66.96","1463"'));
   assert.ok(output.includes('"MACH140","140","30","36","30"'));
   assert.ok(output.includes('"MasterFan A120","120","30","36","30"'));

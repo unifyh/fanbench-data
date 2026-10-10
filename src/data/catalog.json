@@ -33,6 +33,10 @@
       "en": "Fractal Design",
       "zh-Hans": "分形工艺"
     },
+    "galax": {
+      "en": "GALAX",
+      "zh-Hans": "影驰"
+    },
     "havn": {
       "en": "HAVN",
       "zh-Hans": "HAVN"
@@ -88,6 +92,10 @@
     "sudkoo": {
       "en": "Sudkoo",
       "zh-Hans": "Sudkoo"
+    },
+    "thermalright": {
+      "en": "Thermalright",
+      "zh-Hans": "利民"
     },
     "xpg": {
       "en": "XPG",
@@ -285,6 +293,10 @@
     "ep041": {
       "number": 41,
       "url": "https://www.bilibili.com/video/BV1RoaX6dEN5/"
+    },
+    "ep042": {
+      "number": 42,
+      "url": "https://www.bilibili.com/video/BV1CLpx6qEJ6/"
     }
   }
 }
