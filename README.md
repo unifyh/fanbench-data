@@ -16,6 +16,7 @@ An unofficial archive of test data published by **风向标 FanBench**, with PC 
 
 ## Episode coverage
 
+- [FanBench - 042 | 利民 TL-H12-X28-R9 性能测试报告](https://www.bilibili.com/video/BV1CLpx6qEJ6/)
 - [FanBench - 041 | 酷冷至尊 Mighty40 V180 性能测试报告](https://www.bilibili.com/video/BV1RoaX6dEN5/)
 - [FanBench - 040 | 酷冷至尊 MASTERFAN M140 ARGB 性能测试报告](https://www.bilibili.com/video/BV1TwaP63Ef5/)
 - [FanBench - 039 | 台达 AK-12B 性能测试报告](https://www.bilibili.com/video/BV1Rsej6fE1H/)
@@ -57,6 +58,8 @@ An unofficial archive of test data published by **风向标 FanBench**, with PC 
 - [FanBench - 003 | Sudkoo MACH140 性能测试报告](https://www.bilibili.com/video/BV1692MB3EVj/)
 - [FanBench - 002 | Sudkoo MACH120 性能测试报告](https://www.bilibili.com/video/BV1m21KB5Eru/)
 - [FanBench - 001 | 山洋电气 9WPA1212P4J001 性能测试报告](https://www.bilibili.com/video/BV1kLs7zYEGR/)
+
+The EP042 comparison chart labels GALAX Hurricane PF120 (Standard) as "FP120". The archive uses the corrected PF120 model name and retains the chart spelling as a search alias.
 
 ## Development
 

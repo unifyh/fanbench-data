@@ -68,7 +68,7 @@ test('PNG includes every offscreen row and keeps missing measurements empty', as
   await page.goto('?lang=en&size=all');
   const names = await page.locator('.fan-row .model-button').allTextContents();
   const result = await downloadImage(page);
-  expect(names).toHaveLength(65);
+  expect(names).toHaveLength(67);
   const texts = await exportedTexts(page);
   let last = -1;
   for (const name of names) {
@@ -76,7 +76,7 @@ test('PNG includes every offscreen row and keeps missing measurements empty', as
     expect(next).toBeGreaterThan(last);
     last = next;
   }
-  expect(texts).toContain('65 fans');
+  expect(texts).toContain('67 fans');
   expect(texts).toContain('105.39');
   expect(texts.filter(text => text === '—')).toHaveLength(18);
   expect(texts).not.toContain('NaN');

@@ -1,0 +1,40 @@
+{
+  "id": "galax-hurricane-pf120",
+  "brand": "galax",
+  "model": {
+    "en": "Hurricane PF120 (Standard)",
+    "zh-Hans": "飓风 PF120 正叶"
+  },
+  "aliases": [
+    "Hurricane FP120 (Standard)",
+    "飓风 FP120 正叶"
+  ],
+  "sizeMm": 120,
+  "thicknessMm": 25,
+  "dedicatedReviewUrl": null,
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep042"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 49.65,
+          "rpm": 1500
+        },
+        "heatsink": {
+          "airflowCfm": 41.32,
+          "rpm": 1531
+        },
+        "radiator": {
+          "airflowCfm": 24.25,
+          "rpm": 1479
+        }
+      }
+    }
+  ]
+}
