@@ -1,0 +1,35 @@
+{
+  "id": "thermalright-tl-h12-x28-r7",
+  "brand": "thermalright",
+  "model": {
+    "en": "TL-H12-X28-R7"
+  },
+  "sizeMm": 120,
+  "thicknessMm": 28,
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV18AJX6SEDH/",
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep043"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 54.17,
+          "rpm": 1686
+        },
+        "heatsink": {
+          "airflowCfm": 42.31,
+          "rpm": 1624
+        },
+        "radiator": {
+          "airflowCfm": 26.2,
+          "rpm": 1624
+        }
+      }
+    }
+  ]
+}
