@@ -106,6 +106,7 @@ function FanDetails({ fan, locale, onClose }: { fan: Fan | null; locale: Locale;
         </div>;
       })}</div>
       <p className="detail-condition">{t.testCondition}</p>
+      {fan.comparisonResult.note && <p className="detail-note">{fan.comparisonResult.note[locale]}</p>}
       {fan.dedicatedReviewUrl && <div className="detail-links"><ExternalLink href={fan.dedicatedReviewUrl}>{t.dedicatedReview}</ExternalLink></div>}
     </div>}
   </dialog>;

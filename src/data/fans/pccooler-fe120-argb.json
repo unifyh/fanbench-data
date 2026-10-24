@@ -12,6 +12,10 @@
   "results": [
     {
       "id": "baseline",
+      "note": {
+        "en": "FE120 ARGB remained below 36 dBA at full speed. FanBench increased the supply voltage to obtain these 36 dBA results.",
+        "zh-Hans": "FE120 ARGB 全速运行时噪音未达 36 dBA，FanBench 通过适当增加电压达成上述同噪音成绩。"
+      },
       "sources": [
         {
           "episodeId": "ep044"
