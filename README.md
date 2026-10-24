@@ -63,10 +63,6 @@ An unofficial archive of test data published by **风向标 FanBench**, with PC 
 
 The EP042 comparison chart labels GALAX Hurricane PF120 (Standard) as "FP120". The archive uses the corrected PF120 model name and retains the chart spelling as a search alias.
 
-The EP044 chart notes that PCCOOLER FE120 ARGB did not reach 36 dBA at full speed, so its published 36 dBA results were obtained by increasing the supply voltage.
-
-EP044 图表注明：超频三 环翼 FE120 ARGB 全速运行时噪音未达 36 dBA，所列同噪音成绩通过适当增加电压达成。
-
 ## Development
 
 Requires Node.js 24 and npm.
