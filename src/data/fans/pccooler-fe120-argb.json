@@ -1,0 +1,36 @@
+{
+  "id": "pccooler-fe120-argb",
+  "brand": "pccooler",
+  "model": {
+    "en": "FE120 ARGB",
+    "zh-Hans": "环翼 FE120 ARGB"
+  },
+  "sizeMm": 120,
+  "thicknessMm": 25,
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV15knb6fEjA/",
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep044"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 46.59,
+          "rpm": 1893
+        },
+        "heatsink": {
+          "airflowCfm": 35.37,
+          "rpm": 1815
+        },
+        "radiator": {
+          "airflowCfm": 24.02,
+          "rpm": 1763
+        }
+      }
+    }
+  ]
+}
