@@ -10,6 +10,7 @@ export interface FanResult {
   id: string;
   sources: ResultSource[];
   measurements: Measurements;
+  note?: Localized;
 }
 export interface FanRecord {
   id: string;
