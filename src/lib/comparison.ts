@@ -1,7 +1,7 @@
 import type { Application, Catalog, Fan, FanRecord, Locale, ViewState } from '../types.ts';
 
 export const applications: Application[] = ['case', 'heatsink', 'radiator'];
-export const initialState: ViewState = { locale: 'en', query: '', sizes: ['120', '140'], thicknesses: [], brands: [], sort: 'case', direction: 'desc', selected: [], onlySelected: false, view: 'chart' };
+export const initialState: ViewState = { locale: 'en', query: '', sizes: ['120'], thicknesses: [], brands: [], sort: 'case', direction: 'desc', selected: [], onlySelected: false, view: 'chart' };
 const list = (params: URLSearchParams, key: string) => [...new Set((params.get(key) ?? '').split(',').filter(Boolean))];
 
 export function readState(search: string, preferredLocale: Locale, fans: Fan[]): ViewState {

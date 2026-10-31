@@ -1,0 +1,39 @@
+{
+  "id": "phanteks-d28-120",
+  "brand": "phanteks",
+  "model": {
+    "en": "D28 (Standard)",
+    "zh-Hans": "D28 正叶"
+  },
+  "aliases": [
+    "D28-120"
+  ],
+  "sizeMm": 120,
+  "thicknessMm": 28,
+  "dedicatedReviewUrl": null,
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep045"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 40.14,
+          "rpm": 1500
+        },
+        "heatsink": {
+          "airflowCfm": 32.96,
+          "rpm": 1500
+        },
+        "radiator": {
+          "airflowCfm": 22.3,
+          "rpm": 1562
+        }
+      }
+    }
+  ]
+}

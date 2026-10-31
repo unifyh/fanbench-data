@@ -48,7 +48,7 @@ h1 { font-size: 20px; line-height: 1.3; font-weight: 600; }
 .filter-trigger>svg { color: var(--muted); }
 .filter-trigger[aria-expanded=true]>svg { transform: rotate(180deg); }
 .filter-fields fieldset { position: absolute; top: calc(100% + 6px); left: 0; z-index: 5; width: 260px; max-width: calc(100vw - 32px); min-width: 0; margin: 0; padding: 12px; background: #fff; border: 1px solid var(--line); border-radius: 3px; box-shadow: 0 4px 14px #242a2714; }
-.filter-field:last-child fieldset { left: auto; right: 0; }
+.filter-field:not(:first-child) fieldset { left: auto; right: 0; }
 .filter-fields legend { float: left; width: 100%; margin-bottom: 8px; padding: 0; font-size: 12px; color: var(--muted); }
 .filter-options { display: flex; flex-wrap: wrap; gap: 4px; clear: both; }
 .filter-options button { padding: 5px 9px; min-height: 30px; background: transparent; border: 1px solid transparent; border-radius: 3px; color: #556159; font-size: 12px; }

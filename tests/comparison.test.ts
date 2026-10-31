@@ -41,12 +41,12 @@ test('corrections reject missing measurements and unrelated episode references',
   assert.throws(() => buildCorrections([{ ...correction, reportedValue: 1851 }], fans, catalog), /Invalid reported correction value/);
 });
 
-test('source data keeps 192 operating points, identities, conditions and precision', () => {
+test('source data keeps 198 operating points, identities, conditions and precision', () => {
   assert.equal(catalog.noise.noiseDba, 36);
   assert.equal(catalog.noise.distanceCm, 30);
   assert.equal(new Set(fans.map(fan => fan.id)).size, fans.length);
-  assert.equal(fans.length, 70);
-  assert.equal(fans.reduce((total, fan) => total + Object.keys(fan.measurements).length, 0), 192);
+  assert.equal(fans.length, 72);
+  assert.equal(fans.reduce((total, fan) => total + Object.keys(fan.measurements).length, 0), 198);
   for (const fan of fans) {
     assert.ok(fan.brandLabel.en && fan.brandLabel['zh-Hans']);
     assert.ok(fan.model.en);
@@ -63,12 +63,12 @@ test('source data keeps 192 operating points, identities, conditions and precisi
   const a140 = fans.find(fan => fan.id === 'cooler-master-masterfan-a140')!;
   assert.equal(a140.measurements.case?.airflowCfm, 66.96);
   assert.equal(a140.measurements.radiator?.airflowCfm, 41.95);
-  assert.equal(fans.filter(fan => fan.dedicatedReviewUrl !== null).length, 49);
+  assert.equal(fans.filter(fan => fan.dedicatedReviewUrl !== null).length, 50);
 });
 
 test('each application sorts every fan using its own measurement without changing other values', () => {
-  assert.deepEqual(visibleFans(fans, { ...initialState, sort: 'heatsink' }).slice(0, 5).map(fan => fan.model.en), ['LP14E', '9RA1412P1G001', 'MACH140', 'T30 140', '9RA1212P1K001']);
-  const radiator = visibleFans(fans, { ...initialState, sort: 'radiator' });
+  assert.deepEqual(visibleFans(fans, { ...initialState, sizes: ['120', '140'], sort: 'heatsink' }).slice(0, 5).map(fan => fan.model.en), ['LP14E', '9RA1412P1G001', 'MACH140', 'T30 140', '9RA1212P1K001']);
+  const radiator = visibleFans(fans, { ...initialState, sizes: ['120', '140'], sort: 'radiator' });
   assert.deepEqual(radiator.slice(0, 5).map(fan => fan.model.en), ['LP14E', '9RA1412P1G001', 'T30 140', 'MasterFan A140', 'P14 Pro PST']);
   assert.equal(radiator[2].measurements.case?.airflowCfm, 59.56);
   assert.equal(visibleFans(fans, { ...initialState, sort: 'radiator', direction: 'asc' })[0].model.en, 'NF-A12x15 PWM');
@@ -94,13 +94,13 @@ test('case-only fans sort last for missing applications in either direction and 
 test('filters OR within a field, AND across fields, including unknown thickness', () => {
   const filtered = visibleFans(fans, { ...initialState, sizes: ['120', '140'], thicknesses: ['30', '38'], brands: ['cooler-master', 'phanteks'] });
   assert.deepEqual(filtered.map(fan => fan.model.en), ['MasterFan A140', 'MasterFan M140 ARGB', 'T30 140', 'MasterFan A120', 'T30 120', 'MasterFan M120 ARGB']);
-  assert.deepEqual(visibleFans(fans, { ...initialState, thicknesses: ['30'] }).map(fan => fan.model.en), ['MasterFan A140', 'MACH140', 'MAXFlow 12030', 'L207 case fan', 'MasterFan M140 ARGB', 'T30 140', 'MasterFan A120', 'T30 120', 'F9 R120', 'MACH120', 'MasterFan M120 ARGB', 'ROG GR120 (Standard)', 'ROG GR120 (Reverse)']);
+  assert.deepEqual(visibleFans(fans, { ...initialState, sizes: ['120', '140'], thicknesses: ['30'] }).map(fan => fan.model.en), ['MasterFan A140', 'MACH140', 'MAXFlow 12030', 'L207 case fan', 'MasterFan M140 ARGB', 'T30 140', 'MasterFan A120', 'T30 120', 'F9 R120', 'MACH120', 'MasterFan M120 ARGB', 'ROG GR120 (Standard)', 'ROG GR120 (Reverse)']);
   const unknownThickness = { ...fans[0], thicknessMm: null };
   assert.deepEqual(visibleFans([unknownThickness], { ...initialState, thicknesses: ['unknown'] }), [unknownThickness]);
   assert.deepEqual(readState('?thickness=unknown', 'en', [unknownThickness]).thicknesses, ['unknown']);
   assert.equal(visibleFans(fans, { ...initialState, sizes: ['120'], brands: ['havn'] }).length, 0);
-  assert.equal(visibleFans(fans, { ...initialState, query: '酷冷至尊' }).length, 7);
-  assert.equal(visibleFans(fans, { ...initialState, query: '  p14 PRO  ' })[0].brand, 'arctic');
+  assert.equal(visibleFans(fans, { ...initialState, query: '酷冷至尊' }).length, 5);
+  assert.equal(visibleFans(fans, { ...initialState, sizes: ['140'], query: '  p14 PRO  ' })[0].brand, 'arctic');
 });
 
 test('product names localize with an English fallback and search matches either language', () => {
@@ -117,7 +117,7 @@ test('product names localize with an English fallback and search matches either 
       assert.deepEqual(visibleFans(fans, { ...initialState, locale, query }).map(fan => fan.id), [r25.id]);
     }
     assert.equal(visibleFans(fans, { ...initialState, locale, query: '猫头鹰 NF-A12×25 G2 PWM' })[0].id, 'noctua-nf-a12x25-g2-pwm');
-    assert.equal(visibleFans(fans, { ...initialState, locale, query: '酷冷至尊 MasterFan A140' })[0].id, 'cooler-master-masterfan-a140');
+    assert.equal(visibleFans(fans, { ...initialState, sizes: ['140'], locale, query: '酷冷至尊 MasterFan A140' })[0].id, 'cooler-master-masterfan-a140');
   }
 });
 
@@ -142,9 +142,9 @@ test('shared scale covers all applications with readable ticks across catalog ra
 
 test('size defaults apply only without a URL override, and All survives sharing and reloads', () => {
   assert.deepEqual(readState('', 'en', fans), initialState);
-  assert.deepEqual(readState('?lang=zh-Hans&q=P28', 'en', fans).sizes, ['120', '140']);
-  assert.deepEqual(visibleFans(fans, initialState), fans.filter(fan => [120, 140].includes(fan.sizeMm)).sort((a, b) => b.measurements.case!.airflowCfm - a.measurements.case!.airflowCfm));
-  for (const sizes of [[], ['180'], ['120', '140'], ['140', '120']]) {
+  assert.deepEqual(readState('?lang=zh-Hans&q=P28', 'en', fans).sizes, ['120']);
+  assert.deepEqual(visibleFans(fans, initialState), fans.filter(fan => fan.sizeMm === 120).sort((a, b) => b.measurements.case!.airflowCfm - a.measurements.case!.airflowCfm));
+  for (const sizes of [[], ['120'], ['140'], ['180'], ['120', '140'], ['140', '120']]) {
     const state = { ...initialState, sizes };
     assert.deepEqual(readState('?' + serializeState(state), 'en', fans), state);
   }
@@ -167,7 +167,7 @@ test('share URLs round-trip the full bilingual filtered shortlist and reject inv
 });
 
 test('shortlist is explicit and survives unrelated filters', () => {
-  const state: ViewState = { ...initialState, selected: ['phanteks-t30-140'], onlySelected: true };
+  const state: ViewState = { ...initialState, sizes: ['140'], selected: ['phanteks-t30-140'], onlySelected: true };
   assert.equal(visibleFans(fans, state)[0].model.en, 'T30 140');
   assert.equal(visibleFans(fans, { ...state, brands: ['arctic'] }).length, 0);
   assert.deepEqual(state.selected, ['phanteks-t30-140']);
@@ -175,7 +175,7 @@ test('shortlist is explicit and survives unrelated filters', () => {
 
 test('CSV exports units, conditions and provenance; unknown thickness stays empty', () => {
   const output = exportCsv(fans, catalog);
-  assert.equal(output.split('\r\n').length, 71);
+  assert.equal(output.split('\r\n').length, 73);
   assert.ok(output.includes('"66.96","1463"'));
   assert.ok(output.includes('"MACH140","140","30","36","30"'));
   assert.ok(output.includes('"MasterFan A120","120","30","36","30"'));

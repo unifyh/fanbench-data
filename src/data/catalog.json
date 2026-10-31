@@ -89,6 +89,10 @@
       "en": "Segotep",
       "zh-Hans": "鑫谷"
     },
+    "soeyi": {
+      "en": "SOEYI",
+      "zh-Hans": "硕一"
+    },
     "sudkoo": {
       "en": "Sudkoo",
       "zh-Hans": "Sudkoo"
@@ -305,6 +309,10 @@
     "ep044": {
       "number": 44,
       "url": "https://www.bilibili.com/video/BV15knb6fEjA/"
+    },
+    "ep045": {
+      "number": 45,
+      "url": "https://www.bilibili.com/video/BV1i5xP6zE6x/"
     }
   }
 }

@@ -9,13 +9,14 @@ An unofficial archive of test data published by **风向标 FanBench**, with PC 
 - Case, **Heatsink**, and Radiator results displayed together, sorted by the column headings on desktop. Missing results show a dash and sort last; CSV cells stay empty. Mobile retains the sort and view controls.
 - Airflow (CFM), RPM, form factor, and known dedicated review links. Source metadata is retained in the dataset.
 - Solid green bars with RPM inside and CFM at the end; compact rows and sticky desktop axes. All three columns share a scale that adjusts to the filtered fans.
-- Multiple size, thickness, and brand filters; search and shareable shortlists. Size defaults to 120 and 140 mm; choose All to include larger fans. Reset filters restores these defaults.
+- Multiple size, thickness, and brand filters; search and shareable shortlists. Size defaults to 120 mm only; choose All to include larger fans. Reset filters restores this default.
 - English and Simplified Chinese, with localized brand and product names (English fallback) in the UI and CSV export; desktop columns, mobile cards, and an accessible data table.
 - Copy chart images to the clipboard or download a PNG. Images include all filtered rows in their displayed order (including the selected-only filter), all three columns, the current language, test conditions, and attribution. The export uses a fixed-width layout on desktop and mobile. Clipboard copying requires HTTPS or localhost and a supported browser, including Firefox 127+; PNG download is available when copying is blocked.
 - No backend, runtime CDN, external fonts, analytics, embedded videos, or paid service.
 
 ## Episode coverage
 
+- [FanBench - 045 | 硕一 鲲鹏 CF8-C 性能测试报告](https://www.bilibili.com/video/BV1i5xP6zE6x/)
 - [FanBench - 044 | 超频三 环翼 FE120 ARGB 性能测试报告](https://www.bilibili.com/video/BV15knb6fEjA/)
 - [FanBench - 043 | 利民 TL-H12-X28-R7 性能测试报告](https://www.bilibili.com/video/BV18AJX6SEDH/)
 - [FanBench - 042 | 利民 TL-H12-X28-R9 性能测试报告](https://www.bilibili.com/video/BV1CLpx6qEJ6/)
@@ -61,7 +62,7 @@ An unofficial archive of test data published by **风向标 FanBench**, with PC 
 - [FanBench - 002 | Sudkoo MACH120 性能测试报告](https://www.bilibili.com/video/BV1m21KB5Eru/)
 - [FanBench - 001 | 山洋电气 9WPA1212P4J001 性能测试报告](https://www.bilibili.com/video/BV1kLs7zYEGR/)
 
-The EP042 comparison chart labels GALAX Hurricane PF120 (Standard) as "FP120". The archive uses the corrected PF120 model name and retains the chart spelling as a search alias.
+The EP042 and EP045 comparison charts label GALAX Hurricane PF120 (Standard) as "FP120". The archive uses the corrected PF120 model name and retains the chart spelling as a search alias.
 
 ## Development
 

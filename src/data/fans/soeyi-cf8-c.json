@@ -1,0 +1,36 @@
+{
+  "id": "soeyi-cf8-c",
+  "brand": "soeyi",
+  "model": {
+    "en": "CF8-C",
+    "zh-Hans": "鲲鹏 CF8-C"
+  },
+  "sizeMm": 120,
+  "thicknessMm": 28,
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1i5xP6zE6x/",
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep045"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 41.97,
+          "rpm": 1686
+        },
+        "heatsink": {
+          "airflowCfm": 38.53,
+          "rpm": 1732
+        },
+        "radiator": {
+          "airflowCfm": 23.34,
+          "rpm": 1686
+        }
+      }
+    }
+  ]
+}
