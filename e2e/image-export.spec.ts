@@ -32,14 +32,14 @@ async function downloadImage(page: Page, label = 'Download PNG') {
 
 test('PNG uses the filtered order, all columns and current language on desktop and mobile', async ({ page, isMobile }, testInfo) => {
   await observeImage(page);
-  await page.goto('?lang=en&q=phanteks&sort=radiator&order=asc');
+  await page.goto('?lang=en&size=120,140&q=phanteks&sort=radiator&order=asc');
   if (isMobile) await page.getByRole('button', { name: 'Table', exact: true }).click();
   const first = await downloadImage(page);
   expect(first.width).toBe(2880);
   expect(first.download.suggestedFilename()).toBe('fanbench-data-36dba-en.png');
   let texts = await exportedTexts(page);
   expect(texts.indexOf('T30 120')).toBeLessThan(texts.indexOf('T30 140'));
-  for (const text of ['Case · CFM', 'Heatsink · CFM', 'Radiator · CFM', '2 fans', '120 × 30 mm', '140 × 30 mm', 'Tests: 风向标 FanBench']) expect(texts).toContain(text);
+  for (const text of ['Case · CFM', 'Heatsink · CFM', 'Radiator · CFM', '3 fans', '120 × 28 mm', '120 × 30 mm', '140 × 30 mm', 'Tests: 风向标 FanBench']) expect(texts).toContain(text);
   expect(texts.join(' ')).toContain('36 dBA @ 30 cm from intake');
   expect(texts.join(' ')).not.toContain('Watch review');
   expect(texts).not.toContain('MasterFan A140');
@@ -68,7 +68,7 @@ test('PNG includes every offscreen row and keeps missing measurements empty', as
   await page.goto('?lang=en&size=all');
   const names = await page.locator('.fan-row .model-button').allTextContents();
   const result = await downloadImage(page);
-  expect(names).toHaveLength(70);
+  expect(names).toHaveLength(72);
   const texts = await exportedTexts(page);
   let last = -1;
   for (const name of names) {
@@ -76,7 +76,7 @@ test('PNG includes every offscreen row and keeps missing measurements empty', as
     expect(next).toBeGreaterThan(last);
     last = next;
   }
-  expect(texts).toContain('70 fans');
+  expect(texts).toContain('72 fans');
   expect(texts).toContain('105.39');
   expect(texts.filter(text => text === '—')).toHaveLength(18);
   expect(texts).not.toContain('NaN');
