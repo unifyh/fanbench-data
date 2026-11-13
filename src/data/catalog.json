@@ -101,6 +101,10 @@
       "en": "Thermalright",
       "zh-Hans": "利民"
     },
+    "wonderflow": {
+      "en": "Wonderflow",
+      "zh-Hans": "魔风"
+    },
     "xpg": {
       "en": "XPG",
       "zh-Hans": "XPG"
@@ -313,6 +317,10 @@
     "ep045": {
       "number": 45,
       "url": "https://www.bilibili.com/video/BV1i5xP6zE6x/"
+    },
+    "ep046": {
+      "number": 46,
+      "url": "https://www.bilibili.com/video/BV1WrWv6vEGd/"
     }
   }
 }

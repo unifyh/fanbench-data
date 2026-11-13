@@ -16,6 +16,7 @@ An unofficial archive of test data published by **风向标 FanBench**, with PC 
 
 ## Episode coverage
 
+- [FanBench - 046 | 魔风 140 性能测试报告](https://www.bilibili.com/video/BV1WrWv6vEGd/)
 - [FanBench - 045 | 硕一 鲲鹏 CF8-C 性能测试报告](https://www.bilibili.com/video/BV1i5xP6zE6x/)
 - [FanBench - 044 | 超频三 环翼 FE120 ARGB 性能测试报告](https://www.bilibili.com/video/BV15knb6fEjA/)
 - [FanBench - 043 | 利民 TL-H12-X28-R7 性能测试报告](https://www.bilibili.com/video/BV18AJX6SEDH/)

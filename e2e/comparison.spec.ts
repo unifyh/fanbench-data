@@ -5,7 +5,7 @@ test('all three results, sorting, filters, language and attribution work', async
   page.on('pageerror', error => errors.push(error.message));
   await page.goto('?lang=en&size=120,140');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('FanBench Data Archive');
-  await expect(page.locator('.fan-row')).toHaveCount(64);
+  await expect(page.locator('.fan-row')).toHaveCount(65);
   await expect(page.locator('.fan-row').first().locator('.measurement-cell')).toHaveCount(3);
   if (isMobile) {
     await page.getByRole('combobox', { name: 'Sort by', exact: true }).selectOption('radiator');
@@ -14,12 +14,12 @@ test('all three results, sorting, filters, language and attribution work', async
     await page.getByRole('button', { name: 'Sort by: Radiator', exact: true }).click();
   }
   await expect(page.locator('.fan-row').first()).toContainText('LP14E');
-  await expect(page.locator('.fan-row').nth(2)).toContainText('T30 140');
-  await expect(page.locator('.fan-row').nth(2)).toContainText('59.56');
+  await expect(page.locator('.fan-row').nth(3)).toContainText('T30 140');
+  await expect(page.locator('.fan-row').nth(3)).toContainText('59.56');
   if (isMobile) await page.getByRole('button', { name: /^Filters/ }).click();
   else await page.getByRole('button', { name: 'Thickness All', exact: true }).click();
   await page.getByRole('group', { name: 'Thickness', exact: true }).getByRole('button', { name: '30 mm', exact: true }).click();
-  await expect(page.locator('.fan-row')).toHaveCount(13);
+  await expect(page.locator('.fan-row')).toHaveCount(14);
   await expect(page.locator('[data-fan-id="sudkoo-mach140"] .form-factor')).toHaveText('140 × 30 mm');
   await expect(page.locator('[data-fan-id="cooler-master-masterfan-a120"] .form-factor')).toHaveText('120 × 30 mm');
   if (!isMobile) await page.getByRole('button', { name: 'Brand All', exact: true }).click();
@@ -138,7 +138,7 @@ test('case-only fans retain missing cells in sorting, details, table and CSV', a
     for (const order of ['desc', 'asc']) {
       await page.goto(`?lang=en&size=all&sort=${application}&order=${order}`);
       const missing = await page.locator('.fan-row').evaluateAll((rows, key) => rows.map(row => Boolean(row.querySelector(`.${key} .no-data`))), application);
-      expect(missing).toEqual([...Array(63).fill(false), ...Array(9).fill(true)]);
+      expect(missing).toEqual([...Array(64).fill(false), ...Array(9).fill(true)]);
     }
   }
   await havn.getByRole('checkbox', { name: 'Select H18 Performance', exact: true }).check();
@@ -194,7 +194,7 @@ test('layout fits both languages and all chart values are visible without hoveri
       }),
     }));
     expect(layout.page).toBeLessThanOrEqual(layout.viewport);
-    expect(layout.values).toHaveLength(396);
+    expect(layout.values).toHaveLength(402);
     expect(layout.values.every(Boolean)).toBe(true);
   }
 });
@@ -241,11 +241,11 @@ test('size defaults, All, explicit sizes and reset survive reloads', async ({ pa
   await expect(size.getByRole('button', { name: '140 mm', exact: true })).toHaveAttribute('aria-pressed', 'false');
   await expect(size.getByRole('button', { name: '180 mm', exact: true })).toHaveAttribute('aria-pressed', 'false');
   await size.getByRole('button', { name: 'All', exact: true }).click();
-  await expect(page.locator('.fan-row')).toHaveCount(72);
+  await expect(page.locator('.fan-row')).toHaveCount(73);
   await expect(page.locator('.scale-note')).toContainText('0–150 CFM');
   expect(new URL(page.url()).searchParams.get('size')).toBe('all');
   await page.reload();
-  await expect(page.locator('.fan-row')).toHaveCount(72);
+  await expect(page.locator('.fan-row')).toHaveCount(73);
   await expect(page.locator('.scale-note')).toContainText('0–150 CFM');
   if (isMobile) await page.getByRole('button', { name: /^Filters/ }).click();
   else await page.getByRole('button', { name: 'Size All', exact: true }).click();
