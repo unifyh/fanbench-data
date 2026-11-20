@@ -1,0 +1,35 @@
+{
+  "id": "delta-afb1212hj",
+  "brand": "delta",
+  "model": {
+    "en": "AFB1212HJ"
+  },
+  "sizeMm": 120,
+  "thicknessMm": 25,
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1FDyWzaEFD/",
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep047"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 39.66,
+          "rpm": 1593
+        },
+        "heatsink": {
+          "airflowCfm": 35.77,
+          "rpm": 1655
+        },
+        "radiator": {
+          "airflowCfm": 22.45,
+          "rpm": 1562
+        }
+      }
+    }
+  ]
+}
