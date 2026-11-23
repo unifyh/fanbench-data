@@ -1,16 +1,35 @@
 import { test, expect } from '@playwright/test';
 import type { Page } from '@playwright/test';
 
-async function observeImage(page: Page) {
-  await page.addInitScript(() => {
+async function observeImage(page: Page, sortLabel?: string) {
+  await page.addInitScript(label => {
     const texts: string[] = [];
+    let arrowBounds: { x: number; y: number; size: number } | undefined;
     Object.assign(window, { exportedTexts: texts });
     const fillText = CanvasRenderingContext2D.prototype.fillText;
     CanvasRenderingContext2D.prototype.fillText = function (...args) {
       texts.push(args[0]);
+      if (args[0] === label) {
+        const transform = this.getTransform();
+        arrowBounds = { x: (args[1] + this.measureText(label).width + 9) * transform.a, y: (args[2] - 7) * transform.d, size: 14 * transform.a };
+      }
       return fillText.apply(this, args);
     };
-  });
+    const toBlob = HTMLCanvasElement.prototype.toBlob;
+    HTMLCanvasElement.prototype.toBlob = function (...args) {
+      if (arrowBounds) {
+        const { x, y, size } = arrowBounds;
+        const side = Math.ceil(size);
+        const pixels = this.getContext('2d')!.getImageData(Math.floor(x), Math.floor(y), side, side).data;
+        const ink = { top: 0, bottom: 0 };
+        for (let i = 0; i < pixels.length; i += 4) {
+          if (pixels[i] < 128) ink[Math.floor(i / 4 / side) < side / 2 ? 'top' : 'bottom']++;
+        }
+        Object.assign(window, { exportedArrowInk: ink });
+      }
+      return toBlob.apply(this, args);
+    };
+  }, sortLabel);
 }
 
 async function exportedTexts(page: Page): Promise<string[]> {
@@ -39,7 +58,8 @@ test('PNG uses the filtered order, all columns and current language on desktop a
   expect(first.download.suggestedFilename()).toBe('fanbench-data-36dba-en.png');
   let texts = await exportedTexts(page);
   expect(texts.indexOf('T30 120')).toBeLessThan(texts.indexOf('T30 140'));
-  for (const text of ['Case · CFM', 'Heatsink · CFM', 'Radiator · CFM', '3 fans', '120 × 28 mm', '120 × 30 mm', '140 × 30 mm', 'Tests: 风向标 FanBench']) expect(texts).toContain(text);
+  for (const text of ['Case', 'Heatsink', 'Radiator', '3 fans', '120 × 28 mm', '120 × 30 mm', '140 × 30 mm', 'Tests: 风向标 FanBench']) expect(texts).toContain(text);
+  expect(texts.filter(text => text === ' · CFM')).toHaveLength(3);
   expect(texts.join(' ')).toContain('36 dBA @ 30 cm from intake');
   expect(texts.join(' ')).not.toContain('Watch review');
   expect(texts).not.toContain('MasterFan A140');
@@ -54,7 +74,8 @@ test('PNG uses the filtered order, all columns and current language on desktop a
   expect(selected.width).toBe(first.width);
   expect(selected.height).toBeLessThan(first.height);
   texts = await exportedTexts(page);
-  for (const text of ['风向标测试数据汇总', '追风者', 'T30 120', '机箱 · CFM', '风冷散热器 · CFM', '冷排 · CFM', '测试：风向标 FanBench']) expect(texts).toContain(text);
+  for (const text of ['风向标测试数据汇总', '追风者', 'T30 120', '机箱', '风冷散热器', '冷排', '测试：风向标 FanBench']) expect(texts).toContain(text);
+  expect(texts.filter(text => text === ' · CFM')).toHaveLength(3);
   expect(texts).not.toContain('T30 140');
   await selected.download.saveAs(testInfo.outputPath('chart-zh.png'));
   await page.screenshot({ path: testInfo.outputPath('export-controls.png'), fullPage: true });
@@ -62,6 +83,39 @@ test('PNG uses the filtered order, all columns and current language on desktop a
   await expect(page.getByRole('button', { name: '复制图片', exact: true })).toBeDisabled();
   await expect(page.getByRole('button', { name: '下载 PNG', exact: true })).toBeDisabled();
 });
+
+for (const [application, label] of [['case', 'Case'], ['heatsink', 'Heatsink'], ['radiator', 'Radiator']]) {
+  test(`PNG downloads and clipboard images show both sort directions for ${label}`, async ({ page }) => {
+    await observeImage(page, label);
+    await page.addInitScript(() => {
+      Object.defineProperty(navigator, 'clipboard', { configurable: true, value: {
+        write: async (items: ClipboardItem[]) => { await items[0].getType('image/png'); },
+      } });
+    });
+    await page.goto(`?lang=en&size=all&q=phanteks&view=table&sort=${application}`);
+    const heading = page.getByRole('button', { name: `Sort by: ${label}`, exact: true });
+    for (const direction of ['descending', 'ascending']) {
+      if (direction === 'ascending') await heading.click();
+      await expect(heading).toHaveClass(/is-sorted/);
+      await expect(heading.locator('.sort-arrow')).toHaveClass(direction === 'ascending' ? 'sort-arrow reversed' : 'sort-arrow');
+      for (const action of ['download', 'copy']) {
+        await page.evaluate(() => { (window as unknown as { exportedTexts: string[] }).exportedTexts.length = 0; });
+        if (action === 'download') await downloadImage(page);
+        else {
+          await page.getByRole('button', { name: 'Copy image', exact: true }).click();
+          await expect(page.locator('.image-export-status')).toHaveText('Image copied');
+        }
+        const texts = await exportedTexts(page);
+        expect(texts.join(' ')).not.toMatch(/[↑↓]/u);
+        for (const name of ['Case', 'Heatsink', 'Radiator']) expect(texts).toContain(name);
+        // Check the rendered pixels beside the active heading: the arrowhead has more ink than the shaft.
+        const ink = await page.evaluate(() => (window as unknown as { exportedArrowInk: { top: number; bottom: number } }).exportedArrowInk);
+        expect(Math.min(ink.top, ink.bottom)).toBeGreaterThan(0);
+        expect(direction === 'ascending' ? ink.top : ink.bottom).toBeGreaterThan(direction === 'ascending' ? ink.bottom : ink.top);
+      }
+    }
+  });
+}
 
 test('PNG includes every offscreen row and keeps missing measurements empty', async ({ page }, testInfo) => {
   await observeImage(page);

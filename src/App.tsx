@@ -4,6 +4,7 @@ import { catalog, corrections, fans, testSetup } from './data';
 import { messages } from './i18n';
 import { applications, chartScale, exportCsv, initialState, modelName, readState, serializeState, toggleValue, visibleFans } from './lib/comparison';
 import { canCopyChartImage, copyChartImage, downloadBlob, renderChartImage } from './lib/chartImage';
+import { downArrowPath } from './lib/icons';
 import type { Application, Fan, Locale, ViewState } from './types';
 
 function ChartAxis({ scale, bottom = false }: { scale: ReturnType<typeof chartScale>; bottom?: boolean }) {
@@ -15,7 +16,7 @@ function ChartAxis({ scale, bottom = false }: { scale: ReturnType<typeof chartSc
 function Icon({ name, size = 18 }: { name: string; size?: number }) {
   const paths: Record<string, ReactNode> = {
     arrow: <><path d="M7 17 17 7M7 7h10v10" /></>,
-    down: <><path d="M12 4v16m-6-6 6 6 6-6" /></>,
+    down: <><path d={downArrowPath} /></>,
     chevron: <path d="m6 9 6 6 6-6" />,
     search: <><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 4 4" /></>,
     filter: <><path d="M4 7h16M4 17h16" /><circle cx="9" cy="7" r="2" /><circle cx="15" cy="17" r="2" /></>,
@@ -220,7 +221,7 @@ export default function App() {
     imageExportBusy.current = true;
     setImageStatus(action === 'copy' ? 'copyingImage' : 'downloadingImage');
     try {
-      const png = renderChartImage(shown, state.locale);
+      const png = renderChartImage(shown, state);
       // Start the clipboard write in this click handler; wait for both operations even if copying fails.
       const [rendered, copied] = await Promise.allSettled([png, action === 'copy' ? copyChartImage(png) : Promise.resolve()]);
       if (rendered.status === 'rejected') { setImageStatus('imageExportFailed'); return; }
