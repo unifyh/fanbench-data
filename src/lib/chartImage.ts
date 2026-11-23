@@ -1,6 +1,7 @@
 import { messages } from '../i18n';
 import { applications, chartScale, modelName } from './comparison';
-import type { Fan, Locale } from '../types';
+import { downArrowPath } from './icons';
+import type { Fan, ViewState } from '../types';
 
 const width = 1440;
 const padding = 32;
@@ -52,7 +53,7 @@ export function downloadBlob(blob: Blob, filename: string): void {
   window.setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
-export async function renderChartImage(fans: Fan[], locale: Locale): Promise<Blob> {
+export async function renderChartImage(fans: Fan[], { locale, sort, direction }: Pick<ViewState, 'locale' | 'sort' | 'direction'>): Promise<Blob> {
   if (!fans.length) throw new Error('No fans to export');
   await document.fonts.ready;
   const canvas = document.createElement('canvas');
@@ -108,7 +109,24 @@ export async function renderChartImage(fans: Fan[], locale: Locale): Promise<Blo
   text(`${t.fan} · ${t.dimensions}`, nameRight, 119, 13, colors.muted, 400, 'right');
   applications.forEach((application, index) => {
     const x = columnX(index);
-    text(`${t[application]} · CFM`, x, 115, 17, colors.text, 600);
+    text(t[application], x, 115, 17, colors.text, 600);
+    let labelRight = x + context.measureText(t[application]).width;
+    if (application === sort) {
+      // Match the webpage's 14px SVG icon, including its rounded stroke and 9px gap.
+      context.save();
+      context.translate(labelRight + 9 + 7, 115);
+      context.scale(14 / 24, 14 / 24);
+      if (direction === 'asc') context.rotate(Math.PI);
+      context.translate(-12, -12);
+      context.strokeStyle = colors.text;
+      context.lineWidth = 1.6;
+      context.lineCap = 'round';
+      context.lineJoin = 'round';
+      context.stroke(new Path2D(downArrowPath));
+      context.restore();
+      labelRight += 9 + 14;
+    }
+    text(' · CFM', labelRight, 115, 17, colors.text, 600);
     for (const tick of scale.ticks) {
       const tickX = x + tick / scale.maximum * plotWidth;
       text(String(tick), tickX, 141, 11, colors.muted, 400, tick === 0 ? 'left' : 'center');
