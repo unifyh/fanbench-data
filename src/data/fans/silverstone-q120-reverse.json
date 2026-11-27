@@ -1,0 +1,36 @@
+{
+  "id": "silverstone-q120-reverse",
+  "brand": "silverstone",
+  "model": {
+    "en": "Q120 (Reverse)",
+    "zh-Hans": "Q120 汉堡 反叶"
+  },
+  "sizeMm": 120,
+  "thicknessMm": 28,
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1mp1WzyEag/",
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep048"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 42.03,
+          "rpm": 1500
+        },
+        "heatsink": {
+          "airflowCfm": 35.86,
+          "rpm": 1500
+        },
+        "radiator": {
+          "airflowCfm": 23.57,
+          "rpm": 1479
+        }
+      }
+    }
+  ]
+}

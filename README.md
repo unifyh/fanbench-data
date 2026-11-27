@@ -16,6 +16,7 @@ An unofficial archive of test data published by **风向标 FanBench**, with PC 
 
 ## Episode coverage
 
+- [FanBench - 048 | 银昕 Q120 汉堡 性能测试报告](https://www.bilibili.com/video/BV1mp1WzyEag/)
 - [FanBench - 047 | 台达 AFB1212HJ 性能测试报告](https://www.bilibili.com/video/BV1FDyWzaEFD/)
 - [FanBench - 046 | 魔风 140 性能测试报告](https://www.bilibili.com/video/BV1WrWv6vEGd/)
 - [FanBench - 045 | 硕一 鲲鹏 CF8-C 性能测试报告](https://www.bilibili.com/video/BV1i5xP6zE6x/)
