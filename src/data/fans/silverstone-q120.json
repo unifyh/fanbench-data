@@ -1,0 +1,36 @@
+{
+  "id": "silverstone-q120",
+  "brand": "silverstone",
+  "model": {
+    "en": "Q120 (Standard)",
+    "zh-Hans": "Q120 汉堡 正叶"
+  },
+  "sizeMm": 120,
+  "thicknessMm": 28,
+  "dedicatedReviewUrl": "https://www.bilibili.com/video/BV1mp1WzyEag/",
+  "comparisonResultId": "baseline",
+  "results": [
+    {
+      "id": "baseline",
+      "sources": [
+        {
+          "episodeId": "ep048"
+        }
+      ],
+      "measurements": {
+        "case": {
+          "airflowCfm": 41.09,
+          "rpm": 1624
+        },
+        "heatsink": {
+          "airflowCfm": 30.79,
+          "rpm": 1790
+        },
+        "radiator": {
+          "airflowCfm": 23,
+          "rpm": 1717
+        }
+      }
+    }
+  ]
+}

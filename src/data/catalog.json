@@ -89,6 +89,10 @@
       "en": "Segotep",
       "zh-Hans": "鑫谷"
     },
+    "silverstone": {
+      "en": "SilverStone",
+      "zh-Hans": "银昕"
+    },
     "soeyi": {
       "en": "SOEYI",
       "zh-Hans": "硕一"
@@ -325,6 +329,10 @@
     "ep047": {
       "number": 47,
       "url": "https://www.bilibili.com/video/BV1FDyWzaEFD/"
+    },
+    "ep048": {
+      "number": 48,
+      "url": "https://www.bilibili.com/video/BV1mp1WzyEag/"
     }
   }
 }
